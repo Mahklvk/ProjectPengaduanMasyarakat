@@ -27,7 +27,7 @@
         </li>
       </ul>
       <form class="d-flex" role="search">
-      <button type="button" class="btn btn-outline-light me-5">Login<img src="assets/featherIcon/login.png" width="20px" class="ms-2 mb-1"></button>
+      <button type="button" class="btn btn-outline-light me-5 costum-btn">Login<img src="assets/featherIcon/login.png" width="20px" class="ms-2 mb-1"></button>
       </form>
     </div>
   </div>
@@ -39,14 +39,23 @@
     }
 
     .nav-link{
-        color: white;
+        color: rgb(235, 223, 223);
+    }
+    .nav-link:hover{
+        color:rgb(255, 255, 255);
     }
 
     .dropdown-menu-dark{
         background-color: #3E6EA2;
     }
-</style>
 
-<script>
-        feather.replace();
-</script>
+    .costum-btn:hover{
+      background-color:rgb(70, 139, 212);
+      color: white;
+    }
+
+    .costum-btn:active{
+      background-color:rgb(66, 116, 171);
+      color: white;
+    }
+</style>
