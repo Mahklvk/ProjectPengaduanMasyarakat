@@ -12,6 +12,9 @@ require('config/db.php');
     <title>Document</title>
 
     <style>
+      .about{
+        background: #e0e0e0;
+      }
         .h1-carousel-caption{
             font-weight: bolder;
         }
@@ -28,6 +31,7 @@ require('config/db.php');
         .carousel-img{
             filter: brightness(1.2);
         }
+
     </style>
 </head>
 <body>
@@ -38,7 +42,7 @@ require('config/db.php');
     <div class="carousel-item active">
       <img src="storages/hero-bg.png" class="d-block w-100 carousel-img" alt="...">
       <div class="carousel-caption d-block top-0 text-black mt-md-5">
-        <h1 class="h1-carousel-caption">PENGADUAN MASALAH</h1>
+        <h1 class="h1-carousel-caption">PENGADUAN MASYARAKAT</h1>
         <p class="p-carousel-caption mt-md-4">Adukan <b>Masalah</b> Temukan <b>Solusi</b></p>
         <button type="button" class="btn btn-costum mt-md-5">Mulai Lapor</button>
       </div>
@@ -46,6 +50,25 @@ require('config/db.php');
   </div>
 </div>
 
+    </section>
+
+    <section id="about" class="about py-5">
+        <div class="container">
+            <div class="row">
+                <div class="container col-md-12 text-center">
+                    <h2 class="mb-5">About</h2>
+                    </div>
+                    <div class="container col-md-6 text">
+                    <p class="text">Sampaikan aspirasi dan keluhan Anda secara mudah melalui satu platform digital. Aplikasi Pelaporan Masyarakat hadir untuk menjembatani komunikasi antara masyarakat dan instansi, dengan proses yang cepat, transparan, dan responsif.</p>
+                    <div class="col-6 container align-items-center justify-content-center d-flex mt-5 mb-5">
+                      <button class="btn btn-costum">Mulai Lapor</button>
+                    </div>
+                </div>
+                <div class="container col-md-3 img-about">
+                    <img src="storages/bllack.png" alt="About Us" class="img-fluid">
+                </div>
+            </div>
+        </div>
     </section>
 
 
