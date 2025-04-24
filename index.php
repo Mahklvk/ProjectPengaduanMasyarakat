@@ -14,6 +14,7 @@ require('config/db.php');
     <style>
       .about{
         background: #e0e0e0;
+        height: 70vh;
       }
         .h1-carousel-caption{
             font-weight: bolder;
@@ -55,17 +56,17 @@ require('config/db.php');
     <section id="about" class="about py-5">
         <div class="container">
             <div class="row">
-                <div class="container col-md-12 text-center">
-                    <h2 class="mb-5">About</h2>
+                <div class="container">
+                    <h2 class="container text-center mb-3">About</h2>
                     </div>
                     <div class="container col-md-6 text">
                     <p class="text">Sampaikan aspirasi dan keluhan Anda secara mudah melalui satu platform digital. Aplikasi Pelaporan Masyarakat hadir untuk menjembatani komunikasi antara masyarakat dan instansi, dengan proses yang cepat, transparan, dan responsif.</p>
-                    <div class="col-6 container align-items-center justify-content-center d-flex mt-5 mb-5">
+                    <div class="col-6 container align-items-center justify-content-center d-flex mb-5">
                       <button class="btn btn-costum">Mulai Lapor</button>
                     </div>
                 </div>
                 <div class="container col-md-3 img-about">
-                    <img src="storages/bllack.png" alt="About Us" class="img-fluid">
+                    <img src="storages/about-img.png" alt="About Us" class="img-fluid">
                 </div>
             </div>
         </div>
