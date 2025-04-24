@@ -1,0 +1,20 @@
+/* about section */
+.about {
+  background: #e0e0e0;
+}
+.h1-carousel-caption {
+  font-weight: bolder;
+}
+.btn-costum {
+  background-color: #38758e;
+  color: white;
+}
+
+.btn-costum:hover {
+  background-color: rgb(37, 150, 195);
+  color: white;
+}
+
+.carousel-img {
+  filter: brightness(1.2);
+}
