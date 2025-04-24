@@ -11,28 +11,8 @@ require('config/db.php');
     <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
     <title>Document</title>
 
-    <style>
-      .about{
-        background: #e0e0e0;
-      }
-        .h1-carousel-caption{
-            font-weight: bolder;
-        }
-        .btn-costum{
-            background-color: #38758E;
-            color: white;
-        }
-
-        .btn-costum:hover{
-            background-color:rgb(37, 150, 195);
-            color: white;
-        }
-
-        .carousel-img{
-            filter: brightness(1.2);
-        }
-
-    </style>
+<!--  link css -->
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <?php include('config/navbar.php')?>
@@ -65,7 +45,7 @@ require('config/db.php');
                     </div>
                 </div>
                 <div class="container col-md-3 img-about">
-                    <img src="storages/bllack.png" alt="About Us" class="img-fluid">
+                    <img src="storages/logo-img.png" alt="About Us" class="img-fluid">
                 </div>
             </div>
         </div>
