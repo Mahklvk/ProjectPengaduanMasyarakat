@@ -9,31 +9,8 @@ require('config/db.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Document</title>
-
-    <style>
-      .about{
-        background: #e0e0e0;
-        height: 70vh;
-      }
-        .h1-carousel-caption{
-            font-weight: bolder;
-        }
-        .btn-costum{
-            background-color: #38758E;
-            color: white;
-        }
-
-        .btn-costum:hover{
-            background-color:rgb(37, 150, 195);
-            color: white;
-        }
-
-        .carousel-img{
-            filter: brightness(1.2);
-        }
-
-    </style>
 </head>
 <body>
     <?php include('config/navbar.php')?>
@@ -59,18 +36,40 @@ require('config/db.php');
                 <div class="container">
                     <h2 class="container text-center mb-3">About</h2>
                     </div>
-                    <div class="container col-md-6 text">
+                    <div class="container col-md-6 text text-justify mt-md-5">
                     <p class="text">Sampaikan aspirasi dan keluhan Anda secara mudah melalui satu platform digital. Aplikasi Pelaporan Masyarakat hadir untuk menjembatani komunikasi antara masyarakat dan instansi, dengan proses yang cepat, transparan, dan responsif.</p>
-                    <div class="col-6 container align-items-center justify-content-center d-flex mb-5">
+                    <div class="col-md-6 container align-items-center justify-content-center d-flex mb-5 mt-md-5">
                       <button class="btn btn-costum">Mulai Lapor</button>
                     </div>
                 </div>
                 <div class="container col-md-3 img-about">
-                    <img src="storages/about-img.png" alt="About Us" class="img-fluid">
+                    <img src="storages/about-imgv1.png" alt="About Us" class="img-fluid shadow-costum">
                 </div>
             </div>
         </div>
     </section>
+
+        <section id="contact" class="py-4">
+        <div class="container">
+      <div class="row">
+      <div class="col-12">
+        <div class="container text-center">
+        <h1>Contact Us</h1>
+      </div>
+    </div>
+     <div class="col-md-4 container ms-4 rounded"><iframe claas="shadow" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.9516624298767!2d107.64888750931945!3d-7.014967668684224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6f9cd53f7b9%3A0xf84e76c83055f248!2sSMKN%207%20Baleendah!5e0!3m2!1sid!2sid!4v1745628066995!5m2!1sid!2sid" width="300" height="200" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div class="col-md-7"><form action="" method="post">
+    <i class="fa-solid fa-user"></i>
+      <input type="username" placeholder="Nama Kamu" class="form-input">
+      <br>
+      <i class="fa-solid fa-envelope"></i>
+      <input type="email" placeholder="Email Kamu" class="form-input"><br>
+      <textarea name="" id="" placeholder="bagikan pendapatmu" class="form-textarea"></textarea><br>
+      <div class="col-md-5"><button class="container button-contact btn btn-costum mt-3 mb-5">Bagikan</button></div>
+     </form></div>
+  </div>
+</div>
+        </section>
 
 
 
