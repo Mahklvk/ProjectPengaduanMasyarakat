@@ -1,5 +1,5 @@
 <?php 
-require('config/db.php');
+require('config/db.php'); //include database 
 ?>
 
 <!DOCTYPE html>
@@ -7,22 +7,22 @@ require('config/db.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"> <!-- link bootstrap untuk bisa styling bootstrap -->
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css"> <!-- link fontawesome untuk bisa mengakses icon -->
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Document</title>
 </head>
 <body>
-    <?php include('config/navbar.php')?>
+    <?php include('config/navbar.php') //include navbar?>
     <section id="hero" class="hero">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="storages/hero-bg.png" class="d-block w-100 carousel-img" alt="...">
+      <img src="storages/hero-bg.png" class="d-block w-100 carousel-img" alt="..."> <!-- carousel untuk menampilkan gambar di hero section-->
       <div class="carousel-caption d-block top-0 text-black mt-md-5">
         <h1 class="h1-carousel-caption">PENGADUAN MASYARAKAT</h1>
         <p class="p-carousel-caption mt-md-4">Adukan <b>Masalah</b> Temukan <b>Solusi</b></p>
-        <button type="button" class="btn btn-costum mt-md-5">Mulai Lapor</button>
+        <button type="button" class="btn btn-costum mt-md-5">Mulai Lapor</button> <!--caption yang ada di gambar-->
       </div>
     </div>
   </div>
