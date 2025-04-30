@@ -72,7 +72,6 @@ require('config/db.php'); //include database
         </section>
 
 
-
     <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="assets/fontawesome/js/all.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
