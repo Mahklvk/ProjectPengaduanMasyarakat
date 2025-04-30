@@ -17,22 +17,25 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daftar Akun</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
 <div class="container mt-5">
   <h1 class="mb-4">Daftar Akun</h1>
 
   <div class="row mb-4">
-    <div class="col-md-8">
+    <div class="col-md-8 col-sm-6 input-icons">
       <form class="d-flex" role="search" method="get">
-        <input type="text" name="search" required value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>" class="form-control me-2" placeholder="Search data">
+      <span><i class="fa-solid fa-search fa-xl mt-1 me-3"></i></span>
+        <input type="text" name="search" required value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>" class="form-control me-2 input-field" placeholder="Search data">
         <button class="btn btn-outline-secondary" type="submit">Search</button>
       </form>
     </div>
     <div class="col-md-4 text-end">
-      <button type="button" class="btn btn-outline-secondary">Tambah Akun</button>
+      <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-circle-plus"></i> Tambah Akun</button>
     </div>
   </div>
 
@@ -61,7 +64,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             <td><?= $data['username']; ?></td>
             <td><?= strlen($data['password']) > 50 ? substr($data['password'], 0, 50) . '...' : $data['password']; ?></td>
             <td><?= $data['telp']; ?></td>
-            <td><a href="accountDetail.php?p=<?= $data['nik']; ?>" class="btn btn-sm btn-outline-secondary">Edit</a></td>
+            <td><a href="accountDetail.php?p=<?= $data['nik']; ?>" class="btn btn-sm btn-outline-secondary"> Edit</a></td>
           </tr>
           <?php
         }
@@ -74,5 +77,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
 </body>
 </html>
