@@ -18,11 +18,10 @@ about{
     .carousel-img{
         filter: brightness(1.2);
     }
-/* 
     .shadow-costum{
       box-shadow:  23px 23px 41px #929292,
          -23px -23px 41px #ffffff;
-    } */
+    } 
 
     .form-input{
       border-top:none;
@@ -66,3 +65,5 @@ width: 50vh;
 .form-textarea:focus{
 outline: none;
 }
+
+/* Tulis laporan */
