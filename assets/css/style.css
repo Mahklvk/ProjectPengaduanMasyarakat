@@ -66,4 +66,21 @@ width: 50vh;
 outline: none;
 }
 
-/* Tulis laporan */
+/* lupa password */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  z-index: 10;
+}
+
+.password-wrapper input {
+  padding-right: 40px; /* space for the eye icon */
+}
