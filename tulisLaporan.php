@@ -102,11 +102,13 @@ function generatorRandom($length = 10)
                       title: "Laporan Terkirim!",
                       text: "Laporan akan segera ditanggapi oleh petugas kami!",
                       icon: "success"
-                    }).then(() => {window.location.href = 'historyLaporan.php';});
+                    }).then(() => {
+                      window.location.href = 'historyLaporan.php';
+                    });
                   </script>
-          <?php
+                <?php
                 } else {
-                  ?>
+                ?>
                   <script>
                     Swal.fire({
                       title: "Laporan Gagal Terkirim!",
@@ -114,18 +116,18 @@ function generatorRandom($length = 10)
                       icon: "error"
                     });
                   </script>
-                  <?php
-                }
-              }else{
-                ?>
-              <script>
-                Swal.fire({
-                  title:"Gagal Mengupload gambar",
-                  text: "ada yang salah saat mengupload gambar!",
-                  icon:"error"
-                })
-              </script>
                 <?php
+                }
+              } else {
+                ?>
+                <script>
+                  Swal.fire({
+                    title: "Gagal Mengupload gambar",
+                    text: "ada yang salah saat mengupload gambar!",
+                    icon: "error"
+                  })
+                </script>
+          <?php
               }
             }
           }
