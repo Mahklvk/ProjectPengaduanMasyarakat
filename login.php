@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,11 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-     <!-- My Style -->
-     <link rel="stylesheet" href="style.css" />
+    <!-- My Style -->
+    <link rel="stylesheet" href="style.css" />
 
 </head>
+
 <body>
     <div class="container-fluid p-0">
         <div class="login-container my-4">
@@ -29,16 +31,16 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Main content -->
                 <div class="col-md-6 h-100" style="padding-top: 0">
                     <div class="illustration-col">
                         <h1 class="welcome-text mb-4">Selamat Datang</h1>
-                        
+
                         <!-- Illustration with character and phone -->
                         <div class="illustration-container">
                             <img src="storages/loginUser.png" alt="Character with phone illustration" class="illustration-img">
-                            
+
                             <!-- Decoration elements -->
                             <div class="decoration decoration-1"></div>
                             <div class="decoration decoration-2"></div>
@@ -46,20 +48,20 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Login form -->
                 <div class="col-md-6 h-100" style="padding-top: 0">
                     <div class="login-form">
                         <div>
                             <h2 class="mb-2">Login</h2>
                             <p class="text-muted mb-4">Selamat datang, tolong login ke akun anda</p>
-                            
+
                             <form>
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="username" placeholder="example123">
                                 </div>
-                                
+
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
                                     <div class="password-container">
@@ -69,7 +71,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div class="form-check">
                                         <input class="form-check-input custom-checkbox" type="checkbox" id="rememberMe">
@@ -77,11 +79,11 @@
                                     </div>
                                     <a href="#" class="forgot-password">Lupa Password?</a>
                                 </div>
-                                
+
                                 <button type="submit" class="btn btn-login">
                                     Login <i class="fas fa-arrow-right ms-2"></i>
                                 </button>
-                                
+
                                 <div class="register-link mt-4">
                                     <span>Pengguna Baru?</span>
                                     <a href="#">Daftar</a>
@@ -93,7 +95,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Password toggle script -->
@@ -101,7 +103,7 @@
         document.querySelector('.password-toggle').addEventListener('click', function() {
             const passwordInput = document.querySelector('#password');
             const icon = this.querySelector('i');
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 icon.classList.remove('fa-eye');
@@ -114,4 +116,5 @@
         });
     </script>
 </body>
+
 </html>
