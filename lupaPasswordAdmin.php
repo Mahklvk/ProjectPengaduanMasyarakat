@@ -23,27 +23,34 @@ $queryGetPasswordMasyarakat = mysqli_query($conn, "SELECT password FROM petugas"
         <div class="container">
           <form action="" class="container w-10" enctype="multipart/form-data" method="post">
 
-            <label for="username" class="form-label">Nama</label>
-            <input type="username" class="form-control" name="username" id="username" required>
+          <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="Example123">
+                        </div>
 
-            <label for="password" class="form-label">Password Lama</label>
-            <input type="password" class="form-control" name="password-lama" id="password-lama" required>
-            <div class="form-check">
-            <input type="checkbox" id="lihatPassword-lama">
-            <label for="lihatPassword-lama">Tampilkan Password</label>
-            </div>
-            
+            <div class="mb-3">
+    <label for="password-lama" class="form-label">Password Lama</label>
+    <div class="position-relative">
+        <input type="password" name="password-lama" class="form-control pe-5" id="password-lama" placeholder="******">
+        <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-2 toggle-password-lama">
+            <i class="fa fa-eye"></i>
+        </button>
+    </div>
+</div>
 
-            <label for="password" class="form-label mt-2">Password Baru</label>
-            <input type="password" class="form-control" name="password-baru" id="password-baru" required>
-            <div class="form-check">
-            <input type="checkbox" id="lihatPassword-baru">
-            <label for="lihatPassword-baru">Tampilkan Password</label>
-            </div>
+<div class="mb-3">
+    <label for="password-baru" class="form-label">Password Baru</label>
+    <div class="position-relative">
+        <input type="password" name="password-baru" class="form-control pe-5" id="password-baru" placeholder="******">
+        <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-2 toggle-password-baru">
+            <i class="fa fa-eye"></i>
+        </button>
+    </div>
+</div>
 
             <div class="row">
               <div class="container align-items-center justify-content-center d-flex mt-2">
-                <button class="btn btn-primary col-2" name="submit" id="submit">Submit</button>
+                <button class="btn btn-primary col-md-2" name="submit" id="submit">Submit</button>
               </div>
             </div>
           </form>
@@ -104,15 +111,22 @@ if (isset($_POST['submit'])) {
   <script src="assets/fontawesome/js/all.min.js"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <script>
-     document.getElementById('lihatPassword-lama').addEventListener('change', function () {
-    const passwordLama = document.getElementById('password-lama');
-    passwordLama.type = this.checked ? 'text' : 'password';
-     });
+            function setupToggle(idInput, toggleClass) {
+        document.querySelector(toggleClass).addEventListener('click', function () {
+            const input = document.querySelector(idInput);
+            const icon = this.querySelector('i');
 
-     document.getElementById('lihatPassword-baru').addEventListener('change', function () {
-    const passwordBaru = document.getElementById('password-baru');
-    passwordBaru.type = this.checked ? 'text' : 'password';
-     });
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    }
   </script>
 </body>
 </html>
