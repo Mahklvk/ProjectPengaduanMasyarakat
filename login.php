@@ -6,8 +6,8 @@
     <title>User Login - MyReport</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
      <!-- My Style -->
      <link rel="stylesheet" href="style.css" />
@@ -21,7 +21,7 @@
                 <div class="col-12" style="height: 70px;">
                     <div class="d-flex justify-content-between align-items-center px-4 py-3 bg-white">
                         <div class="back-button">
-                            <i class="fas fa-arrow-left"></i>
+                            <i class="bi bi-arrow-left"></i>
                         </div>
                         <div class="navbar-brand d-flex align-items-center">
                             <img src="storages/logo2.png" alt="MyReport Icon" class="logo-icon me-2">
@@ -65,7 +65,7 @@
                                     <div class="password-container">
                                         <input type="password" class="form-control" id="password" placeholder="******">
                                         <button type="button" class="password-toggle">
-                                            <i class="far fa-eye"></i>
+                                            <i class="bi bi-eye"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                 </div>
                                 
                                 <button type="submit" class="btn btn-login">
-                                    Login <i class="fas fa-arrow-right ms-2"></i>
+                                    Login <i class="bi bi-arrow-right"></i>
                                 </button>
                                 
                                 <div class="register-link mt-4">
@@ -104,12 +104,12 @@
             
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
             } else {
                 passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
             }
         });
     </script>

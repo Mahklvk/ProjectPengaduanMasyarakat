@@ -6,12 +6,11 @@
     <title>MyReport Footer</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <style>
-        /* Custom styles for the footer */
         .footer {
-            background-color: #3E6EA2;
+            background-color: #2c70b9;
             color: white;
             padding: 12px 0;
             width: 100%;
@@ -31,14 +30,13 @@
             align-items: center;
         }
         
-        .footer-logo img {
+        .footer-logo img.logo-icon {
             height: 24px;
             margin-right: 8px;
         }
         
-        .footer-logo span {
-            font-size: 18px;
-            font-weight: 600;
+        .footer-logo img.logo-text {
+            height: 20px;
         }
         
         .footer-nav {
@@ -59,9 +57,9 @@
         }
         
         .footer-button {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: transparent;
             color: white;
-            border: none;
+            border: 1px solid white;
             border-radius: 20px;
             padding: 5px 15px;
             font-size: 14px;
@@ -77,12 +75,26 @@
         .footer-icons {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 45px;
+            margin-bottom: 10px;
         }
         
         .footer-icons a {
             color: white;
-            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .footer-icons i {
+            font-size: 1.2rem;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin: 10px 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -94,18 +106,19 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="footer-logo">
-                    <i class="fas fa-bullhorn me-2"></i>
-                    <span>MyReport</span>
+                    <img src="storages/logo.png" alt="Logo" class="logo-icon">
+                    <img src="storages/MyReport.png" alt="MyReport" class="logo-text">
                 </div>
             </div>
             
             <div class="col-md-6">
                 <div class="footer-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fas fa-share-alt"></i></a>
-                    <a href="#"><i class="fas fa-thumbs-down"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-github"></i></a>
                 </div>
+                <div class="divider"></div>
                 <div class="footer-nav mt-2">
                     <a href="#">Home</a>
                     <a href="#">About</a>
@@ -120,12 +133,9 @@
         </div>
         
         <div class="footer-copyright mt-2">
-            © 2077 Kelompok 4. All rights reserved.
+            © 20777 Kelompok 4.All rights reserved.
         </div>
     </div>
 </footer>
-
-<!-- Bootstrap JS (optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
