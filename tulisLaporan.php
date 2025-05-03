@@ -39,13 +39,13 @@ function generatorRandom($length = 10)
         <div class="container">
           <form action="" class="container w-10" enctype="multipart/form-data" method="post">
             <label for="judulLaporan" class="form-label">Judul Laporan</label>
-            <input type="nik" class="form-control" name="judulLaporan" id="judulLaporan" required>
+            <input type="nik" class="form-control" name="judulLaporan" id="judulLaporan" required placeholder="Laporan">
 
             <label for="date" class="form-label">Tanggal Sekarang</label>
             <input type="date" class="form-control" name="date" id="date">
 
             <label for="isiLaporan">Isi Laporan</label>
-            <textarea name="isiLaporan" id="isiLaporan" class="form-control" placeholder="" required></textarea>
+            <textarea name="isiLaporan" id="isiLaporan" class="form-control" placeholder="Isi Laporan" required></textarea>
 
             <label for="foto">Foto</label>
             <input type="file" class="form-control" name="foto" id="foto" required>
