@@ -21,6 +21,18 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
   <title>Daftar Akun</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    .icon-search {
+  /* position: relative; */
+  left: 30px;
+  top: 17.5%;
+  /* transform: translateY(-50%); */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+}
+  </style>
 </head>
 <body>
 <div class="container mt-5">
@@ -29,8 +41,10 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
   <div class="row mb-4">
     <div class="col-md-8 col-sm-6 input-icons">
       <form class="d-flex" role="search" method="get">
-      <span><i class="fa-solid fa-search fa-xl mt-1 me-3"></i></span>
-        <input type="text" name="search" required value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>" class="form-control me-2 input-field" placeholder="Search data">
+      <button type="button" class="icon-search">
+        <i class="fa fa-search fa-xl"></i>
+      </button>
+        <input type="text" name="search" value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>" class="form-control me-2 input-field" placeholder="Search data">
         <button class="btn btn-outline-secondary" type="submit">Search</button>
       </form>
     </div>
