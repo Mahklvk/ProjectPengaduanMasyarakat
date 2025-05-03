@@ -53,7 +53,7 @@ function generatorRandom($length = 10)
 
           <div class="row">
             <div class="container align-items-center justify-content-center d-flex mt-2 col-md-6">
-            <button type="button" class="btn btn-success me-2" name="approve" onclick="approveLaporan(<?php echo $fetch_data['id_pengaduan']?>)">Approve</button>
+            <button type="button" class="btn btn-primary me-2" name="approve" onclick="approveLaporan(<?php echo $fetch_data['id_pengaduan']?>)">Approve</button>
             </div>
             <div class="container align-items-center justify-content-center d-flex mt-2 col-md-6">
             <button type="button" class="btn btn-danger" onclick="rejectLaporan(<?php echo $fetch_data['id_pengaduan']?>)">Reject</button>
