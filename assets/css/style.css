@@ -1,0 +1,69 @@
+/* Homepage */
+about{
+    background: #e0e0e0;
+  }
+    .h1-carousel-caption{
+        font-weight: bolder;
+    }
+    .btn-costum{
+        background-color: #38758E;
+        color: white;
+    }
+
+    .btn-costum:hover{
+        background-color:rgb(37, 150, 195);
+        color: white;
+    }
+
+    .carousel-img{
+        filter: brightness(1.2);
+    }
+    .shadow-costum{
+      box-shadow:  23px 23px 41px #929292,
+         -23px -23px 41px #ffffff;
+    } 
+
+    .form-input{
+      border-top:none;
+      border-left: none;
+      border-right: none;
+      border-bottom: solid;
+      border-radius: 0px;
+      width: 50vh;
+      height: 50px;
+      margin-top: 10px;
+      margin-left: 5px;
+    }
+
+    .form-input:focus, .form-input:focus-visible, .form-input:focus-within{
+      outline: none;
+    }
+
+    .form-input:active{
+      outline: none;
+    }
+
+form i {
+border: none;
+position: relative;
+float: left;
+}
+
+.form-textarea{
+  border-top:none;
+      border-left: none;
+      border-right: none;
+      border-bottom: solid;
+      border-radius: 0px;
+      width: 50vh;
+      height: 50px;
+      margin-top: 10px;
+      margin-left: 5px;
+width: 50vh;
+}
+
+.form-textarea:focus{
+outline: none;
+}
+
+/* lupa password */
