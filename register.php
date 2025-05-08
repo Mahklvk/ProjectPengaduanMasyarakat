@@ -1,3 +1,76 @@
+<?php
+// Koneksi ke database
+$server = "localhost";
+$username = "root";
+$password = "";
+$database = "pengaduan_masyarakat";
+
+$koneksi = mysqli_connect($server, $username, $password, $database);
+
+// Cek koneksi
+if (!$koneksi) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
+
+// Inisialisasi variabel pesan
+$pesan = "";
+$pesan_type = "";
+
+// Proses pendaftaran
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Mengambil data dari form
+    $nik = mysqli_real_escape_string($koneksi, $_POST['nik']);
+    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $password = $_POST['password'];
+    $telp = mysqli_real_escape_string($koneksi, $_POST['telp']);
+    
+    // Validasi input
+    if (strlen($nik) != 16) {
+        $pesan = "NIK harus 16 digit!";
+        $pesan_type = "danger";
+    } else if (empty($nama) || empty($username) || empty($password) || empty($telp)) {
+        $pesan = "Semua field harus diisi!";
+        $pesan_type = "danger";
+    } else {
+        // Menggunakan MD5 untuk enkripsi password agar sesuai dengan VARCHAR(32)
+        $hashed_password = md5($password);
+        
+        // Cek apakah NIK sudah terdaftar
+        $cek_nik = mysqli_query($koneksi, "SELECT * FROM masyarakat WHERE nik='$nik'");
+        
+        if ($cek_nik && mysqli_num_rows($cek_nik) > 0) {
+            $pesan = "NIK sudah terdaftar!";
+            $pesan_type = "danger";
+        } else {
+            // Cek apakah username sudah terdaftar
+            $cek_username = mysqli_query($koneksi, "SELECT * FROM masyarakat WHERE username='$username'");
+            
+            if ($cek_username && mysqli_num_rows($cek_username) > 0) {
+                $pesan = "Username sudah digunakan!";
+                $pesan_type = "danger";
+            } else {
+                // Simpan data ke tabel masyarakat
+                $query = "INSERT INTO masyarakat (nik, nama, username, password, telp) 
+                          VALUES ('$nik', '$nama', '$username', '$hashed_password', '$telp')";
+                
+                if (mysqli_query($koneksi, $query)) {
+                    $pesan = "Pendaftaran berhasil! Silahkan login.";
+                    $pesan_type = "success";
+                    
+                    // Redirect ke halaman login setelah berhasil mendaftar (opsional)
+                    // header("Location: login.php");
+                    // exit;
+                } else {
+                    $pesan = "Error: " . mysqli_error($koneksi);
+                    $pesan_type = "danger";
+                }
+            }
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
