@@ -1,3 +1,9 @@
+<?php
+session_start();
+include 'config/db.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -54,11 +60,11 @@
                             <h2 class="mb-2">Login</h2>
                             <p class="text-muted mb-4">Selamat datang, tolong login ke akun anda</p>
                             
-                            <form>
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username" placeholder="example123" name="username">
-                                </div>
+                            <form method="POST">
+                            <div class="mb-3">
+                                        <label for="nik" class="form-label">NIK</label>
+                                        <input type="text" class="form-control" id="nik" placeholder="320xxxxxxxxxxx" name="nik">
+                                    </div>
                                 
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
@@ -88,21 +94,63 @@
                                 </div>
                             </form>
                             <?php
-
                             echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
-                            if(isset($_POST['submit'])){
-                                include 'config/db.php';
-                            $username = $_POST['username'];
-                            $password = $_POST['password'];
 
-                            $query_sql = "SELECT * FROM masyarakat WHERE username = '$username' AND password = '$password'";
-                            $result = mysqli_query($conn, $query_sql);
+                            if (isset($_POST['submit'])) {
+                                // Mengambil input dari form login
+                                $nik = htmlspecialchars($_POST['nik']);
+                                $password = htmlspecialchars($_POST['password']);
 
-                            if (mysqli_num_rows($result) > 0) {
-                                header("location: dasboard.php");
-                            } else {
-                                echo "username dan password salah. silahkan coba login kembali";
-                            }};
+                                // Memastikan koneksi ke database berhasil
+                                if ($conn) {
+                                    // Query untuk mencari username di database
+                                    $query = "SELECT * FROM masyarakat WHERE nik = ?";
+                                    $stmt = mysqli_prepare($conn, $query);
+                                    mysqli_stmt_bind_param($stmt, "s", $nik);
+                                    mysqli_stmt_execute($stmt);
+                                    $result = mysqli_stmt_get_result($stmt);
+
+                                    // Mengecek apakah data ada
+                                    if ($data = mysqli_fetch_array($result)) {
+                                        // Memverifikasi password
+                                        if ($password === $data['password']) {
+                                            // Jika berhasil, buat session
+                                            $_SESSION['nik'] = $data['nik'];
+                                            $_SESSION['login'] = true;
+                                            echo "<script>
+                                                    Swal.fire({
+                                                        title: 'Login Berhasil!',
+                                                        text: 'Selamat datang, " . $data['username'] . "!',
+                                                        icon: 'success'
+                                                    }).then(() => {
+                                                        window.location.href = 'historyLaporanM.php';
+                                                    });
+                                                  </script>";
+                                        } else {
+                                            echo '<script>
+                                                    Swal.fire({
+                                                        title: "Password Salah",
+                                                        text: "Silakan coba lagi.",
+                                                        icon: "error"
+                                                    });
+                                                  </script>';
+                                        }
+                                    } else {
+                                        echo '<script>
+                                                Swal.fire({
+                                                    title: "Gagal Login",
+                                                    text: "nik tidak ditemukan.",
+                                                    icon: "error"
+                                                });
+                                              </script>';
+                                    }
+
+                                    // Menutup statement
+                                    mysqli_stmt_close($stmt);
+                                } else {
+                                    echo '<div class="alert alert-danger" role="alert">Koneksi database gagal</div>';
+                                }
+                            }
                             ?>
                         </div>
                     </div>

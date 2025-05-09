@@ -1,3 +1,12 @@
+<?php
+require ('config/session.php');
+require ('config/db.php');
+$nik = $_SESSION['nik'];
+
+$queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
+
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -171,11 +180,11 @@
                 <thead>
                     <tr>
                         <th width="5%">No</th>
-                        <th width="15%">Nama</th>
-                        <th width="15%">NIK</th>
-                        <th width="15%">Tanggal</th>
-                        <th width="15%">Photo</th>
-                        <th width="15%">Kategori</th>
+                        <th width="15%">judul laporan</th>
+                        <th width="15%">Tanggal laporan</th>
+                        <th width="15%">Nik</th>
+                        <th width="15%">Isi Laporan</th>
+                        <th width="15%">Foto</th>
                         <th width="10%">Status</th>
                         <th width="10%">Action</th>
                     </tr>
@@ -187,48 +196,34 @@
                 <i class="bi bi-plus-circle"></i> Buat laporan
             </button>
                 <tbody>
-                    <!-- Data will be loaded dynamically -->
+                    <?php
+                    if (mysqli_num_rows($queryGetData) > 0) {
+                    $no = 1;
+                    while ($data = mysqli_fetch_array($queryGetData)) { ?>
+                    <tr>
+                        <td><?php echo $no++; ?></td>
+                        <td><?php echo $data['judul_laporan']++; ?></td>
+                        <td><?php echo $data['tgl_pengaduan']++; ?></td>
+                        <td><?php echo $data['nik']++; ?></td>
+                        <td><?php echo $data['isi_laporan']++; ?></td>
+                        <td><?php echo $data['foto']++; ?></td>
+                        <td><?php echo $data['status']++; ?></td>
+                        <td><a href="detailHistoryLaporan.php?p=<?php $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">detail</a></td>
+                    </tr>
+                    <?php
+
+                    
+                    } 
+
+                    }else {
+                        echo "<tr><td colspan='7' class='text-center'>Tidak ada data ditemukan.</td></tr>";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <?php
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("location: login.php");
-    exit();
-}
-
-// Fetch report data from database based on logged in user
-$user_id = $_SESSION['user_id'];
-
-// Using prepared statement to prevent SQL injection
-$sql = "SELECT l.*, k.nama_kategori 
-        FROM laporan l 
-        LEFT JOIN kategori k ON l.kategori_id = k.id
-        WHERE l.user_id = ?
-        ORDER BY l.tanggal_lapor DESC";
-
-// Prepare and execute the statement
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id); // "i" indicates integer parameter
-$stmt->execute();
-$result = $stmt->get_result();
-
-// Now $result can be used to fetch the data
-// Example usage:
-/*
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        // Process each report
-        echo $row['nama_kategori'];
-    }
-} else {
-    echo "No reports found";
-}
-*/
-?>
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
