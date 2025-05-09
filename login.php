@@ -57,13 +57,13 @@
                             <form>
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username" placeholder="example123">
+                                    <input type="text" class="form-control" id="username" placeholder="example123" name="username">
                                 </div>
                                 
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
                                     <div class="password-container">
-                                        <input type="password" class="form-control" id="password" placeholder="******">
+                                        <input type="password" class="form-control" id="password" placeholder="******" name="password">
                                         <button type="button" class="password-toggle">
                                             <i class="bi bi-eye"></i>
                                         </button>
@@ -75,18 +75,35 @@
                                         <input class="form-check-input custom-checkbox" type="checkbox" id="rememberMe">
                                         <label class="form-check-label" for="rememberMe">Ingat Saya</label>
                                     </div>
-                                    <a href="#" class="forgot-password">Lupa Password?</a>
+                                    <a href="lupaPassword.php" class="forgot-password">Lupa Password?</a>
                                 </div>
                                 
-                                <button type="submit" class="btn btn-login">
+                                <button name="submit" type="submit" class="btn btn-login">
                                     Login <i class="bi bi-arrow-right"></i>
                                 </button>
                                 
                                 <div class="register-link mt-4">
                                     <span>Pengguna Baru?</span>
-                                    <a href="#">Daftar</a>
+                                    <a href="register.php">Daftar</a>
                                 </div>
                             </form>
+                            <?php
+
+                            echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+                            if(isset($_POST['submit'])){
+                                include 'config/db.php';
+                            $username = $_POST['username'];
+                            $password = $_POST['password'];
+
+                            $query_sql = "SELECT * FROM masyarakat WHERE username = '$username' AND password = '$password'";
+                            $result = mysqli_query($conn, $query_sql);
+
+                            if (mysqli_num_rows($result) > 0) {
+                                header("location: dasboard.php");
+                            } else {
+                                echo "username dan password salah. silahkan coba login kembali";
+                            }};
+                            ?>
                         </div>
                     </div>
                 </div>

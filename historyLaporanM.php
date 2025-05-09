@@ -193,74 +193,47 @@
         </div>
     </div>
 
+    <?php
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("location: login.php");
+    exit();
+}
+
+// Fetch report data from database based on logged in user
+$user_id = $_SESSION['user_id'];
+
+// Using prepared statement to prevent SQL injection
+$sql = "SELECT l.*, k.nama_kategori 
+        FROM laporan l 
+        LEFT JOIN kategori k ON l.kategori_id = k.id
+        WHERE l.user_id = ?
+        ORDER BY l.tanggal_lapor DESC";
+
+// Prepare and execute the statement
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id); // "i" indicates integer parameter
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Now $result can be used to fetch the data
+// Example usage:
+/*
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        // Process each report
+        echo $row['nama_kategori'];
+    }
+} else {
+    echo "No reports found";
+}
+*/
+?>
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Placeholder for data that would come from PHP/database
-        const reportData = [
-            {
-                id: 1,
-                nama: 'firjatulloh',
-                nik: '783092005',
-                tanggal: '05/07/2025',
-                photo: 'Ubed.jpg',
-                kategori: 'Jalanan',
-                status: 'Disetujui'
-            },
-            {
-                id: 2,
-                nama: 'Ubed',
-                nik: '320xxpxxxx',
-                tanggal: '09/11/2001',
-                photo: 'gengster.jpg',
-                kategori: 'Rumah',
-                status: 'Ditolak'
-            }
-        ];
-
-        // Function to display username (would be replaced with server-side logic)
-        function displayUsername() {
-            // This would be replaced with actual user data from PHP session
-            const username = "username"; // Placeholder
-            document.getElementById('username-placeholder').textContent = username;
-        }
-
-        // Function to populate table
-        function populateTable(data) {
-            const tableBody = document.querySelector('#reportTable tbody');
-            tableBody.innerHTML = '';
-            
-            data.forEach((report, index) => {
-                const row = document.createElement('tr');
-                
-                // Create status badge
-                let statusBadge;
-                if (report.status === 'Disetujui') {
-                    statusBadge = `<span class="badge-success">${report.status}</span>`;
-                } else if (report.status === 'Ditolak') {
-                    statusBadge = `<span class="badge-danger">${report.status}</span>`;
-                } else {
-                    statusBadge = `<span class="badge bg-secondary">${report.status}</span>`;
-                }
-                
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${report.nama}</td>
-                    <td>${report.nik}</td>
-                    <td>${report.tanggal}</td>
-                    <td>${report.photo}</td>
-                    <td>${report.kategori}</td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        <button class="btn btn-sm btn-details" onclick="viewDetails(${report.id})">Details</button>
-                    </td>
-                `;
-                
-                tableBody.appendChild(row);
-            });
-        }
-
         // Function to filter table based on search
         function filterTable() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();

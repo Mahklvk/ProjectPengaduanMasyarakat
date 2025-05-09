@@ -1,76 +1,3 @@
-<?php
-// Koneksi ke database
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "pengaduan_masyarakat";
-
-$koneksi = mysqli_connect($server, $username, $password, $database);
-
-// Cek koneksi
-if (!$koneksi) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
-
-// Inisialisasi variabel pesan
-$pesan = "";
-$pesan_type = "";
-
-// Proses pendaftaran
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Mengambil data dari form
-    $nik = mysqli_real_escape_string($koneksi, $_POST['nik']);
-    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
-    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
-    $password = $_POST['password'];
-    $telp = mysqli_real_escape_string($koneksi, $_POST['telp']);
-    
-    // Validasi input
-    if (strlen($nik) != 16) {
-        $pesan = "NIK harus 16 digit!";
-        $pesan_type = "danger";
-    } else if (empty($nama) || empty($username) || empty($password) || empty($telp)) {
-        $pesan = "Semua field harus diisi!";
-        $pesan_type = "danger";
-    } else {
-        // Menggunakan MD5 untuk enkripsi password agar sesuai dengan VARCHAR(32)
-        $hashed_password = md5($password);
-        
-        // Cek apakah NIK sudah terdaftar
-        $cek_nik = mysqli_query($koneksi, "SELECT * FROM masyarakat WHERE nik='$nik'");
-        
-        if ($cek_nik && mysqli_num_rows($cek_nik) > 0) {
-            $pesan = "NIK sudah terdaftar!";
-            $pesan_type = "danger";
-        } else {
-            // Cek apakah username sudah terdaftar
-            $cek_username = mysqli_query($koneksi, "SELECT * FROM masyarakat WHERE username='$username'");
-            
-            if ($cek_username && mysqli_num_rows($cek_username) > 0) {
-                $pesan = "Username sudah digunakan!";
-                $pesan_type = "danger";
-            } else {
-                // Simpan data ke tabel masyarakat
-                $query = "INSERT INTO masyarakat (nik, nama, username, password, telp) 
-                          VALUES ('$nik', '$nama', '$username', '$hashed_password', '$telp')";
-                
-                if (mysqli_query($koneksi, $query)) {
-                    $pesan = "Pendaftaran berhasil! Silahkan login.";
-                    $pesan_type = "success";
-                    
-                    // Redirect ke halaman login setelah berhasil mendaftar (opsional)
-                    // header("Location: login.php");
-                    // exit;
-                } else {
-                    $pesan = "Error: " . mysqli_error($koneksi);
-                    $pesan_type = "danger";
-                }
-            }
-        }
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -205,33 +132,106 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <h2 class="mb-1">Register</h2>
                                 <p class="mb-4 text-muted">Daftarkan Akun Anda</p>
 
-                                <form>
+                                <form method="POST">
                                     <div class="mb-3">
                                         <label for="nik" class="form-label">NIK</label>
-                                        <input type="text" class="form-control" id="nik" placeholder="320xxxxxxxxxxx">
+                                        <input type="text" class="form-control" id="nik" placeholder="320xxxxxxxxxxx" name="nik">
                                     </div>
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Name">
+                                        <input type="text" class="form-control" id="name" placeholder="Name" name="nama">
                                     </div>
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Name">
+                                        <input type="text" class="form-control" id="username" placeholder="Name" name="username">
                                     </div>
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <div class="password-toggle">
-                                            <input type="password" class="form-control" id="password" placeholder="*">
+                                            <input type="password" class="form-control" id="password" placeholder="*" name="password">
                                             <i class="bi bi-eye" id="togglePassword"></i>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">No Telp</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="08xxxxxxxxx">
+                                        <input type="text" class="form-control" id="phone" placeholder="08xxxxxxxxx" name="telp">
                                     </div>
 
-                                    <button type="submit" class="btn btn-register">Register</button>
+                                    <button name="submit" type="submit" class="btn btn-register">Register</button>
                                 </form>
+                                <?php
+
+                                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+
+                                if(isset($_POST['submit'])){
+                                include 'config/db.php';
+    
+                                $nik = mysqli_real_escape_string($conn, $_POST['nik']);
+                                $nama = mysqli_real_escape_string($conn, $_POST['nama']);
+                                $username = mysqli_real_escape_string($conn, $_POST['username']);
+                                $password = mysqli_real_escape_string($conn, $_POST['password']);
+                                $telp = mysqli_real_escape_string($conn, $_POST['telp']);
+    
+                                // Validasi input
+                                $errors = array();
+    
+                                // Validasi NIK (harus berupa 16 digit angka)
+                                if(!is_numeric($nik) || strlen($nik) != 16) {
+                                    $errors[] = "NIK harus berupa 16 digit angka";
+                                }
+    
+                                // Cek apakah username sudah ada di database
+                                $check_username = mysqli_query($conn, "SELECT * FROM masyarakat WHERE username='$username'");
+                                if(mysqli_num_rows($check_username) > 0) {
+                                    $errors[] = "Username sudah digunakan";
+                                }
+    
+                                // Jika tidak ada error, lanjutkan dengan penyimpanan data
+                                if(empty($errors)) {
+                                    // Gunakan query langsung seperti kode asli
+                                    $data = mysqli_query($conn, "INSERT INTO masyarakat (nik, nama, username, password, telp) 
+                                        VALUES ('$nik', '$nama', '$username', '$password', '$telp')");
+        
+                                if($data) {
+                                        // Tampilkan pesan sukses
+                                echo "<script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        Swal.fire({
+                                            title: 'Data terkirim',
+                                            text: 'Data terkirim, sekarang kamu bisa login',
+                                            icon: 'success'
+                                        }).then(() => {
+                                        window.location.href = 'login.php';
+                                        });
+                                    });
+                                        </script>";
+                                    } else {
+                                    // Tampilkan pesan gagal
+                                    echo "<script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            Swal.fire({
+                                                title: 'Data gagal terkirim',
+                                                text: 'Tidak bisa login',
+                                                icon: 'error'
+                                        });
+                                    });
+                                    </script>";
+                                    }
+                                } else {
+                                    // Tampilkan error validasi
+                                    $error_message = implode(', ', $errors);
+                                    echo "<script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            Swal.fire({
+                                                title: 'Validasi gagal',
+                                                text: '$error_message',
+                                                icon: 'error'
+                                        });
+                                    });
+                                    </script>";
+                                }
+                            }
+                            ?>
                             </div>
 
                             <div class="col-md-6 p-0">
