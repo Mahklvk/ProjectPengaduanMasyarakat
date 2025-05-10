@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('config/db.php'); //include database 
 ?>
 
@@ -11,6 +12,7 @@ require('config/db.php'); //include database
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"> <!-- link bootstrap untuk bisa styling bootstrap -->
   <link rel="stylesheet" href="assets/fontawesome/css/all.min.css"> <!-- link fontawesome untuk bisa mengakses icon -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
   <title>Document</title>
 </head>
 
@@ -25,7 +27,7 @@ require('config/db.php'); //include database
           <div class="carousel-caption d-block top-0 text-black mt-md-5">
             <h1 class="h1-carousel-caption">PENGADUAN MASYARAKAT</h1>
             <p class="p-carousel-caption mt-md-4">Adukan <b>Masalah</b> Temukan <b>Solusi</b></p>
-            <button type="button" class="btn btn-costum mt-md-5">Mulai Lapor</button> <!--caption yang ada di gambar-->
+            <a href="tulisLaporan.php"><button type="button" class="btn btn-costum mt-md-5">Mulai Lapor</button></a> <!--caption yang ada di gambar-->
           </div>
         </div>
       </div>
@@ -76,7 +78,11 @@ require('config/db.php'); //include database
     </div>
   </section>
 
-
+  <footer>
+    <?php
+    include('config/footer.php');
+    ?>
+  </footer>
 
   <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="assets/fontawesome/js/all.min.js"></script>
