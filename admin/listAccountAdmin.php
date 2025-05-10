@@ -58,7 +58,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
       <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-circle-plus"></i> Tambah Akun</button>
     </div>
   </div>
-
+<div class="table-responsive">
   <table class="table">
     <thead>
       <tr>
@@ -94,7 +94,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
     </tbody>
   </table>
 </div>
-
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
 </body>
