@@ -30,7 +30,7 @@ function generatorRandom($length = 10)
     <title>Document</title>
 </head>
 <body>
-    
+    <?php include('config/navbar.php')?>
     <h2 class="text-center mt-4"><?php echo $fetch_data['judul_laporan']?></h2>
     <div class="container mt-4">
         <div class="row items-start border border-dark rounded p-2">
