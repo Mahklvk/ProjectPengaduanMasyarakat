@@ -97,7 +97,7 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan")
 </head>
 <body>
     <!-- Navbar -->
-
+<?php  include('config/navbar.php')?>
     <!-- Main Content -->
     <div class="content-container">
         <h1 class="page-title">Daftar Laporan</h1>
