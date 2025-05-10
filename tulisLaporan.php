@@ -1,9 +1,9 @@
 <?php
-// require('config/session.php')
+require('config/session.php');
 require('config/db.php');
 
-// $nik = $_SESSION['nik'];
-$nik = 123;
+$nik = $_SESSION['nik'];
+
 
 //untuk generator random nama file foto agar tidak sama dan unik
 function generatorRandom($length = 10)
@@ -32,6 +32,7 @@ function generatorRandom($length = 10)
 </head>
 
 <body>
+  <?php include('config/navbar.php')?>
   <h1 class="container mt-5">Lapor Sekarang</h1>
   <div class="container">
     <div class="row">
@@ -103,7 +104,7 @@ function generatorRandom($length = 10)
                       text: "Laporan akan segera ditanggapi oleh petugas kami!",
                       icon: "success"
                     }).then(() => {
-                      window.location.href = 'historyLaporan.php';
+                      window.location.href = 'history_laporan.php';
                     });
                   </script>
                 <?php
