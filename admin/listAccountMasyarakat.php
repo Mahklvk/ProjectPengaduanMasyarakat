@@ -41,24 +41,25 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
   <div class="row mb-4">
     <div class="col-md-8 col-sm-6 input-icons">
       <form class="d-flex" role="search" method="get">
-      <!-- <button type="button" class="icon-search">
+      <button type="button" class="icon-search">
         <i class="fa fa-search fa-xl"></i>
-      </button> -->
-      <div class="search-container">
+      </button>
+      <!-- <div class="search-container">
             <div class="search-box">
                 <i class="fa fa-search search-icon"></i>
                 <input type="text" name="search" class="form-control" placeholder="Cari Laporan" id="searchInput" value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>">
             </div>
-        </div>
-        <!-- <input type="text" name="search" value="" class="form-control me-2 input-field" placeholder="Search data">
-        <button class="btn btn-outline-secondary" type="submit">Search</button> -->
+        </div> -->
+        <input type="text" name="search" value="" class="form-control me-2 input-field" placeholder="Search data">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
       </form>
     </div>
-    <div class="col-md-4 text-end">
+    <!-- <div class="col-md-4 text-end">
       <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-circle-plus"></i> Tambah Akun</button>
-    </div>
+    </div> -->
   </div>
 
+  <div class="table-responsive">
   <table class="table">
     <thead>
       <tr>
@@ -94,6 +95,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
       ?>
     </tbody>
   </table>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
