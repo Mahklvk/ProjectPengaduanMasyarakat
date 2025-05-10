@@ -28,6 +28,7 @@ $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
     <title>Document</title>
 </head>
 <body>
+    <?php include('config/navbar.php')?>
     <h1 class="text-center mt-5">Tanggapan</h1>
     <div class="container mt-2">
         <div class="row border border-dark rounded">
