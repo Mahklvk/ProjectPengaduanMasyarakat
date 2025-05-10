@@ -35,6 +35,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
   </style>
 </head>
 <body>
+  <?php include('config/navbar.php')?>
 <div class="container mt-5">
   <h1 class="mb-4">Daftar Akun</h1>
 
