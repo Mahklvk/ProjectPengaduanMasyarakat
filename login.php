@@ -26,9 +26,9 @@ include 'config/db.php';
                 <!-- Header with back button and logo -->
                 <div class="col-12" style="height: 70px;">
                     <div class="d-flex justify-content-between align-items-center px-4 py-3 bg-white">
-                        <div class="back-button">
+                        <a href="index.php"><div class="back-button">
                             <i class="bi bi-arrow-left"></i>
-                        </div>
+                        </div></a>
                         <div class="navbar-brand d-flex align-items-center">
                             <img src="storages/logo2.png" alt="MyReport Icon" class="logo-icon me-2">
                             <img src="storages/MyReport2.png" alt="MyReport Text" class="logo-text">

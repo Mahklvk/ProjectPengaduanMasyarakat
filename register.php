@@ -126,7 +126,7 @@
                     <div class="card-body p-0">
                         <div class="row g-0">
                             <div class="col-md-6 p-4">
-                                <a href="#" class="back-button">
+                                <a href="index.php" class="back-button">
                                     <i class="bi bi-arrow-left"></i>
                                 </a>
                                 <h2 class="mb-1">Register</h2>
