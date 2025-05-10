@@ -100,6 +100,7 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas);
 </head>
 
 <body>
+    <?php include('config/navbar.php')?>
     <div class="container mt-5 ">
         <div class="row">
 
