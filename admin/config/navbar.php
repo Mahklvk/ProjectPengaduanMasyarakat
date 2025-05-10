@@ -14,22 +14,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#"><img src="../assets/featherIcon/home.png" width="20px" class="me-2 mb-1">Home</a>
+          <a class="nav-link" aria-current="page" href="index.php"><img src="../assets/featherIcon/home.png" width="20px" class="me-2 mb-1">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-bars me-2"></i>List Laporan</a>
+          <a class="nav-link" href="list_pengaduan.php"><i class="fa-solid fa-bars me-2"></i>List Laporan</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><img src="../assets/featherIcon/phone.png" width="20px" class="me-2 mb-1">List Contact</a>
+          <a class="nav-link" href="list_kontak.php"><img src="../assets/featherIcon/phone.png" width="20px" class="me-2 mb-1">List Contact</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Lainnya
           </a>
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="#"><img src="../assets/featherIcon/user.png" width="20px" class="me-2 mb-1">Dashboard</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square me-2"></i>Tanggapan</a></li>
-            <li><a class="dropdown-item" href="#"><img src="../assets/featherIcon/plus.png" width="20px" class="me-2 mb-1">Buat Akun</a></li>
+            <li><a class="dropdown-item" href="dashboard.php"><img src="../assets/featherIcon/user.png" width="20px" class="me-2 mb-1">Dashboard</a></li>
+            <li><a class="dropdown-item" href="tanggapan.php"><i class="fa-solid fa-pen-to-square me-2"></i> Tanggapan</a></li>
+            <li><a class="dropdown-item" href="tambah_akun.php"><img src="../assets/featherIcon/plus.png" width="20px" class="me-2 mb-1">Buat Akun</a></li>
           </ul>
         </li>
       </ul>
@@ -63,7 +63,7 @@
     }
 
     .nav-link{
-        color: rgb(235, 223, 223);
+        color: rgb(255, 255, 255);
     }
     .nav-link:hover{
         color:rgb(255, 255, 255);
