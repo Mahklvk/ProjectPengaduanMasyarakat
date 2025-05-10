@@ -162,28 +162,41 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
             </button>
                 <tbody>
                     <?php
-                    if (mysqli_num_rows($queryGetData) > 0) {
-                    $no = 1;
-                    while ($data = mysqli_fetch_array($queryGetData)) { ?>
-                    <tr>
-                        <td><?php echo $no++; ?></td>
-                        <td><?php echo $data['judul_laporan']++; ?></td>
-                        <td><?php echo $data['tgl_pengaduan']++; ?></td>
-                        <td><?php echo $data['nik']++; ?></td>
-                        <td><?php echo $data['isi_laporan']++; ?></td>
-                        <td><?php echo $data['foto']++; ?></td>
-                        <td><?php echo $data['status']++; ?></td>
-                        <td><a href="detailHistoryLaporan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">detail</a></td>
-                    </tr>
-                    <?php
-
-                    
-                    } 
-
-                    }else {
-                        echo "<tr><td colspan='7' class='text-center'>Tidak ada data ditemukan.</td></tr>";
-                    }
-                    ?>
+if (mysqli_num_rows($queryGetData) > 0) {
+    $no = 1;
+    while ($data = mysqli_fetch_array($queryGetData)) { ?>
+        <tr>
+            <td><?php echo $no++; ?></td>
+            <td><?php echo $data['judul_laporan']; ?></td>
+            <td><?php echo $data['tgl_pengaduan']; ?></td>
+            <td><?php echo $data['nik']; ?></td>
+            <td><?php echo $data['isi_laporan']; ?></td>
+            <td><?php echo $data['foto']; ?></td>
+            <?php
+            $status = trim($data['status']);
+            switch ($status) {
+                case 'diproses':
+                    $class = 'btn btn-outline-secondary rounded-pill btn-sm';
+                    break;
+                case 'ditolak':
+                    $class = 'btn btn-outline-danger rounded-pill btn-sm';
+                    break;
+                case 'selesai':
+                    $class = 'btn btn-outline-success rounded-pill btn-sm';
+                    break;
+                default:
+                    $class = 'btn btn-outline-secondary rounded-pill btn-sm';
+                    break;
+            }
+            echo '<td><span class="' . $class . '">' . htmlspecialchars($status) . '</span></td>';
+            ?>
+            <td><a href="detailHistoryLaporan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">detail</a></td>
+        </tr>
+    <?php }
+} else {
+    echo "<tr><td colspan='8' class='text-center'>Tidak ada data ditemukan.</td></tr>";
+}
+?>
                 </tbody>
             </table>
         </div>
