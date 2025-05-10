@@ -17,47 +17,7 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-        }
-        
-        .navbar {
-            background-color: #3E6EA2 !important;
-            padding: 10px 20px;
-        }
-        
-        .navbar-brand img {
-            height: 30px;
-        }
-        
-        .nav-link {
-            color: white !important;
-            margin-right: 15px;
-            font-weight: 500;
-        }
-        
-        .username-display {
-            color: white;
-            font-weight: 500;
-            margin-left: auto;
-            padding: 8px 12px;
-            border-radius: 4px;
-        }
-        
-        .content-container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .page-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        
+    <style> 
         .search-container {
             display: flex;
             justify-content: space-between;
@@ -72,7 +32,7 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
         
         .search-box input {
             padding-left: 40px;
-            border-radius: 20px;
+            border-radius: 5px;
         }
         
         .search-icon {
@@ -89,38 +49,6 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
             background-color: #3E6EA2;
             border-color: #3E6EA2;
         }
-        
-        .report-table {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .table thead th {
-            background-color: #f8f9fa;
-            border-bottom: 2px solid #dee2e6;
-            font-weight: 600;
-        }
-        
-        .badge-success {
-            background-color: #28a745;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-        }
-        
-        .badge-danger {
-            background-color: #dc3545;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-        }
-        
-        .btn-details {
-            background-color: #f8f9fa;
-            border-color: #dee2e6;
-            color: #212529;
-        }
     </style>
 </head>
 <body>
@@ -128,7 +56,7 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
     <?php include('config/navbar.php');?>
 
     <!-- Main Content -->
-    <div class="content-container">
+    <div class="container">
         <h1 class="page-title">Daftar Laporan</h1>
         
         <!-- Search -->
@@ -230,7 +158,7 @@ if (mysqli_num_rows($queryGetData) > 0) {
 
         // Add report button click handler
         document.getElementById('addReportBtn').addEventListener('click', function() {
-            window.location.href = 'tulisLaporan.php';
+            window.location.href = 'tulisLaporan.php';  
         });
 
         // Search input event listener
