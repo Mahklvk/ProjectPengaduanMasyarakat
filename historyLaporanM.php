@@ -1,6 +1,7 @@
 <?php
 require ('config/session.php');
 require ('config/db.php');
+
 $nik = $_SESSION['nik'];
 
 $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
@@ -21,29 +22,6 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
-        }
-        
-        .navbar {
-            background-color: #3E6EA2 !important;
-            padding: 10px 20px;
-        }
-        
-        .navbar-brand img {
-            height: 30px;
-        }
-        
-        .nav-link {
-            color: white !important;
-            margin-right: 15px;
-            font-weight: 500;
-        }
-        
-        .username-display {
-            color: white;
-            font-weight: 500;
-            margin-left: auto;
-            padding: 8px 12px;
-            border-radius: 4px;
         }
         
         .content-container {
@@ -124,44 +102,9 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="storages/logo.png" alt="MyReport Logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-house-door"></i> Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-info-circle"></i> About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-telephone"></i> Contact</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Lainnya
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="username-display ms-auto">
-                    <i class="bi bi-person"></i> <span id="username-placeholder">{username}</span>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+<?php
+include ('config/navbar.php');
+?>
     <!-- Main Content -->
     <div class="content-container">
         <h1 class="page-title">Daftar Laporan</h1>
