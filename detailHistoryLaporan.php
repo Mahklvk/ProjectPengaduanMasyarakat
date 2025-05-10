@@ -1,4 +1,5 @@
 <?php
+require('config/session.php');
 require('config/db.php');
 
 $id = $_GET['p'];
@@ -35,6 +36,7 @@ function generatorRandom($length = 10)
 </head>
 
 <body>
+  <?php include('config/navbar.php')?>
   <h1 class="text-center mt-4">Detail Laporan</h1>
   <h2 class="text-center mt-5"><?php echo $fetch_data['judul_laporan'] ?></h2>
   <div class="container">
