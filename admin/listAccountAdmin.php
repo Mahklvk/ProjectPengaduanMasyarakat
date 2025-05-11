@@ -64,6 +64,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
     <thead>
       <tr>
         <th>No</th>
+        <th>NIK</th>
         <th>Nama</th>
         <th>Username</th>
         <th>Password</th>
@@ -79,12 +80,13 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
           ?>
           <tr>
             <td><?= $no++; ?></td>
+            <td><?= $data['nik']; ?></td>
             <td><?= $data['nama_petugas']; ?></td>
             <td><?= $data['username']; ?></td>
             <td><?= strlen($data['password']) > 50 ? substr($data['password'], 0, 50) . '...' : $data['password']; ?></td>
             <td><?= $data['telp']; ?></td>
             <td><?= $data['level']; ?></td>
-            <td><a href="accountDetailAdmin.php?p=<? $data['id_petugas']; ?>" class="btn btn-sm btn-outline-dark"> Edit</a></td>
+            <td><a href="accountDetailAdmin.php?p=<?php echo $data['id_petugas']; ?>" class="btn btn-sm btn-outline-dark"> Edit</a></td>
           </tr>
           <?php
         }
