@@ -123,7 +123,7 @@ include 'config/db.php';
                                                         text: 'Selamat datang, " . $data['username'] . "!',
                                                         icon: 'success'
                                                     }).then(() => {
-                                                        window.location.href = 'historyLaporanM.php';
+                                                        window.location.href = 'dashboard.php';
                                                     });
                                                   </script>";
                                         } else {

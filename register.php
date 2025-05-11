@@ -138,6 +138,10 @@
                                         <input type="text" class="form-control" id="nik" placeholder="320xxxxxxxxxxx" name="nik">
                                     </div>
                                     <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="email" placeholder="@gmail.com" name="email">
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" placeholder="Name" name="nama">
                                     </div>
@@ -167,6 +171,7 @@
                                 include 'config/db.php';
     
                                 $nik = mysqli_real_escape_string($conn, $_POST['nik']);
+                                $email = mysqli_real_escape_string($conn, $_POST['email']);
                                 $nama = mysqli_real_escape_string($conn, $_POST['nama']);
                                 $username = mysqli_real_escape_string($conn, $_POST['username']);
                                 $password = mysqli_real_escape_string($conn, $_POST['password']);
@@ -189,8 +194,8 @@
                                 // Jika tidak ada error, lanjutkan dengan penyimpanan data
                                 if(empty($errors)) {
                                     // Gunakan query langsung seperti kode asli
-                                    $data = mysqli_query($conn, "INSERT INTO masyarakat (nik, nama, username, password, telp) 
-                                        VALUES ('$nik', '$nama', '$username', '$password', '$telp')");
+                                    $data = mysqli_query($conn, "INSERT INTO masyarakat (nik, email, nama, username, password, telp) 
+                                        VALUES ('$nik', '$email', '$nama', '$username', '$password', '$telp')");
         
                                 if($data) {
                                         // Tampilkan pesan sukses
