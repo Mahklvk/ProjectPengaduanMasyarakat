@@ -27,6 +27,9 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
 <label class="form-label">Nama</label>
 <input type="text" class="form-control" name="nama" value="<?php echo $fetch_data['nama_petugas']?>">
 
+<label class="form-label">Username</label>
+<input type="text" class="form-control" name="username" value="<?php echo $fetch_data['username']?>">
+
 <label class="form-label">Email</label>
 <input type="text" class="form-control" name="email" value="<?php echo $fetch_data['email']?>">
 
@@ -69,6 +72,7 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
       // Ambil nilai dari input form
       const nik = document.querySelector('input[name="nik"]').value;
       const nama = document.querySelector('input[name="nama"]').value;
+      const username = document.querySelector('input[name="username"]').value;
       const email = document.querySelector('input[name="email"]').value;
       const password = document.querySelector('input[name="password"]').value;
       const telp = document.querySelector('input[name="telp"]').value;
@@ -82,6 +86,7 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
           id_petugas: idPetugas,
           nik: nik,
           nama: nama,
+          username: username,
           email: email,
           password: password,
           telp: telp
