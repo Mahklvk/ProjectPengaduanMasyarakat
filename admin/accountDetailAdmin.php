@@ -22,7 +22,7 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
             <div class="col-md-12 p-3">
                 <form action="" method="post">
             <label class="form-label">NIK</label>
-<input type="text" class="form-control" name="nik" value="<?php echo $fetch_data['nik']?>">
+<input type="text" class="form-control" name="nik" value="<?php echo $fetch_data['nik']?>" >
 
 <label class="form-label">Nama</label>
 <input type="text" class="form-control" name="nama" value="<?php echo $fetch_data['nama_petugas']?>">
