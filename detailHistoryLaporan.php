@@ -7,7 +7,8 @@ $querySelectLaporan = mysqli_query($conn, "SELECT * FROM pengaduan WHERE id_peng
 $fetch_data = mysqli_fetch_array($querySelectLaporan);
 
 
-$querySelectPengaduan = mysqli_query($conn, "SELECT * FROM tanggapan");
+$querySelectPengaduan = mysqli_query($conn, "SELECT * FROM tanggapan WHERE id_pengaduan = '$id'");
+$hitungPengaduan = mysqli_num_rows($querySelectPengaduan);
 $dataPengaduan = mysqli_fetch_array($querySelectPengaduan);
 function generatorRandom($length = 10)
 {
@@ -50,7 +51,19 @@ function generatorRandom($length = 10)
           <input type="text" class="form-control" name="date" id="date" disabled value="<?php echo $fetch_data['tgl_pengaduan'] ?>">
 
           <label for="tanggapan">Tanggapan</label>
-          <textarea name="tanggapan" id="tanggapan" class="form-control"disabled><?php echo $dataPengaduan['tanggapan'];?></textarea>
+          <?php
+          if($hitungPengaduan < 1){
+            ?>
+            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled>Tanggapan Tidak ada</textarea>
+            <?php
+          }else{
+            ?>
+            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled><?php echo $dataPengaduan['tanggapan'];?></textarea>
+            <?php
+          }
+          ?>
+          
+          
 
           <label for="isiLaporan">Isi Laporan</label>
           <textarea name="isiLaporan" id="isiLaporan" class="form-control"><?php echo $fetch_data['isi_laporan'] ?></textarea>
