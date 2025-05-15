@@ -1,13 +1,15 @@
 <?php
-// require ('config/session.php');
-require ('../config/db.php');
+// require ('config/session.php');  // Baris ini di-comment, mungkin untuk session handling nanti
+require ('../config/db.php');     // Koneksi ke database
 
+// Cek apakah ada parameter 'search' di URL dan tidak kosong
 if (isset($_GET['search']) && $_GET['search'] != '') {
     $filtervalues = $_GET['search'];
+    // Query untuk mencari data berdasarkan kolom judul_laporan, tgl_pengaduan, nik, dan isi_laporan
     $queryGetData = "SELECT * FROM pengaduan WHERE CONCAT(judul_laporan,tgl_pengaduan,nik,isi_laporan) LIKE '%$filtervalues%' ";
     $result = mysqli_query($conn, $queryGetData);
 } else {
-    // Tidak ada pencarian, ambil semua data
+    // Jika tidak ada pencarian, ambil semua data dari tabel pengaduan
     $queryGetData = "SELECT * FROM pengaduan";
     $result = mysqli_query($conn, $queryGetData);
 }
@@ -19,26 +21,28 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Laporan - MyReport</title>
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS dari CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
+    <!-- Bootstrap Icons dari CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-    <!-- sweetalert -->
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert untuk alert interaktif -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        
+        /* Styling container utama halaman */
         .content-container {
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
         
+        /* Styling judul halaman */
         .page-title {
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
         }
         
+        /* Styling area search */
         .search-container {
             display: flex;
             justify-content: space-between;
@@ -52,10 +56,11 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
         }
         
         .search-box input {
-            padding-left: 40px;
-            border-radius: 20px;
+            padding-left: 40px; /* Memberi ruang untuk icon search di kiri */
+            border-radius: 20px; /* Membuat input search membulat */
         }
         
+        /* Posisi dan warna icon search */
         .search-icon {
             position: absolute;
             left: 15px;
@@ -63,6 +68,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             color: #6c757d;
         }
         
+        /* Tombol generate PDF yang fixed di kanan bawah */
         .btn-generate {
             position: fixed;
             bottom: 5rem;
@@ -71,6 +77,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             border-color: #3E6EA2;
         }
         
+        /* Styling tombol detail */
         .btn-details {
             background-color: #f8f9fa;
             border-color: #dee2e6;
@@ -79,24 +86,24 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
     </style>
 </head>
 <body>
-    <!-- Navbar -->
+    <!-- Navbar disisipkan dari file config/navbar.php -->
 <?php  include('config/navbar.php')?>
     <!-- Main Content -->
     <div class="content-container">
         <h1 class="page-title">Daftar Laporan</h1>
         
-        <!-- Search -->
+        <!-- Form pencarian dengan metode GET -->
          <form action="" method="GET" role="search">
         <div class="search-container">
             <div class="search-box">
-                <i class="bi bi-search search-icon"></i>
+                <i class="bi bi-search search-icon"></i> <!-- Icon search -->
                 <input type="text" class="form-control d-inline" placeholder="Cari Laporan" id="searchInput" name="search">
-                <button class="btn btn-outline-dark rounded-pill mt-2" type="submit">Search</button>
-                <button class="btn btn-outline-danger rounded-pill mt-2">Reset</button>
+                <button class="btn btn-outline-dark rounded-pill mt-2" type="submit">Search</button> <!-- Tombol submit pencarian -->
+                <button class="btn btn-outline-danger rounded-pill mt-2">Reset</button> <!-- Tombol reset (perlu diperbaiki agar benar-benar reset) -->
             </div>
         </div>
         </form>
-        <!-- Table -->
+        <!-- Table laporan -->
         <div class="report-table table-responsive">
             <table class="table" id="reportTable">
                 <thead>
@@ -112,24 +119,25 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
                     </tr>
                 </thead>
 
-
-                <!-- add report-->
+                <!-- Tombol Generate PDF berada di atas tbody -->
                 <button class="btn btn-primary btn-generate" id="generatePdfBtn">
                 <i class="bi bi-file-earmark-pdf"></i> Generate Laporan
             </button>
                 <tbody>
                     <?php
+// Cek apakah ada data hasil query
 if (mysqli_num_rows($result) > 0) {
-    $no = 1;
+    $no = 1; // Nomor urut tabel
     while ($data = mysqli_fetch_array($result)) { ?>
         <tr>
-            <td><?php echo $no++; ?></td>
+            <td><?php echo $no++; ?></td> <!-- Nomor urut -->
             <td><?php echo $data['judul_laporan']; ?></td>
             <td><?php echo $data['tgl_pengaduan']; ?></td>
             <td><?php echo $data['nik']; ?></td>
             <td><?php echo $data['isi_laporan']; ?></td>
             <td><?php echo $data['foto']; ?></td>
             <?php
+            // Menentukan kelas tombol berdasarkan status laporan
             $status = trim($data['status']);
             switch ($status) {
                 case 'diproses':
@@ -145,34 +153,29 @@ if (mysqli_num_rows($result) > 0) {
                     $class = 'btn btn-outline-secondary rounded-pill btn-sm';
                     break;
             }
+            // Menampilkan status dengan style tombol
             echo '<td><span class="' . $class . '">' . htmlspecialchars($status) . '</span></td>';
             ?>
+            <!-- Tombol aksi detail dan tanggapan -->
             <td><a href="detailLaporan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">Detail</a></td>
             <td><a href="tanggapan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">Tanggapan</a></td>
         </tr>
     <?php }
 } else {
+    // Jika tidak ada data yang ditemukan
     echo "<tr><td colspan='8' class='text-center'>Tidak ada data ditemukan.</td></tr>";
 }
-
-
-require '../vendor/autoload.php'; // pastikan path benar
-
-$mpdf = new \Mpdf\Mpdf();
-$mpdf->WriteHTML('<h1>Hello World!</h1>');
-$mpdf->Output();
 ?>
                 </tbody>
             </table>
         </div>
     </div>
 
-
-    <!-- Bootstrap Bundle with Popper -->
+    <!-- Bootstrap Bundle dengan Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-    
+    // Event listener untuk tombol Generate PDF
 document.getElementById('generatePdfBtn').addEventListener('click', function() {
     Swal.fire({
         title: 'Generate PDF?',
@@ -185,7 +188,7 @@ document.getElementById('generatePdfBtn').addEventListener('click', function() {
         cancelButtonText: 'Batal'
     }).then((result) => {
         if (result.isConfirmed) {
-            // SweetAlert loading
+            // Menampilkan loading SweetAlert
             Swal.fire({
                 title: 'Sedang diproses...',
                 text: 'Mohon tunggu beberapa detik',
@@ -195,12 +198,13 @@ document.getElementById('generatePdfBtn').addEventListener('click', function() {
                 allowOutsideClick: false
             });
 
+            // Request ke generate_pdf.php untuk generate PDF
             fetch('generate_pdf.php')
             .then(response => response.blob())
             .then(blob => {
                 Swal.close(); // Tutup loading
 
-                // Buat link download
+                // Buat link download otomatis untuk file PDF
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
@@ -211,6 +215,7 @@ document.getElementById('generatePdfBtn').addEventListener('click', function() {
                 window.URL.revokeObjectURL(url);
             })
             .catch(error => {
+                // Jika terjadi error saat generate PDF
                 Swal.fire('Gagal!', 'Terjadi kesalahan saat generate PDF.', 'error');
             });
         }
