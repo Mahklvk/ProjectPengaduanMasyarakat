@@ -63,7 +63,7 @@ function generatorRandom($length = 10)
             </div>
             <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center mt-5">
         <p>Current Photo</p>
-        <img src="storages/foto_laporan/<?php echo $fetch_data['foto']; ?>" alt="image laporan" class="img-fluid" style="max-height: 200px;">
+        <img src="../storages/foto_laporan/<?php echo $fetch_data['foto']; ?>" alt="image laporan" class="img-fluid" style="max-height: 200px;">
       </div>
         </div>
     </div>
