@@ -13,7 +13,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- nav items seperti biasa -->
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="index.php"><img src="assets/featherIcon/home.png" width="20px" class="me-2 mb-1">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php#about"><img src="assets/featherIcon/info.png" width="20px" class="me-2 mb-1">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php#contact"><img src="assets/featherIcon/phone.png" width="20px" class="me-2 mb-1">Contact</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Lainnya
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="dashboard.php"><img src="assets/featherIcon/user.png" width="20px" class="me-2 mb-1">Dashboard</a></li>
+            <li><a class="dropdown-item" href="historyLaporanM.php"><img src="assets/featherIcon/list.png" width="20px" class="me-2 mb-1">List Laporan</a></li>
+            <li><a class="dropdown-item" href="tulisLaporan.php"><img src="assets/featherIcon/plus.png" width="20px" class="me-2 mb-1">Buat Laporan</a></li>
+          </ul>
+        </li>
       </ul>
 
       <form class="d-flex" role="search">
@@ -25,7 +43,7 @@
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+              <li><a class="dropdown-item dropdown-danger" href="logout.php">Logout</a></li>
             </ul>
           </div>
         <?php else: ?>
@@ -45,7 +63,7 @@
     }
 
     .nav-link{
-        color: rgb(235, 223, 223);
+        color: rgb(255, 255, 255);
     }
     .nav-link:hover{
         color:rgb(255, 255, 255);
