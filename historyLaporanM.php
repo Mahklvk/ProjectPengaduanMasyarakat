@@ -135,9 +135,9 @@ include ('config/navbar.php');
 
 
                 <!-- add report-->
-                <button class="btn btn-primary" id="addReportBtn">
+                <a href="tulisLaporan.php"><button class="btn btn-primary" id="addReportBtn">
                 <i class="bi bi-plus-circle"></i> Buat laporan
-            </button>
+            </button></a>
                 <tbody>
                     <?php
                     if (mysqli_num_rows($queryGetData) > 0) {
@@ -151,7 +151,7 @@ include ('config/navbar.php');
                         <td><?php echo $data['isi_laporan']++; ?></td>
                         <td><?php echo $data['foto']++; ?></td>
                         <td><?php echo $data['status']++; ?></td>
-                        <td><a href="detailHistoryLaporan.php?p=<?php $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">detail</a></td>
+                        <td><a href="detailHistoryLaporan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">detail</a></td>
                     </tr>
                     <?php
 
@@ -201,12 +201,6 @@ include ('config/navbar.php');
             alert(`View details for report ID: ${reportId}`);
         }
 
-        // Add report button click handler
-        document.getElementById('addReportBtn').addEventListener('click', function() {
-            // This would redirect to a form page
-            // window.location.href = 'tambah_laporan.php';
-            alert('Redirect to add report form');
-        });
 
         // Search input event listener
         document.getElementById('searchInput').addEventListener('input', filterTable);

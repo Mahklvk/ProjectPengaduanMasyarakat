@@ -26,9 +26,9 @@ include 'config/db.php';
                 <!-- Header with back button and logo -->
                 <div class="col-12" style="height: 70px;">
                     <div class="d-flex justify-content-between align-items-center px-4 py-3 bg-white">
-                        <div class="back-button">
+                        <a href="index.php"><div class="back-button">
                             <i class="bi bi-arrow-left"></i>
-                        </div>
+                        </div></a>
                         <div class="navbar-brand d-flex align-items-center">
                             <img src="storages/logo2.png" alt="MyReport Icon" class="logo-icon me-2">
                             <img src="storages/MyReport2.png" alt="MyReport Text" class="logo-text">
@@ -62,8 +62,8 @@ include 'config/db.php';
                             
                             <form method="POST">
                             <div class="mb-3">
-                                        <label for="nik" class="form-label">NIK</label>
-                                        <input type="text" class="form-control" id="nik" placeholder="320xxxxxxxxxxx" name="nik">
+                                        <label for="nik" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="nik" placeholder="example@gmail.com" name="email">
                                     </div>
                                 
                                 <div class="mb-3">
@@ -81,7 +81,7 @@ include 'config/db.php';
                                         <input class="form-check-input custom-checkbox" type="checkbox" id="rememberMe">
                                         <label class="form-check-label" for="rememberMe">Ingat Saya</label>
                                     </div>
-                                    <a href="lupaPassword.php" class="forgot-password">Lupa Password?</a>
+                                    <a href="lupa_password_masyarakat.php" class="forgot-password">Lupa Password?</a>
                                 </div>
                                 
                                 <button name="submit" type="submit" class="btn btn-login">
@@ -98,15 +98,15 @@ include 'config/db.php';
 
                             if (isset($_POST['submit'])) {
                                 // Mengambil input dari form login
-                                $nik = htmlspecialchars($_POST['nik']);
+                                $email = htmlspecialchars($_POST['email']);
                                 $password = htmlspecialchars($_POST['password']);
 
                                 // Memastikan koneksi ke database berhasil
                                 if ($conn) {
                                     // Query untuk mencari username di database
-                                    $query = "SELECT * FROM masyarakat WHERE nik = ?";
+                                    $query = "SELECT * FROM masyarakat WHERE email = ?";
                                     $stmt = mysqli_prepare($conn, $query);
-                                    mysqli_stmt_bind_param($stmt, "s", $nik);
+                                    mysqli_stmt_bind_param($stmt, "s", $email);
                                     mysqli_stmt_execute($stmt);
                                     $result = mysqli_stmt_get_result($stmt);
 
@@ -115,6 +115,8 @@ include 'config/db.php';
                                         // Memverifikasi password
                                         if ($password === $data['password']) {
                                             // Jika berhasil, buat session
+                                            $_SESSION['email'] = $data['email'];
+                                            $_SESSION['username'] = $data['username'];
                                             $_SESSION['nik'] = $data['nik'];
                                             $_SESSION['login'] = true;
                                             echo "<script>
@@ -123,7 +125,7 @@ include 'config/db.php';
                                                         text: 'Selamat datang, " . $data['username'] . "!',
                                                         icon: 'success'
                                                     }).then(() => {
-                                                        window.location.href = 'dashboard.php';
+                                                        window.location.href = 'index.php';
                                                     });
                                                   </script>";
                                         } else {

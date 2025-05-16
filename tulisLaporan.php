@@ -104,7 +104,7 @@ function generatorRandom($length = 10)
                       text: "Laporan akan segera ditanggapi oleh petugas kami!",
                       icon: "success"
                     }).then(() => {
-                      window.location.href = 'history_laporan.php';
+                      window.location.href = 'historyLaporanM.php';
                     });
                   </script>
                 <?php

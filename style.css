@@ -54,7 +54,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: -30px; /* Menaikkan posisi form login lebih ke atas */
 }
 
 .illustration-col {
@@ -71,15 +70,12 @@ body {
   color: #0d1e40;
   font-size: 2.5rem;
   font-weight: bold;
-  margin-bottom: 20px;
-  margin-top: -40px; /* Menaikkan teks selamat datang */
+  margin-bottom: 30px;
+  z-index: 1;
 }
 
 .illustration-img {
-  max-width: 80%; /* Mengurangi ukuran gambar dari 100% menjadi 80% */
-  height: auto;
-  z-index: 1;
-  margin-top: -50px; /* Menaikkan posisi gambar lebih ke atas */
+  max-width: 400px;
 }
 
 .form-label {
@@ -158,21 +154,21 @@ body {
 .decoration-1 {
   width: 200px;
   height: 200px;
-  top: 5%; /* Sesuaikan posisi dari 10% ke 5% */
+  top: 10%;
   left: 5%;
 }
 
 .decoration-2 {
   width: 100px;
   height: 100px;
-  bottom: 25%; /* Sesuaikan posisi dari 15% ke 25% */
+  bottom: 15%;
   right: 10%;
 }
 
 .decoration-3 {
   width: 50px;
   height: 50px;
-  top: 30%; /* Sesuaikan posisi dari 40% ke 30% */
+  top: 40%;
   right: 20%;
 }
 
@@ -206,4 +202,10 @@ body {
   justify-content: center;
   max-width: 100%;
   position: relative;
+}
+
+.illustration-img {
+  max-width: 100%;
+  height: auto;
+  z-index: 1;
 }
