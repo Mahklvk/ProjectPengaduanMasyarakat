@@ -1,4 +1,5 @@
 <?php
+require "config/sessionLogin.php";
 // require ('config/session.php');  // Baris ini di-comment, mungkin untuk session handling nanti
 require ('../config/db.php');     // Koneksi ke database
 
@@ -119,10 +120,21 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
                     </tr>
                 </thead>
 
-                <!-- Tombol Generate PDF berada di atas tbody -->
-                <button class="btn btn-primary btn-generate" id="generatePdfBtn">
+                <?php
+                if($_SESSION['level']  ==  'petugas'){
+                    ?>
+             <button class="btn btn-primary btn-generate d-none" id="generatePdfBtn">
                 <i class="bi bi-file-earmark-pdf"></i> Generate Laporan
             </button>
+                    <?php
+                }else{
+                    ?>
+             <button class="btn btn-primary btn-generate" id="generatePdfBtn">
+                <i class="bi bi-file-earmark-pdf"></i> Generate Laporan
+            </button>
+                    <?php
+                }
+                ?>
                 <tbody>
                     <?php
 // Cek apakah ada data hasil query

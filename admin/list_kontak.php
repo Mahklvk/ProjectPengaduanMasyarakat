@@ -1,4 +1,5 @@
 <?php 
+require "config/sessionLogin.php";
 require('../config/db.php');
 
 // Cek apakah ada pencarian

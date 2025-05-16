@@ -1,4 +1,5 @@
 <?php
+require "config/sessionLogin.php";
 require('../config/db.php');
 $id = $_GET['p'];
 $querySelectLaporan = mysqli_query($conn, "SELECT * FROM pengaduan WHERE id_pengaduan='$id'");

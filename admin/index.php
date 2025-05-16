@@ -1,5 +1,5 @@
 <?php
-// require "config/session.php";
+require "config/sessionLogin.php";
 require "../config/db.php"; // include database
 
 $queryGetPengaduan = mysqli_query($conn, "SELECT * FROM pengaduan"); // ambil data dari tabel pengaduan
