@@ -41,9 +41,30 @@
               <?= htmlspecialchars($_SESSION['username']) ?>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <?php
+              if($_SESSION['level'] == 'masyarakat'){
+                ?>
+              <li><a class="dropdown-item" href="dashboard.php">Profile</a></li>
+                <?php
+              }else{
+                 ?>
+              <li><a class="dropdown-item" href="admin/dashboardAdmin.php">Profile</a></li>
+                <?php
+              }
+              ?>
+
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item dropdown-danger" href="logout.php">Logout</a></li>
+               <?php
+              if($_SESSION['level'] == 'masyarakat'){
+                ?>
+              <li><a class="dropdown-item" href="config/logout.php">logout</a></li>
+                <?php
+              }else{
+                 ?>
+              <li><a class="dropdown-item" href="admin/config/logout.php">Logout</a></li>
+                <?php
+              }
+              ?>
             </ul>
           </div>
         <?php else: ?>
