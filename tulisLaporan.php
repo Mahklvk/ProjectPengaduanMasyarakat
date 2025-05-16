@@ -2,6 +2,29 @@
 require('config/session.php');
 require('config/db.php');
 
+
+// Ambil data user dari database berdasarkan session
+// Cek terlebih dahulu apakah variabel session nik ada
+if(isset($_SESSION['nik'])) {
+    $nik = $_SESSION['nik'];
+} else {
+    // Jika tidak ada variabel nik, coba cek variabel lain yang mungkin menyimpan nik user
+    if(isset($_SESSION['id_user'])) {
+        $nik = $_SESSION['id_user'];
+    } else if(isset($_SESSION['user_id'])) {
+        $nik = $_SESSION['user_id'];
+    } else if(isset($_SESSION['id'])) {
+        $nik = $_SESSION['id'];
+    } else {
+        // Jika tidak ada variabel nik yang ditemukan, redirect ke login
+        $_SESSION['message'] = "Sesi tidak valid. Silakan login kembali.";
+        $_SESSION['message_type'] = "error";
+        header("Location: login.php");
+        exit();
+    }
+}
+
+
 $nik = $_SESSION['nik'];
 
 
@@ -40,7 +63,7 @@ function generatorRandom($length = 10)
         <div class="container">
           <form action="" class="container w-10" enctype="multipart/form-data" method="post">
             <label for="judulLaporan" class="form-label">Judul Laporan</label>
-            <input type="nik" class="form-control" name="judulLaporan" id="judulLaporan" required placeholder="Laporan">
+            <input type="text" class="form-control" name="judulLaporan" id="judulLaporan" required placeholder="Laporan">
 
             <label for="date" class="form-label">Tanggal Sekarang</label>
             <input type="date" class="form-control" name="date" id="date">
