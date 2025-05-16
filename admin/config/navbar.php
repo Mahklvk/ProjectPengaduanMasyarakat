@@ -30,7 +30,7 @@
             <li><a class="dropdown-item" href="dashboard.php"><img src="../assets/featherIcon/user.png" width="20px" class="me-2 mb-1">Dashboard</a></li>
             <li><a class="dropdown-item" href="listAccountAdmin.php"><i class="fa-solid fa-user-tie me-2"></i> List Admin</a></li>
             <li><a class="dropdown-item" href="listAccountMasyarakat.php"><i class="fa-solid fa-user me-2"></i> List Masyarakat</a></li>
-            <li><a class="dropdown-item" href="tambah_akun.php"><img src="../assets/featherIcon/plus.png" width="20px" class="me-2 mb-1">Buat Akun</a></li>
+            <li><a class="dropdown-item" href="buatAkun.php"><img src="../assets/featherIcon/plus.png" width="20px" class="me-2 mb-1">Buat Akun</a></li>
           </ul>
         </li>
       </ul>
@@ -44,7 +44,7 @@
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item dropdown-danger" href="logout.php">Logout</a></li>
+              <li><a class="dropdown-item dropdown-danger" href="config/logout.php">Logout</a></li>
             </ul>
           </div>
         <?php else: ?>
