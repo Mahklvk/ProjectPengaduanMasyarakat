@@ -7,7 +7,7 @@ $passwordBaru = $_POST['password_baru'];
 
 $query = mysqli_query($conn, "SELECT * FROM petugas WHERE reset_token='$token'");
 if (mysqli_num_rows($query) > 0) {
-    $hashed = $passwordBaru; // Sebaiknya di-hash: password_hash($passwordBaru, PASSWORD_DEFAULT)
+    $hashed = password_hash($passwordBaru, PASSWORD_DEFAULT);
     mysqli_query($conn, "UPDATE petugas SET password='$hashed', reset_token=NULL, token_expiry=NULL WHERE reset_token='$token'");
   echo "
     <html>
@@ -17,7 +17,7 @@ if (mysqli_num_rows($query) > 0) {
     <body>
         <script>
         Swal.fire({ icon: 'success', title: 'Sukses!', text: 'Password telah berhasil diperbarui.' })
-        .then(() => { window.location.href = 'login.php'; });
+        .then(() => { window.location.href = 'admin/loginAdmin.php'; });
         </script>
     </body>
     </html>";
@@ -31,7 +31,7 @@ if (mysqli_num_rows($query) > 0) {
     <body>
         <script>
         Swal.fire({ icon: 'error', title: 'Error!', text: 'Token tidak valid!' })
-        .then(() => { window.location.href = 'lupa_password_masyarakat.php'; });
+        .then(() => { window.location.href = 'lupa_password_admin.php'; });
         </script>
     </body>
     </html>";
