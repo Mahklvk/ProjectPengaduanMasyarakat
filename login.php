@@ -118,7 +118,8 @@ include 'config/db.php';
                                             $_SESSION['email'] = $data['email'];
                                             $_SESSION['username'] = $data['username'];
                                             $_SESSION['nik'] = $data['nik'];
-                                            $_SESSION['level'] = $data['level'];
+                                            $_SESSION['role'] = $data['role'];
+                                            $_SESSION['id_petugas'] = $data['id_petugas'];
                                             $_SESSION['login'] = true;
                                             echo "<script>
                                                     Swal.fire({
