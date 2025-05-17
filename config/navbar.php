@@ -42,7 +42,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <?php
-              if($_SESSION['level'] == 'masyarakat'){
+              if($_SESSION['role'] == 'masyarakat'){
                 ?>
               <li><a class="dropdown-item" href="dashboard.php">Profile</a></li>
                 <?php
@@ -55,7 +55,7 @@
 
               <li><hr class="dropdown-divider"></li>
                <?php
-              if($_SESSION['level'] == 'masyarakat'){
+              if($_SESSION['role'] == 'masyarakat'){
                 ?>
               <li><a class="dropdown-item" href="config/logout.php">logout</a></li>
                 <?php
