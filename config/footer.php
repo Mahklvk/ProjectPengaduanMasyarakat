@@ -121,14 +121,14 @@
                 <div class="divider"></div>
                 <div class="footer-nav mt-2">
                     <a href="#">Home</a>
-                    <a href="#">About</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Login</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                    <a href="login.php">Login</a>
                 </div>
             </div>
             
             <div class="col-md-3 text-end">
-                <a href="tulisLaporan.php"><button class="footer-button"  >Ayo Mulai!</button></a>
+                <a href="tulisLaporan.php"><button class="footer-button">Ayo Mulai!</button></a>
             </div>
         </div>
         
