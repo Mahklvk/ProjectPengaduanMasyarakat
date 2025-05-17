@@ -200,35 +200,19 @@ document.getElementById('generatePdfBtn').addEventListener('click', function() {
         cancelButtonText: 'Batal'
     }).then((result) => {
         if (result.isConfirmed) {
-            // Menampilkan loading SweetAlert
+            // Tampilkan loading sebentar sebelum redirect
             Swal.fire({
                 title: 'Sedang diproses...',
-                text: 'Mohon tunggu beberapa detik',
+                text: 'File akan diunduh otomatis',
+                timer: 2000,
                 didOpen: () => {
                     Swal.showLoading();
                 },
+                willClose: () => {
+                    // Redirect ke file PHP yang langsung kirim PDF
+                    window.location.href = 'generate_pdf.php';
+                },
                 allowOutsideClick: false
-            });
-
-            // Request ke generate_pdf.php untuk generate PDF
-            fetch('generate_pdf.php')
-            .then(response => response.blob())
-            .then(blob => {
-                Swal.close(); // Tutup loading
-
-                // Buat link download otomatis untuk file PDF
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'Laporan_Pengaduan.pdf';
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            })
-            .catch(error => {
-                // Jika terjadi error saat generate PDF
-                Swal.fire('Gagal!', 'Terjadi kesalahan saat generate PDF.', 'error');
             });
         }
     });
