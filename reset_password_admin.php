@@ -16,7 +16,7 @@ if (mysqli_num_rows($query) == 0) {
                 title: 'Error!', 
                 text: 'Token tidak valid atau kadaluwarsa!' 
             }).then(() => { 
-                window.location.href = 'lupa_password_petugas.php'; 
+                window.location.href = 'lupa_password_admin.php'; 
             });
         </script>
     </body>
