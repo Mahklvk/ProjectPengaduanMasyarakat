@@ -57,13 +57,10 @@ body {
 }
 
 .illustration-col {
-  background-color: white;
-  padding: 0 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+    order: -1; /* tampilkan gambar duluan */
+    height: auto;
+    padding: 20px;
+    text-align: center;
 }
 
 .welcome-text {
