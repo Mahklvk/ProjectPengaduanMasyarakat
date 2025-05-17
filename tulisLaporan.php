@@ -59,7 +59,7 @@ function generatorRandom($length = 10)
   <h1 class="container mt-5">Lapor Sekarang</h1>
   <div class="container">
     <div class="row">
-      <div class="col-12 border border-dark rounded p-5">
+      <div class="col-md-8 border border-dark rounded p-5">
         <div class="container">
           <form action="" class="container w-10" enctype="multipart/form-data" method="post">
             <label for="judulLaporan" class="form-label">Judul Laporan</label>
@@ -72,14 +72,16 @@ function generatorRandom($length = 10)
             <textarea name="isiLaporan" id="isiLaporan" class="form-control" placeholder="Isi Laporan" required></textarea>
 
             <label for="foto">Foto</label>
-            <input type="file" class="form-control" name="foto" id="foto" required>
+            <div class="container justify-content-center align-items-center text-center">
+            </div>
+            <input type="file" class="form-control" name="foto" id="foto" required onchange="img.src = window.URL.createObjectURL(this.files[0])">
 
             <div class="row">
               <div class="container align-items-center justify-content-center d-flex mt-2">
                 <button class="btn btn-primary col-2" name="submit" id="submit">Submit</button>
               </div>
             </div>
-
+          </div>
           </form>
           <?php
           if (isset($_POST['submit'])) {
@@ -157,6 +159,12 @@ function generatorRandom($length = 10)
           }
           ?>
         </div>
+        <div class="col-md-4 col-sm-11 align-items-center justify-content-center text-center border border-dark rounded p-5">
+        <p class="">Image Preview</p>
+        <img class="img-fluid mt-5" style="max-width: 150px;" id="img">
+      </div>
+      </div>
+    </div>
       </div>
     </div>
   </div>
