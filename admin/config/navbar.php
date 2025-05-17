@@ -27,7 +27,7 @@
             Lainnya
           </a>
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="dashboard.php"><img src="../assets/featherIcon/user.png" width="20px" class="me-2 mb-1">Dashboard</a></li>
+            <li><a class="dropdown-item" href="dashboardAdmin.php"><img src="../assets/featherIcon/user.png" width="20px" class="me-2 mb-1">Dashboard</a></li>
             <li><a class="dropdown-item" href="listAccountAdmin.php"><i class="fa-solid fa-user-tie me-2"></i> List Admin</a></li>
             <li><a class="dropdown-item" href="listAccountMasyarakat.php"><i class="fa-solid fa-user me-2"></i> List Masyarakat</a></li>
             <li><a class="dropdown-item" href="buatAkun.php"><img src="../assets/featherIcon/plus.png" width="20px" class="me-2 mb-1">Buat Akun</a></li>
@@ -42,7 +42,7 @@
               <?= htmlspecialchars($_SESSION['username']) ?>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="dashboardAdmin.php">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item dropdown-danger" href="config/logout.php">Logout</a></li>
             </ul>
