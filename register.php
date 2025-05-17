@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #fff;
             font-family: Arial, sans-serif;
         }
         .card {
@@ -120,15 +120,14 @@
 </head>
 <body>
     <div class="container mt-3">
+    <a href="index.php" class="back-button">
+        <i class="bi bi-arrow-left"></i>
+    </a>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
                     <div class="card-body p-0">
                         <div class="row g-0">
                             <div class="col-md-6 p-4">
-                                <a href="index.php" class="back-button">
-                                    <i class="bi bi-arrow-left"></i>
-                                </a>
                                 <h2 class="mb-1">Register</h2>
                                 <p class="mb-4 text-muted">Daftarkan Akun Anda</p>
 
@@ -175,7 +174,9 @@
                                 $nik = mysqli_real_escape_string($conn, $_POST['nik']);
                                 $nama = mysqli_real_escape_string($conn, $_POST['nama']);
                                 $username = mysqli_real_escape_string($conn, $_POST['username']);
-                                $password = mysqli_real_escape_string($conn, $_POST['password']);
+                                //hash password mencegah hacker
+                                $password_raw = $_POST['password'];
+                                $password = password_hash($password_raw, PASSWORD_DEFAULT);
                                 $telp = mysqli_real_escape_string($conn, $_POST['telp']);
     
                                 // Validasi input
@@ -283,7 +284,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
