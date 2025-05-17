@@ -52,13 +52,18 @@ require "config/sessionLogin.php";
                 <!-- NIK -->
                 <div class="mb-3">
                     <label for="nik" class="form-label">NIK</label>
-                    <input name="nik" type="text" class="form-control" id="nik" placeholder="320xxxx" required>
+                    <input name="nik" type="text" class="form-control" id="nik" placeholder="320xxxx" required maxlength="19" autocomplete="off"   oninput="formatNumber(this)">
                 </div>
 
                 <!-- Nama -->
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
                     <input name="nama" type="text" class="form-control" id="nama" placeholder="nama" required>
+                </div>
+
+                <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" autocomplete="off">
                 </div>
 
                 <!-- Username -->
@@ -81,7 +86,7 @@ require "config/sessionLogin.php";
                 <!-- No. Telp -->
                 <div class="mb-3">
                     <label for="notelp" class="form-label">No.Telp</label>
-                    <input name="notelp" type="text" class="form-control" id="notelp" placeholder="083xxxx" required>
+                    <input name="notelp" type="text" class="form-control" id="notelp" placeholder="083xxxx" required  oninput="formatNumber(this)" minlength="13" maxlength="18">
                 </div>
 
                 <!-- Pilih Role Dropdown -->
@@ -109,16 +114,21 @@ require "config/sessionLogin.php";
                 // Mengambil dan membersihkan data input dari form
                 $nik = mysqli_real_escape_string($conn, $_POST['nik']);
                 $nama_petugas = mysqli_real_escape_string($conn, $_POST['nama']);
+                $email = mysqli_real_escape_string($conn, $_POST['email']);
                 $username = mysqli_real_escape_string($conn, $_POST['username']);
-                $password = mysqli_real_escape_string($conn, $_POST['password']);
+                $password_raw = $_POST['password'];
+                $password = password_hash($password_raw, PASSWORD_DEFAULT);
                 $telp = mysqli_real_escape_string($conn, $_POST['notelp']);
                 $level = mysqli_real_escape_string($conn, $_POST['role']);
 
                 // Inisialisasi array untuk menyimpan pesan kesalahan validasi
                 $errors = array();
 
+                $nik = preg_replace('/\D/', '', $_POST['nik']); // pembersihan karakter & hanya angka
+                $telp = preg_replace('/\D/', '', $_POST['notelp']);
+
                 // Validasi NIK (harus 16 digit angka)
-                if(!is_numeric($nik) || strlen($nik) != 16) {
+                if(strlen($nik) != 16) {
                     $errors[] = "NIK harus berupa 16 digit angka";
                 }
 
@@ -126,6 +136,17 @@ require "config/sessionLogin.php";
                 $check_username = mysqli_query($conn, "SELECT * FROM petugas WHERE username='$username'");
                 if($check_username && mysqli_num_rows($check_username) > 0) {
                     $errors[] = "Username sudah digunakan";
+                }
+
+                //validasi email
+                $check_email = mysqli_query($conn, "SELECT * FROM petugas WHERE email='$email'");
+                if($check_email && mysqli_num_rows($check_email) > 0) {
+                    $errors[] = "Email sudah terdaftar";
+                }
+
+                $check_telp = mysqli_query($conn, "SELECT * FROM petugas WHERE telp='$telp'");
+                if($check_telp && mysqli_num_rows($check_telp) > 0) {
+                    $errors[] = "Nomor Telpon sudah terdaftar";
                 }
 
                 // Validasi level (harus 'admin' atau 'petugas')
@@ -136,8 +157,8 @@ require "config/sessionLogin.php";
                 // Jika tidak ada kesalahan validasi, simpan data ke database
                 if(empty($errors)) {
                     // Memasukkan data petugas baru ke database
-                    $query = "INSERT INTO petugas (nik, nama_petugas, username, password, telp, level) 
-                              VALUES ('$nik', '$nama_petugas', '$username', '$password', '$telp', '$level')";
+                    $query = "INSERT INTO petugas (nik, nama_petugas, email, username, password, telp, level) 
+                              VALUES ('$nik', '$nama_petugas','$email', '$username', '$password', '$telp', '$level')";
 
                     $data = mysqli_query($conn, $query);
 
@@ -196,6 +217,22 @@ require "config/sessionLogin.php";
 
     <!-- Password toggle script -->
     <script>
+
+              function formatNumber(input) {
+  // Ambil angka saja, tanpa karakter selain digit
+  let value = input.value.replace(/\D/g, '');
+
+  // Potong jadi per 4 digit
+  let formatted = value.match(/.{1,4}/g);
+  
+  // Gabungkan dengan "-"
+  if (formatted) {
+    input.value = formatted.join('-');
+  } else {
+    input.value = '';
+  }
+}
+
         document.getElementById('togglePassword').addEventListener('click', function() {
             const passwordInput = document.getElementById('password');
             const icon = this.querySelector('i');
