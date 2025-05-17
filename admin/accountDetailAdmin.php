@@ -23,7 +23,7 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
             <div class="col-md-12 p-3">
                 <form action="" method="post">
             <label class="form-label">NIK</label>
-<input type="text" class="form-control" name="nik" value="<?php echo $fetch_data['nik']?>" >
+<input type="text" class="form-control" id="nik" value="<?php echo $fetch_data['nik']?>" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)">
 
 <label class="form-label">Nama</label>
 <input type="text" class="form-control" name="nama" value="<?php echo $fetch_data['nama_petugas']?>">
@@ -34,11 +34,17 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
 <label class="form-label">Email</label>
 <input type="text" class="form-control" name="email" value="<?php echo $fetch_data['email']?>">
 
-<label class="form-label">Password</label>
-<input type="text" class="form-control" name="password" value="<?php echo $fetch_data['password']?>">
+<label for="password" class="form-label fw-bold">Password</label>
+<div class="input-group">
+ <input type="password" class="form-control" id="password" name="password" placeholder="Password anda">
+<button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+<i class="fa fa-eye" id="passwordToggleIcon"></i>
+</button>
+</div>
+<small class="text-muted">Password tidak ditampilkan untuk masalah keamanan</small><br>
 
 <label class="form-label">No. Telp</label>
-<input type="text" class="form-control" name="telp" value="<?php echo $fetch_data['telp']?>">
+<input type="text" class="form-control" name="telp" value="<?php echo $fetch_data['telp']?>" oninput="formatNumber(this)" minlength="13" maxlength="18">
 
 
           <label for="date" class="form-label">Role</label>
@@ -59,6 +65,20 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    function formatNumber(input) {
+  // Ambil angka saja, tanpa karakter selain digit
+  let value = input.value.replace(/\D/g, '');
+
+  // Potong jadi per 4 digit
+  let formatted = value.match(/.{1,4}/g);
+  
+  // Gabungkan dengan "-"
+  if (formatted) {
+    input.value = formatted.join('-');
+  } else {
+    input.value = '';
+  }
+}
     function editAkun(idPetugas){
   Swal.fire({
     title: 'Apakah Kamu Yakin?',
