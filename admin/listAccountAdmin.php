@@ -57,7 +57,9 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
       </form>
     </div>
     <div class="col-md-4 text-end">
+      <a href="buatAkun.php">
       <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-circle-plus"></i> Tambah Akun</button>
+    </a>
     </div>
   </div>
 <div class="table-responsive">
@@ -68,7 +70,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
         <th>NIK</th>
         <th>Nama</th>
         <th>Username</th>
-        <th>Password</th>
         <th>Telp</th>
         <th>Level</th>
       </tr>
@@ -84,7 +85,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             <td><?= $data['nik']; ?></td>
             <td><?= $data['nama_petugas']; ?></td>
             <td><?= $data['username']; ?></td>
-            <td><?= strlen($data['password']) > 50 ? substr($data['password'], 0, 50) . '...' : $data['password']; ?></td>
             <td><?= $data['telp']; ?></td>
             <td><?= $data['level']; ?></td>
             <td><a href="accountDetailAdmin.php?p=<?php echo $data['id_petugas']; ?>" class="btn btn-sm btn-outline-dark"> Edit</a></td>

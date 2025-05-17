@@ -87,7 +87,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
         <th>NIK</th>
         <th>Nama</th>
         <th>Username</th>
-        <th>Password</th>
         <th>Telp</th>
         <th>Aksi</th>
       </tr>
@@ -109,7 +108,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             <td><?= $data['email']; ?></td>
             <td><?= $data['nama']; ?></td>
             <td><?= $data['username']; ?></td>
-            <td><?= strlen($data['password']) > 50 ? substr($data['password'], 0, 50) . '...' : $data['password']; ?></td>
             <td><?= $data['telp']; ?></td>
             <td><a href="detail_akun_masyarakat.php?p=<?php echo $data['id_masyarakat']; ?>" class="btn btn-sm btn-outline-secondary"> Edit</a></td>
           </tr>
