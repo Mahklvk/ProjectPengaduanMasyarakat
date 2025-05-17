@@ -4,30 +4,43 @@ require('config/db.php');
 
 // Ambil data user dari database berdasarkan session
 // Cek terlebih dahulu apakah variabel session nik ada
-if(isset($_SESSION['nik'])) {
-    $nik = $_SESSION['nik'];
-} else {
-    // Jika tidak ada variabel nik, coba cek variabel lain yang mungkin menyimpan nik user
-    if(isset($_SESSION['id_user'])) {
-        $nik = $_SESSION['id_user'];
-    } else if(isset($_SESSION['user_id'])) {
-        $nik = $_SESSION['user_id'];
-    } else if(isset($_SESSION['id'])) {
-        $nik = $_SESSION['id'];
-    } else {
-        // Jika tidak ada variabel nik yang ditemukan, redirect ke login
-        $_SESSION['message'] = "Sesi tidak valid. Silakan login kembali.";
-        $_SESSION['message_type'] = "error";
-        header("Location: login.php");
-        exit();
-    }
+if (!isset($_SESSION['nik'])) {
+    $_SESSION['message'] = "Silakan login untuk melanjutkan.";
+    $_SESSION['message_type'] = "error";
+    header("Location: login.php");
+    exit();
 }
 
+$nik = $_SESSION['nik']; // Ini dari session login
 
-$id = $_GET['p'];
-$querySelectLaporan = mysqli_query($conn, "SELECT * FROM pengaduan WHERE id_pengaduan='$id'");
-$fetch_data = mysqli_fetch_array($querySelectLaporan);
+// Cek apakah parameter id_pengaduan ada
+if (!isset($_GET['p'])) {
+    $_SESSION['message'] = "Laporan tidak ditemukan.";
+    $_SESSION['message_type'] = "error";
+    header("Location: history_laporan.php");
+    exit();
+}
 
+$id = $_GET['p']; // ID laporan yang mau dilihat
+
+// Ambil data pengaduan sesuai ID dan NIK
+$query = mysqli_query($conn, "SELECT * FROM pengaduan WHERE id_pengaduan = '$id' AND nik = '$nik'");
+if (!$query || mysqli_num_rows($query) == 0) {
+    // Laporan tidak ditemukan atau bukan milik user
+    echo "<script>
+        Swal.fire({
+            title: 'OOPS!',
+            text: 'Kamu tidak bisa melihat laporan orang lain!',
+            icon: 'error'
+        }).then(() => {
+            window.location.href = 'history_laporan.php';
+        });
+    </script>";
+    exit();
+}
+
+// Kalau lolos validasi, ambil datanya
+$fetch_data = mysqli_fetch_array($query);
 
 $querySelectPengaduan = mysqli_query($conn, "SELECT * FROM tanggapan WHERE id_pengaduan = '$id'");
 $hitungPengaduan = mysqli_num_rows($querySelectPengaduan);
@@ -41,6 +54,19 @@ function generatorRandom($length = 10)
     $randomString .= $characters[rand(0, $charactersLength - 1)];
   }
   return $randomString;
+}
+
+if (!$fetch_data) {
+    echo "<script>
+            Swal.fire({
+                title: 'Oops!',
+                text: 'Laporan tidak ditemukan!',
+                icon: 'error'
+            }).then(() => {
+                window.location.href = 'history_laporan.php';
+            });
+          </script>";
+    exit();
 }
 
 ?>
@@ -70,13 +96,13 @@ function generatorRandom($length = 10)
           <input type="nik" class="form-control" name="judulLaporan" id="judulLaporan" value="<?php echo $fetch_data['judul_laporan'] ?>">
 
           <label for="date" class="form-label">Tanggal lapor</label>
-          <input type="text" class="form-control" name="date" id="date" disabled value="<?php echo $fetch_data['tgl_pengaduan'] ?>">
+          <input type="text" class="form-control" name="date" id="date" readonly value="<?php echo $fetch_data['tgl_pengaduan'] ?>">
 
           <label for="tanggapan">Tanggapan</label>
           <?php
           if($hitungPengaduan < 1){
             ?>
-            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled>Tanggapan Tidak ada</textarea>
+            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled>Petugas Belum Memberikan Tanggapan</textarea>
             <?php
           }else{
             ?>
@@ -105,7 +131,7 @@ function generatorRandom($length = 10)
         <?php
         if (isset($_POST['submit'])) {
           $judulLaporan = mysqli_real_escape_string($conn, $_POST['judulLaporan']);
-          $date = mysqli_real_escape_string($conn, $_POST['date']);
+          // $date = mysqli_real_escape_string($conn, $_POST['date']);
           $isiLaporan = mysqli_real_escape_string($conn, $_POST['isiLaporan']);
 
           $targetDir = "storages/foto_laporan/";
@@ -140,7 +166,7 @@ function generatorRandom($length = 10)
             } else {
               if (move_uploaded_file($_FILES["foto"]["tmp_name"], $targetDir . $namaFotoBaru)) {
                 if (!empty($fetch_data['foto']) && file_exists($targetDir . $fetch_data['foto'])) {
-                  unlink($targetDir . $data['foto']);
+                  unlink($targetDir . $fetch_data['foto']);
                 }
                 $queryUpdate = mysqli_query($conn, "UPDATE pengaduan SET judul_laporan='$judulLaporan', isi_laporan='$isiLaporan', foto='$namaFotoBaru' WHERE id_pengaduan = '$id'");
               }
@@ -156,7 +182,7 @@ function generatorRandom($length = 10)
                 text: "Laporan telah diperbarui!",
                 icon: "success"
               }).then(() => {
-                window.location.href = 'historyLaporan.php';
+                window.location.href = 'history_laporan.php';
               });
             </script>
           <?php
@@ -212,7 +238,7 @@ function generatorRandom($length = 10)
                   'laporan Telah Terhapus.',
                   'success'
                 ).then(() => {
-                  window.location.href = 'historyLaporan.php';
+                  window.location.href = 'history_laporan.php';
                 });
               } else {
                 Swal.fire(
