@@ -15,6 +15,8 @@ $query = "DELETE FROM petugas WHERE id_petugas = '$id'";
 
 if (mysqli_query($conn, $query)) {
     echo json_encode(['success' => true]);
+    session_destroy();
+    exit;
 } else {
     echo json_encode(['success' => false, 'message' => 'Gagal menghapus akun.']);
 }
