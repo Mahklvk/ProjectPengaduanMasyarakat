@@ -7,7 +7,7 @@ $passwordBaru = $_POST['password_baru'];
 
 $query = mysqli_query($conn, "SELECT * FROM masyarakat WHERE reset_token='$token'");
 if (mysqli_num_rows($query) > 0) {
-    $hashed = $passwordBaru; // Sebaiknya di-hash: password_hash($passwordBaru, PASSWORD_DEFAULT)
+    $hashed = password_hash($passwordBaru, PASSWORD_DEFAULT);//di-hash: 
     mysqli_query($conn, "UPDATE masyarakat SET password='$hashed', reset_token=NULL, token_expiry=NULL WHERE reset_token='$token'");
   echo "
     <html>
