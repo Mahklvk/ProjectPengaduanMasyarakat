@@ -15,12 +15,14 @@ if (
     isset($data['telp'])
 ) {
     $id = $data['id_masyarakat'];
-    $nik = $data['nik'];
+    $nik = preg_replace('/\D/', '', $data['nik']);
     $email = $data['email'];
     $nama = $data['nama'];
     $username = $data['username'];
     $password = $data['password'];
-    $telp = $data['telp'];
+    $telp = preg_replace('/\D/', '', $data['telp']);
+
+    
 
     $query = "UPDATE masyarakat SET nik='$nik',email='$email', nama='$nama',username='$username', password='$password', telp='$telp' WHERE id_masyarakat='$id'";
     $result = mysqli_query($conn, $query);
