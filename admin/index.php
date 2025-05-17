@@ -223,7 +223,7 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
 
             <!-- Card Tambah Akun -->
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-                <a href="tambah_akun.php" class="no-decoration">
+                <a href="buatAkun.php" class="no-decoration">
                     <div class="summary-comment p-3">
                         <div class="row">
                             <div class="col-12 justify-content-center align-items-center p-2">
