@@ -135,32 +135,32 @@
                                 <form method="POST">
                                     <div class="mb-3">
                                         <label for="nik" class="form-label">NIK</label>
-                                        <input type="text" class="form-control" id="nik" placeholder="320xxxxxxxxxxx" name="nik">
+                                        <input type="text" class="form-control" id="nik" placeholder="320x-xxxx-xxxx-xxxx" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="text" class="form-control" id="email" placeholder="example@gmail.com" name="email">
+                                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" autocomplete="off">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Name" name="nama">
+                                        <input type="name" class="form-control" id="name" placeholder="Name" name="nama" autocomplete="off">
                                     </div>
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Name" name="username">
+                                        <input type="username" class="form-control" id="username" placeholder="Name" name="username" autocomplete="off">
                                     </div>
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <div class="password-toggle">
-                                            <input type="password" class="form-control" id="password" placeholder="*" name="password">
+                                            <input type="password" class="form-control" id="password" placeholder="*" name="password" autocomplete="off">
                                             <i class="bi bi-eye" id="togglePassword"></i>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">No Telp</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="08xxxxxxxxx" name="telp">
+                                        <input type="text" class="form-control" id="phone" placeholder="08xx-xxxx-xxxx" name="telp" autocomplete="off" oninput="formatNumber(this)" minlength="13" maxlength="18">
                                     </div>
 
                                     <button name="submit" type="submit" class="btn btn-register">Register</button>
@@ -182,10 +182,17 @@
                                 $errors = array();
     
                                 // Validasi NIK (harus berupa 16 digit angka)
-                                if(!is_numeric($nik) || strlen($nik) != 16) {
+                                $nik = preg_replace('/\D/', '', $_POST['nik']); // pembersihan karakter & hanya angka
+                                $telp = preg_replace('/\D/', '', $_POST['telp']);
+                                if(strlen($nik) != 16) {
                                     $errors[] = "NIK harus berupa 16 digit angka";
                                 }
                                 
+                                $check_nik = mysqli_query($conn, "SELECT * FROM masyarakat WHERE nik='$nik'");
+                                if(mysqli_num_rows($check_nik) > 0) {
+                                    $errors[] = "NIK sudah terdaftar";
+                                }
+
                                 $check_email = mysqli_query($conn, "SELECT * FROM masyarakat WHERE email='$email'");
                                 if(mysqli_num_rows($check_email) > 0) {
                                     $errors[] = "Email sudah digunakan";
@@ -196,7 +203,15 @@
                                 if(mysqli_num_rows($check_username) > 0) {
                                     $errors[] = "Username sudah digunakan";
                                 }
-    
+
+                                $check_telp = mysqli_query($conn, "SELECT * FROM masyarakat WHERE telp='$telp'");
+                                if(mysqli_num_rows($check_telp) > 0) {
+                                    $errors[] = "Nomor sudah terdaftar";
+                                }
+                                
+                                if(strlen($telp) < 10) {
+                                    $errors[] = "Nomor minimal 10 digit angka";
+                                }
                                 // Jika tidak ada error, lanjutkan dengan penyimpanan data
                                 if(empty($errors)) {
                                     // Gunakan query langsung seperti kode asli
@@ -279,6 +294,21 @@
             this.classList.toggle('bi-eye');
             this.classList.toggle('bi-eye-slash');
         });
+
+        function formatNumber(input) {
+  // Ambil angka saja, tanpa karakter selain digit
+  let value = input.value.replace(/\D/g, '');
+
+  // Potong jadi per 4 digit
+  let formatted = value.match(/.{1,4}/g);
+  
+  // Gabungkan dengan "-"
+  if (formatted) {
+    input.value = formatted.join('-');
+  } else {
+    input.value = '';
+  }
+}
     </script>
 </body>
 </html>
