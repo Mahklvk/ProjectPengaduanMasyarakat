@@ -33,6 +33,30 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
   cursor: pointer;
   color: #6c757d;
 }
+
+ .search-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .search-box {
+            width: 800px;
+            position: relative;
+        }
+        
+        .search-box input {
+            padding-left: 40px;
+            border-radius: 20px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            color: #6c757d;
+        } 
   </style>
 </head>
 <body>
@@ -42,19 +66,16 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
 
   <div class="row mb-4">
     <div class="col-md-8 col-sm-6 input-icons">
-      <form class="d-flex" role="search" method="get">
-      <button type="button" class="icon-search">
-        <i class="fa fa-search fa-xl"></i>
-      </button>
-      <!-- <div class="search-container">
+      <form action="" method="GET" role="search">
+        <div class="search-container">
             <div class="search-box">
                 <i class="fa fa-search search-icon"></i>
-                <input type="text" name="search" class="form-control" placeholder="Cari Laporan" id="searchInput" value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>">
+                <input type="text" class="form-control d-inline" placeholder="Cari Laporan" id="searchInput" name="search">
+                <button class="btn btn-outline-dark rounded-pill mt-2" type="submit">Search</button>
+                <a href="?" class="btn btn-outline-danger rounded-pill mt-2">Reset</a>
             </div>
-        </div> -->
-        <input type="text" name="search" value="" class="form-control me-2 input-field" placeholder="Search data">
-        <button class="btn btn-outline-secondary" type="submit">Search</button>
-      </form>
+        </div>
+        </form>
     </div>
 <div class="table-responsive">
   <table class="table">
