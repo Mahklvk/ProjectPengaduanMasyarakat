@@ -66,10 +66,10 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
       <form action="" method="GET" role="search">
         <div class="search-container">
             <div class="search-box">
-                <i class="bi bi-search search-icon"></i>
+                <i class="fa fa-search search-icon"></i>
                 <input type="text" class="form-control d-inline" placeholder="Cari Laporan" id="searchInput" name="search">
                 <button class="btn btn-outline-dark rounded-pill mt-2" type="submit">Search</button>
-                <button class="btn btn-outline-danger rounded-pill mt-2">Reset</button>
+                <a href="?" class="btn btn-outline-danger rounded-pill mt-2">Reset</a>
             </div>
         </div>
         </form>
