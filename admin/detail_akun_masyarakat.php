@@ -61,6 +61,19 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const eyeIcon = document.getElementById('passwordToggleIcon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.classList.replace('bi-eye', 'bi-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.classList.replace('bi-eye-slash', 'bi-eye');
+            }
+        }
+        
   function formatNumber(input) {
   // Ambil angka saja, tanpa karakter selain digit
   let value = input.value.replace(/\D/g, '');
