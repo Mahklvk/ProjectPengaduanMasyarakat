@@ -5,15 +5,14 @@ require('../config/db.php');
 $id_pengaduan = $_GET['p'];
 
 $tgl_tanggapan = date('Y-m-d');
-// $id_petugas = $_SESSION['id_petugas'];
-$id_petugas = 1;
+$id_petugas = $_SESSION['id_petugas'];
 $querySelectLaporan = mysqli_query($conn, "SELECT * FROM pengaduan WHERE id_pengaduan='$id_pengaduan'");
 $fetch_laporan = mysqli_fetch_array($querySelectLaporan);
+$hitungPengaduan = mysqli_num_rows($querySelectLaporan);
 
 $queryGetTanggapan = mysqli_query($conn, "SELECT tanggapan, id_pengaduan FROM tanggapan");
 
 $cekTanggapan = mysqli_query($conn, "SELECT * FROM tanggapan WHERE id_pengaduan = '$id_pengaduan'");
-$fetch_tanggapan = mysqli_fetch_array($queryGetTanggapan);
 
 $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
 ?>
@@ -42,8 +41,18 @@ $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
                 <input type="text" class="form-control" name="date" id="date" disabled value="<?php echo $fetch_laporan['tgl_pengaduan']?>">
 
 
-                    <label for="tanggapan" class="form-label">Tanggapan</label>
-                    <textarea name="tanggapan" id="tanggapan" class="form-control"required placeholder="Isi tanggapan"></textarea>
+                    <label for="tanggapan">Tanggapan</label>
+          <?php
+          if($hitungPengaduan < 1){
+            ?>
+            <textarea name="tanggapan" id="tanggapan" class="form-control"></textarea>
+            <?php
+          }else{
+            ?>
+            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled><?php echo $fetchTanggapan['tanggapan'];?></textarea>
+            <?php
+          }
+          ?>
 
                     <label for="isiLaporan">Isi Laporan</label>
           <textarea name="isiLaporan" id="isiLaporan" class="form-control" disabled><?php echo $fetch_laporan['isi_laporan']?></textarea>
@@ -66,7 +75,7 @@ $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
                     $queryInsert = mysqli_query($conn, "INSERT INTO tanggapan (id_pengaduan, tgl_tanggapan, tanggapan, id_petugas) VALUES ('$id_pengaduan', '$tgl_tanggapan', '$tanggapan', '$id_petugas')");
                     if($queryInsert){
                         ?>
-                        <script>Swal.fire({icon: 'success', title: 'Success!', text: 'Tanggapan telah ditambahkan!'}).then(() => {window.location.href = 'listLaporan.php';});</script>
+                        <script>Swal.fire({icon: 'success', title: 'Success!', text: 'Tanggapan telah ditambahkan!'}).then(() => {window.location.href = 'list_pengaduan.php';});</script>
                         <?php
                     }else{
                         ?>
@@ -79,7 +88,7 @@ $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
             </div>
             <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center mt-5">
         <p>Current Photo</p>
-        <img src="storages/foto_laporan/<?php echo $fetch_laporan['foto']; ?>" alt="image laporan" class="img-fluid" style="max-height: 200px;">
+        <img src="../storages/foto_laporan/<?php echo $fetch_laporan['foto']; ?>" alt="image laporan" class="img-fluid" style="max-height: 200px;">
       </div>
         </div>
     </div>
