@@ -99,10 +99,10 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
          <form action="" method="GET" role="search">
         <div class="search-container">
             <div class="search-box">
-                <i class="bi bi-search search-icon"></i> <!-- Icon search -->
+                <i class="fa fa-search search-icon"></i> <!-- Icon search -->
                 <input type="text" class="form-control d-inline" placeholder="Cari Laporan" id="searchInput" name="search">
                 <button class="btn btn-outline-dark rounded-pill mt-2" type="submit">Search</button> <!-- Tombol submit pencarian -->
-                <button class="btn btn-outline-danger rounded-pill mt-2">Reset</button> <!-- Tombol reset (perlu diperbaiki agar benar-benar reset) -->
+                <a href="?" class="btn btn-outline-danger rounded-pill mt-2">Reset</a> <!-- Tombol reset (perlu diperbaiki agar benar-benar reset) -->
             </div>
         </div>
         </form>
