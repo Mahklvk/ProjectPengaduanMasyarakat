@@ -19,36 +19,32 @@ require "config/sessionLogin.php";
         body {
             background-color: #f8f9fa;
         }
-        .form-container {
+        /* .width-form {
             max-width: 700px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .form-title {
+
+        } */
+        /*.form-title {
             margin-bottom: 25px;
             color: #333;
-        }
+        } */
         .btn-primary {
-            background-color: #0d6efd;
-            border: none;
+            /* background-color: #0d6efd;
+            border: none; */
             width: 100%;
         }
-        .btn-primary:hover {
+        /* .btn-primary:hover {
             background-color: #0b5ed7;
-        }
+        } */
     </style>
 </head>
 
 <body>
     <?php include('config/navbar.php')?>
     <!-- Form Container -->
-    <div class="container">
-        <div class="form-container">
-            <h2 class="form-title">Tambah Akun</h2>
-            <form id="tambahAkunForm" method="POST">
+    <div class="container ">
+        <h2 class="mt-3 container">Tambah Akun</h2>
+        <div class="p-5 border border-dark rounded mb-5">
+            <form id="tambahAkunForm" method="POST" class="width-form container col-md-6">
                 <!-- NIK -->
                 <div class="mb-3">
                     <label for="nik" class="form-label">NIK</label>
