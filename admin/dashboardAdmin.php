@@ -1,16 +1,26 @@
 <?php
 // Mengambil konfigurasi session dan database
-require ('config/session.php');
-require ('config/db.php');
+require ('config/sessionLogin.php');
+require ('../config/db.php');
 
 // Ambil data user dari database berdasarkan session
 // Cek terlebih dahulu apakah variabel session nik ada
 if(isset($_SESSION['nik'])) {
     $nik = $_SESSION['nik'];
+} else {
+    // Jika tidak ada variabel nik, coba cek variabel lain yang mungkin menyimpan nik user
+    if(isset($_SESSION['nik'])) {
+    $nik = $_SESSION['nik'];
+} else {
+    $_SESSION['message'] = "Sesi tidak valid. Silakan login kembali.";
+    $_SESSION['message_type'] = "error";
+    header("Location: loginAdmin.php");
+    exit();
+}
 }
 
 // Query database dengan error handling
-$query = "SELECT * FROM masyarakat WHERE nik = '$nik'";
+$query = "SELECT * FROM petugas WHERE nik = '$nik'";
 $result = mysqli_query($conn, $query);
 
 // Cek apakah query berhasil
@@ -23,12 +33,15 @@ if(!$result) {
 if (mysqli_num_rows($result) > 0) {
     $user = mysqli_fetch_assoc($result);
     $nik = isset($user['nik']) ? $user['nik'] : '';
-    $nama = isset($user['nama']) ? $user['nama'] : '';
+    $nama = isset($user['nama_petugas']) ? $user['nama_petugas'] : $_SESSION['nama_petugas'];
     $username = isset($user['username']) ? $user['username'] : '';
     // Password tidak ditampilkan langsung karena alasan keamanan
 } else {
-    // // Jika data user tidak ditemukan, logout
-    header("Location: login.php");
+    // Jika data user tidak ditemukan, logout
+    $_SESSION['message'] = "Data pengguna tidak ditemukan.";
+    $_SESSION['message_type'] = "error";
+    // session_destroy();
+    header("Location: loginAdmin.php");
     exit();
 }
 
@@ -40,10 +53,10 @@ if (isset($_POST['save_changes'])) {
     // Jika password diubah, hash password baru
     if (!empty($new_password)) {
         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-        $update_query = "UPDATE masyarakat SET username = '$new_username', password = '$hashed_password' WHERE nik = '$nik'";
+        $update_query = "UPDATE petugas SET username = '$new_username', password = '$hashed_password' WHERE nik = '$nik'";
     } else {
         // Jika password tidak diubah
-        $update_query = "UPDATE masyarakat SET username = '$new_username' WHERE nik = '$nik'";
+        $update_query = "UPDATE petugas SET username = '$new_username' WHERE nik = '$nik'";
     }
 
     if (mysqli_query($conn, $update_query)) {
@@ -55,19 +68,19 @@ if (isset($_POST['save_changes'])) {
     }
 
     // Refresh halaman untuk menampilkan data terbaru
-    header("Location: dashboard.php");
+    header("Location: dashboardAdmin.php");
     exit();
 }
 
 // Proses hapus akun
 if (isset($_POST['delete_account'])) {
-    $delete_query = "DELETE FROM masyarakat WHERE nik = '$nik'";
+    $delete_query = "DELETE FROM petugas WHERE nik = '$nik'";
 
     if (mysqli_query($conn, $delete_query)) {
         session_destroy();
         $_SESSION['message'] = "Akun Anda telah dihapus!";
         $_SESSION['message_type'] = "success";
-        header("Location: index.php");
+        header("Location: loginAdmin.php");
         exit();
     } else {
         $_SESSION['message'] = "Terjadi kesalahan saat menghapus akun: " . mysqli_error($conn);
@@ -80,7 +93,7 @@ if (isset($_POST['logout'])) {
     // Hapus semua data session
     session_destroy();
     // Redirect ke halaman login
-    header("Location: login.php");
+    header("Location: loginAdmin.php");
     exit();
 }
 
@@ -101,6 +114,8 @@ if (isset($conn) && $conn) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- fontawesome -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
         body {
             background-color: #f5f5f5;
@@ -150,7 +165,7 @@ if (isset($conn) && $conn) {
 <body>
     <?php include('config/navbar.php')?>
     <!-- Main Content -->
-    <div class="container">
+    <div class="container mt-3">
         <!-- Dashboard Title -->
         <div class="dashboard-header">
             <i class="bi bi-grid-3x3-gap-fill"></i>
@@ -166,7 +181,7 @@ if (isset($conn) && $conn) {
                     </div>
                     <h5 class="mb-0"><?php echo htmlspecialchars($nama); ?></h5>
                 </div>
-                <a href="history_laporan.php" class="btn btn-outline-dark">
+                <a href="list_pengaduan.php" class="btn btn-outline-dark">
                     <i class="bi bi-list-ul me-2"></i>
                     List Laporan
                 </a>
