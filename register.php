@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyReport - Register</title>
+    <title>Register - MyReport</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menggunakan Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -116,6 +116,14 @@
             flex-direction: column;
             height: calc(100% - 70px);
         }
+        @media (max-width: 767.98px) {
+    .container {
+        padding: 0 15px;
+    }
+    .back-button {
+        margin-left: 5px;
+    }
+}
     </style>
 </head>
 <body>
@@ -127,7 +135,7 @@
             <div class="col-md-12">
                     <div class="card-body p-0">
                         <div class="row g-0">
-                            <div class="col-md-6 p-4">
+                            <div class="col-lg-6 col-12 p-4">
                                 <h2 class="mb-1">Register</h2>
                                 <p class="mb-4 text-muted">Daftarkan Akun Anda</p>
 
@@ -268,7 +276,7 @@
                                         <img src="storages/MyReport2.png" alt="MyReport Text" class="logo-text">
                                     </div>
                                 </div>
-                                <div class="right-side-content">
+                                <div class="right-side-content d-none d-lg-block">
                                     <div class="welcome-section">
                                         <h1 class="welcome-text">Selamat datang</h1>
                                         <p class="sub-text">Di Pengaduan Masyarakat</p>
