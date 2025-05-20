@@ -328,6 +328,7 @@ body {
                                             $_SESSION['id_petugas'] = $data['id_petugas'];
                                             $_SESSION['nama_petugas'] = $data['nama_petugas'];
                                             $_SESSION['nik'] = $data['nik'];
+                                            $_SESSION['level'] = $data['level'];
                                             $_SESSION['loginAdmin'] = true;
 
                                             // Menambahkan pengecekan level pengguna
