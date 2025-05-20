@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if($_SESSION['login']==false){
-    header('location: login.php');
+if (!isset($_SESSION['level']) || $_SESSION['level'] !== 'masyarakat') {
+    // Hanya user biasa yang boleh
+    header('Location: login.php');
+    exit;
 }
-
-?>
