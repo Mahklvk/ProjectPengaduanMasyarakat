@@ -75,15 +75,6 @@ if (isset($_POST['delete_account'])) {
     }
 }
 
-// Proses logout
-if (isset($_POST['logout'])) {
-    // Hapus semua data session
-    session_destroy();
-    // Redirect ke halaman login
-    header("Location: login.php");
-    exit();
-}
-
 // Tutup koneksi database jika diperlukan
 if (isset($conn) && $conn) {
     mysqli_close($conn);
@@ -206,22 +197,14 @@ if (isset($conn) && $conn) {
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-3">
                             <button type="button" class="btn btn-primary btn-simpan w-100" onclick="confirmSaveChanges()">
                                 Simpan Perubahan
                             </button>
                         </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-danger w-100" onclick="confirmLogout()">
-                                Logout <i class="bi bi-box-arrow-right ms-1"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
+                        <div class="col-md-6 mt-3">
                             <button type="button" class="btn btn-danger w-100" onclick="confirmDeleteAccount()">
-                                <i class="bi bi-trash me-1"></i> Hapus Akun
+                                Hapus Akun <i class="bi bi-trash ms-1"></i>
                             </button>
                         </div>
                     </div>
