@@ -35,7 +35,7 @@ if (mysqli_num_rows($query) == 0) {
     <link rel="stylesheet" href="assets/fontawesome/css/all.min.css"> <!-- link fontawesome untuk bisa mengakses icon -->
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Document</title>
+    <title>Reset Password - MyReport</title>
 </head>
 
 <body>
