@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand ms-3" href="#">
+    <a class="navbar-brand ms-3" href="index.php">
       <img src="storages/logo.png" alt="logo" width="35px">
       <img src="storages/MyReport.png" alt="logo" width="100px" class="ms-2">
     </a>
@@ -40,31 +40,10 @@
             <button class="btn btn-outline-light dropdown-toggle costum-btn" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
               <?= htmlspecialchars($_SESSION['username']) ?>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <?php
-              if($_SESSION['role'] == 'masyarakat'){
-                ?>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
               <li><a class="dropdown-item" href="dashboard.php">Profile</a></li>
-                <?php
-              }else{
-                 ?>
-              <li><a class="dropdown-item" href="admin/dashboardAdmin.php">Profile</a></li>
-                <?php
-              }
-              ?>
-
               <li><hr class="dropdown-divider"></li>
-               <?php
-              if($_SESSION['role'] == 'masyarakat'){
-                ?>
               <li><a class="dropdown-item" href="config/logout.php">logout</a></li>
-                <?php
-              }else{
-                 ?>
-              <li><a class="dropdown-item" href="admin/config/logout.php">Logout</a></li>
-                <?php
-              }
-              ?>
             </ul>
           </div>
         <?php else: ?>
@@ -79,7 +58,7 @@
 
 
 <style>
-    .navbar-custom{
+    .navbar-custom{   
         background-color: #3E6EA2;
     }
 
@@ -94,6 +73,10 @@
         background-color: #3E6EA2;
     }
 
+
+    .costum-btn{
+       margin-left: 140px;
+    }
     .costum-btn:hover{
       background-color:rgb(70, 139, 212);
       color: white;
@@ -102,5 +85,6 @@
     .costum-btn:active{
       background-color:rgb(66, 116, 171);
       color: white;
+     
     }
 </style>
