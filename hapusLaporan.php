@@ -1,4 +1,5 @@
 <?php
+require('config/session.php');
 require('config/db.php');
 
 // Set header agar menerima JSON
@@ -18,8 +19,9 @@ try {
 
     $id_pengaduan = intval($input['id_pengaduan']);
 
-    // Query untuk mendapatkan informasi file gambar
-    $queryGetPengaduan = mysqli_query($conn, "SELECT foto FROM pengaduan WHERE id_pengaduan = $id_pengaduan");
+    // Query untuk mendapatkan informasi file gambar dan status
+    $queryGetPengaduan = mysqli_query($conn, "SELECT foto, status FROM pengaduan WHERE id_pengaduan = $id_pengaduan");
+
     if (mysqli_num_rows($queryGetPengaduan) === 0) {
         echo json_encode([
             'success' => false,
@@ -30,6 +32,16 @@ try {
 
     $dataFetch = mysqli_fetch_assoc($queryGetPengaduan);
     $imagePath = "storages/foto_laporan/" . $dataFetch['foto'];
+    $status = strtolower(trim($dataFetch['status'])); // pastikan lowercase dan tanpa spasi
+
+    // Cek apakah status selesai
+    if ($status === 'selesai') {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Laporan dengan status "selesai" tidak dapat dihapus.',
+        ]);
+        exit;
+    }
 
     // Hapus data dari database
     $queryDelete = mysqli_query($conn, "DELETE FROM pengaduan WHERE id_pengaduan = $id_pengaduan");
