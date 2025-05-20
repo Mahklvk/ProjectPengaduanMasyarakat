@@ -88,15 +88,6 @@ if (isset($_POST['delete_account'])) {
     }
 }
 
-// Proses logout
-if (isset($_POST['logout'])) {
-    // Hapus semua data session
-    session_destroy();
-    // Redirect ke halaman login
-    header("Location: loginAdmin.php");
-    exit();
-}
-
 // Tutup koneksi database jika diperlukan
 if (isset($conn) && $conn) {
     mysqli_close($conn);
@@ -107,7 +98,7 @@ if (isset($conn) && $conn) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Account User</title>
+    <title>Dashboard Admin - MyReport</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -221,25 +212,16 @@ if (isset($conn) && $conn) {
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-3">
                             <button type="button" class="btn btn-primary btn-simpan w-100" onclick="confirmSaveChanges()">
                                 Simpan Perubahan
                             </button>
                         </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-danger w-100" onclick="confirmLogout()">
-                                Logout <i class="bi bi-box-arrow-right ms-1"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
+<div class="col-md-6 mt-3">
                             <button type="button" class="btn btn-danger w-100" onclick="confirmDeleteAccount()">
-                                <i class="bi bi-trash me-1"></i> Hapus Akun
+                                Hapus Akun <i class="bi bi-trash ms-1"></i>
                             </button>
                         </div>
-                    </div>
 
                     <!-- Hidden buttons for form submission -->
                     <input type="submit" name="save_changes" id="save_changes_submit" style="display: none;">
