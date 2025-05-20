@@ -9,23 +9,15 @@ if(isset($_SESSION['nik'])) {
     $nik = $_SESSION['nik'];
 } else {
     // Jika tidak ada variabel nik, coba cek variabel lain yang mungkin menyimpan nik user
-    if(isset($_SESSION['id_user'])) {
-        $nik = $_SESSION['id_user'];
-    } else if(isset($_SESSION['user_id'])) {
-        $nik = $_SESSION['user_id'];
-    } else if(isset($_SESSION['id'])) {
-        $nik = $_SESSION['id'];
-    } else {
-        // Jika tidak ada variabel nik yang ditemukan, redirect ke login
-        $_SESSION['message'] = "Sesi tidak valid. Silakan login kembali.";
-        $_SESSION['message_type'] = "error";
-        header("Location: login.php");
-        exit();
-    }
+    if(isset($_SESSION['nik'])) {
+    $nik = $_SESSION['nik'];
+} else {
+    $_SESSION['message'] = "Sesi tidak valid. Silakan login kembali.";
+    $_SESSION['message_type'] = "error";
+    header("Location: login.php");
+    exit();
 }
-
-
-$nik = $_SESSION['nik'];
+}
 
 
 //untuk generator random nama file foto agar tidak sama dan unik
@@ -51,21 +43,21 @@ function generatorRandom($length = 10)
   <link rel="stylesheet" href="assets/fontawesome/css/all.min.css"> <!-- link fontawesome untuk bisa mengakses icon -->
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <title>Document</title>
+  <title>Tulis laporan - MyReport</title>
 </head>
 
 <body>
   <?php include('config/navbar.php')?>
   <h1 class="container mt-5">Lapor Sekarang</h1>
   <div class="container">
-    <div class="row">
+    <div class="row p-2">
       <div class="col-md-8 border border-dark rounded p-5">
         <div class="container">
           <form action="" class="container w-10" enctype="multipart/form-data" method="post">
             <label for="judulLaporan" class="form-label">Judul Laporan</label>
             <input type="text" class="form-control" name="judulLaporan" id="judulLaporan" required placeholder="Laporan">
 
-            <label for="date" class="form-label">Tanggal Sekarang</label>
+            <label for="date" class="form-label">Tanggal Kejadian</label>
             <input type="date" class="form-control" name="date" id="date">
 
             <label for="isiLaporan">Isi Laporan</label>
@@ -78,7 +70,7 @@ function generatorRandom($length = 10)
 
             <div class="row">
               <div class="container align-items-center justify-content-center d-flex mt-2">
-                <button class="btn btn-primary col-2" name="submit" id="submit">Submit</button>
+                <button class="btn btn-primary col-4" name="submit" id="submit">Submit</button>
               </div>
             </div>
           </div>
@@ -159,9 +151,9 @@ function generatorRandom($length = 10)
           }
           ?>
         </div>
-        <div class="col-md-4 col-sm-11 align-items-center justify-content-center text-center border border-dark rounded p-5">
+        <div class="col-md-4 col-sm-11 align-items-center justify-content-center text-center border border-dark rounded p-5 mbs-sm-5">
         <p class="">Image Preview</p>
-        <img class="img-fluid mt-5" style="max-width: 150px;" id="img">
+        <img class="img-fluid  style="max-width: 150px;" id="img">
       </div>
       </div>
     </div>
