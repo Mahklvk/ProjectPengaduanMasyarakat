@@ -24,8 +24,17 @@ if(isset($_SESSION['nik'])) {
     }
 }
 
+if (isset($_GET['search']) && $_GET['search'] != '') {
+    $filtervalues = $_GET['search'];
+    // Query untuk mencari data berdasarkan kolom judul_laporan, tgl_pengaduan, nik, dan isi_laporan
+    $queryGetData = "SELECT * FROM pengaduan WHERE CONCAT(judul_laporan,tgl_pengaduan,nik,isi_laporan) LIKE '%$filtervalues%' ";
+    $result = mysqli_query($conn, $queryGetData);
+} else {
+    // Jika tidak ada pencarian, ambil semua data dari tabel pengaduan
+    $queryGetData = "SELECT * FROM pengaduan WHERE nik= '$nik'";
+    $result = mysqli_query($conn, $queryGetData);
+}
 
-$queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
 
 ?>
 
@@ -39,6 +48,7 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
     <style> 
         .search-container {
             display: flex;
@@ -82,12 +92,18 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
         <h1 class="page-title">Daftar Laporan</h1>
         
         <!-- Search -->
+        <div class="col-md-8 col-sm-6 input-icons">
+      <form action="" method="GET" role="search">
         <div class="search-container">
             <div class="search-box">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" class="form-control" placeholder="Cari Laporan" id="searchInput">
+                <i class="fa fa-search search-icon"></i>
+                <input type="text" class="form-control d-inline" placeholder="Cari Laporan" id="searchInput" name="search">
+                <button class="btn btn-outline-dark rounded-pill mt-2" type="submit">Search</button>
+                <a href="?" class="btn btn-outline-danger rounded-pill mt-2">Reset</a>
             </div>
         </div>
+        </form>
+    </div>
         
         <!-- Table -->
         <div class="report-table table-responsive">
@@ -96,7 +112,7 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
                     <tr>
                         <th width="5%">No</th>
                         <th width="15%">judul laporan</th>
-                        <th width="15%">Tanggal laporan</th>
+                        <th width="15%">Tanggal kejadian</th>
                         <th width="15%">Nik</th>
                         <th width="15%">Isi Laporan</th>
                         <th width="15%">Foto</th>
@@ -112,9 +128,9 @@ $queryGetData= mysqli_query($conn, "SELECT * FROM pengaduan WHERE nik= '$nik'")
             </button>
                 <tbody>
                     <?php
-if (mysqli_num_rows($queryGetData) > 0) {
+if (mysqli_num_rows($result) > 0) {
     $no = 1;
-    while ($data = mysqli_fetch_array($queryGetData)) { ?>
+    while ($data = mysqli_fetch_array($result)) { ?>
         <tr>
             <td><?php echo $no++; ?></td>
             <td><?php echo $data['judul_laporan']; ?></td>
@@ -126,13 +142,13 @@ if (mysqli_num_rows($queryGetData) > 0) {
             $status = trim($data['status']);
             switch ($status) {
                 case 'diproses':
-                    $class = 'btn btn-outline-secondary rounded-pill btn-sm';
+                    $class = 'badge badge-secondary rounded-pill btn-sm';
                     break;
                 case 'ditolak':
                     $class = 'btn btn-outline-danger rounded-pill btn-sm';
                     break;
                 case 'selesai':
-                    $class = 'btn btn-outline-success rounded-pill btn-sm';
+                    $class = 'badge rounded-pill text-bg-success';
                     break;
                 default:
                     $class = 'btn btn-outline-secondary rounded-pill btn-sm';
@@ -140,7 +156,7 @@ if (mysqli_num_rows($queryGetData) > 0) {
             }
             echo '<td><span class="' . $class . '">' . htmlspecialchars($status) . '</span></td>';
             ?>
-            <td><a href="detailHistoryLaporan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">detail</a></td>
+            <td><a href="detailHistoryLaporan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">Detail</a></td>
         </tr>
     <?php }
 } else {
