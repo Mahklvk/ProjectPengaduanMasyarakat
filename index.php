@@ -14,7 +14,34 @@ require('config/db.php'); //include database
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <title>Document</title>
+  <title>MyReport</title>
+  <style>
+            .btn-up {
+            position: fixed;
+            bottom: 5rem;
+            right: 4rem;
+            background-color: #3E6EA2;
+            border-color: #3E6EA2;
+            width: 5rem;
+            height: 3rem;
+        }
+
+        .form-custom{
+          border-top: none;
+          border-right:none ;
+          border-left: none;
+          border-radius: 0;
+        }
+
+        .input-custom{
+          border-radius: 0;
+          border-top: none;
+          border-right:none ;
+          border-left: none;
+          background-color: white;
+        }
+
+  </style>
 </head>
 
 <body>
@@ -37,47 +64,66 @@ require('config/db.php'); //include database
   </section>
 
   <section id="about" class="about py-5">
-    <div class="container">
-      <div class="row">
-        <div class="container">
-          <h2 class="container text-center mb-3">About</h2>
-        </div>
-        <div class="container col-md-6 text text-justify mt-md-5">
-          <p class="text">Sampaikan aspirasi dan keluhan Anda secara mudah melalui satu platform digital. Aplikasi Pelaporan Masyarakat hadir untuk menjembatani komunikasi antara masyarakat dan instansi, dengan proses yang cepat, transparan, dan responsif.</p>
-          <div class="col-md-6 container align-items-center justify-content-center d-flex mb-5 mt-md-5">
-           <a href="tulisLaporan.php"> <button class="btn btn-costum">Mulai Lapor</button></a>
-          </div>
-        </div>
-        <div class="container col-md-3 img-about">
-          <img src="storages/about-imgv1.png" alt="About Us" class="img-fluid shadow-costum">
+  <div class="container">
+    <h2 class="text-center mb-4">About</h2>
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-12 mb-4">
+        <p>Sampaikan aspirasi dan keluhan Anda secara mudah melalui satu platform digital. Aplikasi Pelaporan Masyarakat hadir untuk menjembatani komunikasi antara masyarakat dan instansi, dengan proses yang cepat, transparan, dan responsif.</p>
+        <div class="text-center text-md-start mt-4">
+          <a href="tulisLaporan.php">
+            <button class="btn btn-costum">Mulai Lapor</button>
+          </a>
         </div>
       </div>
+      <div class="col-lg-6 col-md-12 text-center">
+        <img src="storages/about-imgv1.png" alt="About Us" class="img-fluid shadow-costum">
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="contact" class="py-4">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="container text-center">
-            <h1>Contact Us</h1>
+<section id="contact" class="py-5">
+  <div class="container">
+    <h1 class="text-center mb-5">Contact Us</h1>
+    <div class="row g-4">
+      <!-- Map -->
+      <div class="col-md-5">
+        <iframe class="shadow w-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.9516624298767!2d107.64888750931945!3d-7.014967668684224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6f9cd53f7b9%3A0xf84e76c83055f248!2sSMKN%207%20Baleendah!5e0!3m2!1sid!2sid!4v1745628066995!5m2!1sid!2sid" width="300" height="200" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <!-- Form -->
+      <div class="col-md-7">
+        <form action="" method="post">
+          <!-- Nama -->
+          <div class="mb-3 input-group form-custom">
+            <span class="input-group-text input-custom"><i class="fa-solid fa-user"></i></span>
+            <input type="text" class="form-custom form-control" name="nama" placeholder="Nama Kamu" required>
           </div>
-        </div>
-        <div class="col-md-4 container ms-4 rounded"><iframe claas="shadow" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.9516624298767!2d107.64888750931945!3d-7.014967668684224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6f9cd53f7b9%3A0xf84e76c83055f248!2sSMKN%207%20Baleendah!5e0!3m2!1sid!2sid!4v1745628066995!5m2!1sid!2sid" width="300" height="200" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-        <div class="col-md-7">
-          <form action="" method="post">
-            <i class="fa-solid fa-user"></i>
-            <input type="username" placeholder="Nama Kamu" class="form-input" name="nama">
-            <br>
-            <i class="fa-solid fa-envelope"></i>
-            <input type="email" placeholder="Email Kamu" class="form-input" name="email"><br>
-            <textarea id="" placeholder="bagikan pendapatmu" class="form-textarea" name="isi_kontak"></textarea><br>
-            <div class="col-md-5"><button class="container button-contact btn btn-costum mt-3 mb-5" name="submit">Bagikan</button></div>
-          </form>
-        </div>
+
+          <!-- Email -->
+          <div class="mb-3 input-group form-custom">
+            <span class="input-group-text input-custom"><i class="fa-solid fa-envelope"></i></span>
+            <input type="email" class="form-custom form-control" name="email" placeholder="Email Kamu" required>
+          </div>
+
+          <!-- Isi kontak -->
+          <div class="mb-3 input-group form-custom">
+            <span class="input-group-text input-custom"><i class="fa-solid fa-comment-dots"></i></span>
+            <textarea class="form-custom form-control" name="isi_kontak" rows="2" cols="2" placeholder="Bagikan pendapatmu..." required></textarea>
+          </div>
+
+          <!-- Tombol submit -->
+          <div class="text-start">
+            <button class="btn btn-costum" name="submit">Bagikan</button>
+          </div>
+        </form>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+                  <a href="#"><button class="btn btn-costum btn-up" id="addReportBtn">
+                <i class="fa fa-eject"></i>
+            </button></a>
 <?php
 require 'config/db.php';
 
