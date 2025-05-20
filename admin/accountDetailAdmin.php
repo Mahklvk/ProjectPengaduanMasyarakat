@@ -13,7 +13,7 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Document</title>
+    <title>Detail Akun Admin - MyReport</title>
 </head>
 <body>
     <?php include('config/navbar.php')?>
@@ -62,6 +62,29 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
         </div>
     </div>
 
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content bg-dark border-0">
+      <div class="modal-body p-0 position-relative">
+        <!-- Tombol Close -->
+        <button type="button" class="btn btn-danger position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal" aria-label="Close" onclick="reset()">
+          <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Kontainer Gambar -->
+        <div class="image-container d-flex justify-content-center align-items-center h-100 overflow-hidden" style="touch-action: none;">
+          <img id="modalImage" src="" alt="Preview" class="img-fluid" style="transition: transform 0.3s;">
+        </div>
+
+        <!-- Tombol Zoom -->
+        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 z-3">
+          <button class="btn btn-light me-2" onclick="zoomImage('in')"><i class="fas fa-search-plus"></i></button>
+          <button class="btn btn-light" onclick="zoomImage('out')"><i class="fas fa-search-minus"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
