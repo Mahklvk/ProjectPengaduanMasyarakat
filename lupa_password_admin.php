@@ -5,6 +5,9 @@ require 'config/db.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -23,14 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail = new PHPMailer(true);
             try {
                 $mail->isSMTP();
-                $mail->Host       = 'sandbox.smtp.mailtrap.io';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'YOUR_MAILTRAP_USERNAME';
-                $mail->Password   = 'YOUR_MAILTRAP_PASSWORD';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port       = 2525;
+$mail->Host       = $_ENV['MAIL_HOST'];
+$mail->SMTPAuth   = true;
+$mail->Username   = $_ENV['MAIL_USERNAME'];
+$mail->Password   = $_ENV['MAIL_PASSWORD'];
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port       = $_ENV['MAIL_PORT'];
 
-                $mail->setFrom('MyReport@noreply.com', 'Admin');
+$mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->Subject = 'Reset Password MyReport';
@@ -69,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="assets/fontawesome/css/all.min.css"> <!-- link fontawesome untuk bisa mengakses icon -->
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Document</title>
+    <title>Lupa Password - MyReport</title>
 </head>
 
 <body>
