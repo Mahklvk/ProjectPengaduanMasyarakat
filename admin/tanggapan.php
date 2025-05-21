@@ -37,6 +37,9 @@ $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
                 <label for="judulLaporan" class="form-label">Judul Laporan</label>
                 <input type="text" class="form-control" name="judulLaporan" id="judulLaporan" value="<?php echo $fetch_laporan['judul_laporan']?>" disabled>
 
+                <label for="judulLaporan" class="form-label">Kategori</label>
+                <input type="text" class="form-control" name="kategori" id="kategori" value="<?php echo $fetch_laporan['kategori']?>" disabled>
+
                 <label for="date" class="form-label">Tanggal Lapor</label>
                 <input type="text" class="form-control" name="date" id="date" disabled value="<?php echo $fetch_laporan['tgl_pengaduan']?>">
 
