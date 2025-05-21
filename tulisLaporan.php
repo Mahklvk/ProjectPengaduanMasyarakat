@@ -42,42 +42,98 @@ function generatorRandom($length = 10)
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"> <!-- link bootstrap untuk bisa styling bootstrap -->
   <link rel="stylesheet" href="assets/fontawesome/css/all.min.css"> <!-- link fontawesome untuk bisa mengakses icon -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>Tulis laporan - MyReport</title>
 </head>
 
+<style>
+  body {
+    background-color: #f8f9fa;
+  }
+  /* .form-section {
+    max-width: 900px;
+    margin: auto;
+    margin-top: 40px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  } */
+  .form-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .select2-container--default .select2-selection--single {
+    height: 38px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+  }
+  #preview-container {
+    border: 2px dashed #ccc;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-top: 20px;
+    color: #888;
+  }
+</style>
 <body>
   <?php include('config/navbar.php')?>
   <h1 class="container mt-5">Lapor Sekarang</h1>
   <div class="container">
     <div class="row p-2">
-      <div class="col-md-8 border border-dark rounded p-5">
-        <div class="container">
-          <form action="" class="container w-10" enctype="multipart/form-data" method="post">
-            <label for="judulLaporan" class="form-label">Judul Laporan</label>
-            <input type="text" class="form-control" name="judulLaporan" id="judulLaporan" required placeholder="Laporan">
+      <div class="col-md-12 border border-dark rounded p-5">
+        <div class="container form-section">
+  <div class="form-title">Lapor Sekarang</div>
+  <form action="" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="judul" class="form-label">Judul Laporan</label>
+      <input type="text" class="form-control" id="judul" name="judulLaporan" placeholder="Contoh: Lampu jalan mati">
+    </div>
 
-            <label for="date" class="form-label">Tanggal Kejadian</label>
-            <input type="date" class="form-control" name="date" id="date">
+    <div class="mb-3">
+      <label for="tanggal" class="form-label">Tanggal Kejadian</label>
+      <input type="date" class="form-control" id="tanggal" name="date">
+    </div>
 
-            <label for="isiLaporan">Isi Laporan</label>
-            <textarea name="isiLaporan" id="isiLaporan" class="form-control" placeholder="Isi Laporan" required></textarea>
+    <div class="mb-3">
+      <label for="kategori" class="form-label">Kategori</label>
+      <select id="kategori" name="kategori" class="form-control">
+        <option></option>
+        <option value="Jalan">Jalan</option>
+        <option value="Listrik">Listrik</option>
+        <option value="Air">Air</option>
+      </select>
+    </div>
 
-            <label for="foto">Foto</label>
-            <div class="container justify-content-center align-items-center text-center">
-            </div>
-            <input type="file" class="form-control" name="foto" id="foto" required onchange="img.src = window.URL.createObjectURL(this.files[0])">
+    <div class="mb-3">
+      <label for="isi" class="form-label">Isi Laporan</label>
+      <textarea class="form-control" id="isi" name="isiLaporan" rows="4" placeholder="Tuliskan detail kejadian..."></textarea>
+    </div>
 
-            <div class="row">
-              <div class="container align-items-center justify-content-center d-flex mt-2">
-                <button class="btn btn-primary col-4" name="submit" id="submit">Submit</button>
-              </div>
-            </div>
-          </div>
-          </form>
+    <div class="mb-3">
+      <label for="foto" class="form-label">Foto</label>
+      <input type="file" class="form-control" id="foto" name="foto" accept="image/*" onchange="previewImage(event)">
+    </div>
+
+    <div id="preview-container">Image Preview</div>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-primary px-5 py-2" name="submit">Submit</button>
+    </div>
+  </form>
+</div>
+
           <?php
           if (isset($_POST['submit'])) {
             $judulLaporan = htmlspecialchars($_POST['judulLaporan']);
+            $kategori = htmlspecialchars($_POST['kategori']);
             $date = htmlspecialchars($_POST['date']);
             $isiLaporan = htmlspecialchars($_POST['isiLaporan']);
 
@@ -111,7 +167,7 @@ function generatorRandom($length = 10)
               <?php
             } else {
               if (move_uploaded_file($_FILES["foto"]["tmp_name"], $targetDir . $namaFotoBaru)) {
-                $queryUploadData = mysqli_query($conn, "INSERT INTO pengaduan(judul_laporan, tgl_pengaduan, nik, isi_laporan, foto) VALUES ('$judulLaporan', '$date', '$nik', '$isiLaporan', '$namaFotoBaru')");
+                $queryUploadData = mysqli_query($conn, "INSERT INTO pengaduan(judul_laporan, tgl_pengaduan, nik, isi_laporan, foto, kategori) VALUES ('$judulLaporan', '$date', '$nik', '$isiLaporan', '$namaFotoBaru', '$kategori')");
 
                 if ($queryUploadData) {
               ?>
@@ -151,17 +207,42 @@ function generatorRandom($length = 10)
           }
           ?>
         </div>
-        <div class="col-md-4 col-sm-11 align-items-center justify-content-center text-center border border-dark rounded p-5 mbs-sm-5">
-        <p class="">Image Preview</p>
-        <img class="img-fluid  style="max-width: 150px;" id="img">
-      </div>
       </div>
     </div>
       </div>
     </div>
   </div>
+<!-- jQuery dulu -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- lalu Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+<!-- baru kemudian pakai $ -->
+<script>
+  $(document).ready(function() {
+    $('#kategori').select2({
+      tags: true,
+      placeholder: "Pilih atau ketik kategori",
+      allowClear: true
+    });
+  });
+  function previewImage(event) {
+    const preview = document.getElementById('preview-container');
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        preview.innerHTML = `<img src="${e.target.result}" style="max-height: 100%; max-width: 100%; object-fit: contain;" />`;
+      }
+      reader.readAsDataURL(file);
+    } else {
+      preview.innerHTML = "Image Preview";
+    }
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="assets/fontawesome/js/all.min.js"></script>
   <script src="https://unpkg.com/feather-icons"></script>

@@ -112,6 +112,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
                     <tr>
                         <th width="5%">No</th>
                         <th width="15%">judul laporan</th>
+                        <th width="15%">Kategori</th>
                         <th width="15%">Tanggal kejadian</th>
                         <th width="15%">Nik</th>
                         <th width="15%">Isi Laporan</th>
@@ -134,6 +135,7 @@ if (mysqli_num_rows($result) > 0) {
         <tr>
             <td><?php echo $no++; ?></td>
             <td><?php echo $data['judul_laporan']; ?></td>
+            <td><?php echo $data['kategori']; ?></td>
             <td><?php echo $data['tgl_pengaduan']; ?></td>
             <td><?php echo $data['nik']; ?></td>
             <td><?php echo $data['isi_laporan']; ?></td>
@@ -142,10 +144,10 @@ if (mysqli_num_rows($result) > 0) {
             $status = trim($data['status']);
             switch ($status) {
                 case 'diproses':
-                    $class = 'badge badge-secondary rounded-pill btn-sm';
+                    $class = 'badge rounded-pill text-bg-secondary';
                     break;
                 case 'ditolak':
-                    $class = 'btn btn-outline-danger rounded-pill btn-sm';
+                    $class = 'badge rounded-pill text-bg-danger';
                     break;
                 case 'selesai':
                     $class = 'badge rounded-pill text-bg-success';

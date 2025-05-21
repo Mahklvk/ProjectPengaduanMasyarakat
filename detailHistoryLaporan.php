@@ -106,7 +106,10 @@ if (!$fetch_data) {
       <div class="col-md-6 col-sm-11">
         <form action="" class="container w-10" enctype="multipart/form-data" method="post">
           <label for="judulLaporan" class="form-label">Judul Laporan</label>
-          <input type="nik" class="form-control" name="judulLaporan" id="judulLaporan" value="<?php echo $fetch_data['judul_laporan'] ?>">
+          <input type="text" class="form-control" name="judulLaporan" id="judulLaporan" value="<?php echo $fetch_data['judul_laporan'] ?>">
+
+          <label for="judulLaporan" class="form-label">Kategori</label>
+          <input type="text" class="form-control" name="kategori" id="kategori" value="<?php echo $fetch_data['kategori'] ?>" readonly>
 
           <label for="date" class="form-label">Tanggal Kejadian</label>
           <input type="text" class="form-control" name="date" id="date" readonly value="<?php echo $fetch_data['tgl_pengaduan'] ?>">
@@ -146,6 +149,7 @@ if (!$fetch_data) {
           $judulLaporan = mysqli_real_escape_string($conn, $_POST['judulLaporan']);
           // $date = mysqli_real_escape_string($conn, $_POST['date']);
           $isiLaporan = mysqli_real_escape_string($conn, $_POST['isiLaporan']);
+          $kategori = mysqli_real_escape_string($conn, $_POST['kategori']);
 
           $targetDir = "storages/foto_laporan/";
           $namaFoto = basename($_FILES["foto"]["name"]);
@@ -181,11 +185,11 @@ if (!$fetch_data) {
                 if (!empty($fetch_data['foto']) && file_exists($targetDir . $fetch_data['foto'])) {
                   unlink($targetDir . $fetch_data['foto']);
                 }
-                $queryUpdate = mysqli_query($conn, "UPDATE pengaduan SET judul_laporan='$judulLaporan', isi_laporan='$isiLaporan', foto='$namaFotoBaru' WHERE id_pengaduan = '$id'");
+                $queryUpdate = mysqli_query($conn, "UPDATE pengaduan SET judul_laporan='$judulLaporan',kategori = '$kategori', isi_laporan='$isiLaporan', foto='$namaFotoBaru' WHERE id_pengaduan = '$id'");
               }
             }
           } else {
-            $queryUpdate = mysqli_query($conn, "UPDATE pengaduan SET judul_laporan='$judulLaporan', isi_laporan='$isiLaporan' WHERE id_pengaduan = '$id'");
+            $queryUpdate = mysqli_query($conn, "UPDATE pengaduan SET judul_laporan='$judulLaporan',kategori = '$kategori', isi_laporan='$isiLaporan' WHERE id_pengaduan = '$id'");
           }
           if ($queryUpdate) {
             ?>
