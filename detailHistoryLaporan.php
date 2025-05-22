@@ -218,7 +218,7 @@ if (!$fetch_data) {
         ?>
       </div>
       <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center mt-5">
-        <p>Current Photo</p>
+        <p>Foto</p>
         <img src="storages/foto_laporan/<?php echo $fetch_data['foto']; ?>" alt="image laporan" class="img-fluid" 
      style="max-height: 200px; cursor: pointer;" 
      data-bs-toggle="modal" 
