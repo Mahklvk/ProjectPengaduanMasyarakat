@@ -64,14 +64,25 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             background-color: #3E6EA2;
             border-color: #3E6EA2;
         }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+                .content-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
   </style>
 </head>
 <body>
   <?php include('config/navbar.php')?>
-<div class="container mt-5">
-  <h1 class="mb-4">Daftar Akun</h1>
+<div class="content-container">
+  <h1 class="page-title">Daftar Akun</h1>
 
-<div class="row mb-4">
+<div class="row">
     <div class="col-md-8 col-sm-6 input-icons">
       <form action="" method="GET" role="search">
         <div class="search-container">
@@ -98,6 +109,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
         <th>Username</th>
         <th>Telp</th>
         <th>Level</th>
+        <th>Aksi</th>
       </tr>
     </thead>
 

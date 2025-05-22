@@ -54,14 +54,25 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             background-color: #3E6EA2;
             border-color: #3E6EA2;
         }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+                .content-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
   </style>
 </head>
 <body>
   <?php include('config/navbar.php')?>
-<div class="container mt-3">
-  <h1 class="mb-4">Daftar Akun</h1>
+<div class="content-container">
+  <h1 class="page-title">Daftar Akun</h1>
 
-  <div class="row mb-4">
+  <div class="row">
     <div class="col-md-8 col-sm-6 input-icons">
       <form action="" method="GET" role="search">
         <div class="search-container">
@@ -74,9 +85,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
         </div>
         </form>
     </div>
-    <!-- <div class="col-md-4 text-end">
-      <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-circle-plus"></i> Tambah Akun</button>
-    </div> -->
   </div>
 
   <div class="table-responsive">
@@ -85,6 +93,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
       <tr>
         <th>No</th>
         <th>NIK</th>
+        <th>Email</th>
         <th>Nama</th>
         <th>Username</th>
         <th>Telp</th>
@@ -109,7 +118,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             <td><?= $data['nama']; ?></td>
             <td><?= $data['username']; ?></td>
             <td><?= $data['telp']; ?></td>
-            <td><a href="detail_akun_masyarakat.php?p=<?php echo $data['id_masyarakat']; ?>" class="btn btn-sm btn-outline-secondary"> Edit</a></td>
+            <td><a href="detail_akun_masyarakat.php?p=<?php echo $data['id_masyarakat']; ?>" class="btn btn-sm btn-outline-secondary">Detail</a></td>
           </tr>
           <?php
         }
