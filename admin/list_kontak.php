@@ -57,14 +57,25 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             top: 10px;
             color: #6c757d;
         } 
+
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+                .content-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
   </style>
 </head>
 <body>
 <?php include('config/navbar.php')?>
-<div class="container mt-5">
-  <h1 class="mb-4">Daftar Kontak</h1>
+<div class="content-container">
+  <h1 class="page-title">Daftar Kontak</h1>
 
-  <div class="row mb-4">
+  <div class="row">
     <div class="col-md-8 col-sm-6 input-icons">
       <form action="" method="GET" role="search">
         <div class="search-container">
@@ -98,7 +109,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             <td><?= $no++; ?></td>
             <td><?= $data['nama']; ?></td>
             <td><?= $data['email']; ?></td>
-            <td><?= strlen($data['isi_kontak']) > 50 ? substr($data['isi_kontak'], 0, 50) . '...' : $data['isi_kontak']; ?></td>
+            <td><?= strlen($data['isi_kontak']) > 15 ? substr($data['isi_kontak'], 0, 15) . '...' : $data['isi_kontak']; ?></td>
             <td><a href="detail_kontak.php?p=<?php echo $data['id_kontak']; ?>" class="btn btn-sm btn-outline-dark"> Detail</a></td>
           </tr>
           <?php
