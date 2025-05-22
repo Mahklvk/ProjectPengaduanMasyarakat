@@ -91,7 +91,7 @@ function generatorRandom($length = 10)
           </form>
             </div>
             <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center mt-5 mb-5">
-        <p>Current Photo</p>
+        <p>Photo</p>
         <img src="../storages/foto_laporan/<?php echo $fetch_data['foto']; ?>" alt="image laporan" class="img-fluid" style="max-height: 200px; cursor: pointer;" 
      data-bs-toggle="modal" 
      data-bs-target="#imageModal" 
