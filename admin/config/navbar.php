@@ -20,16 +20,17 @@
           <a class="nav-link" href="list_pengaduan.php"><i class="fa-solid fa-bars me-2"></i>List Laporan</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="list_kontak.php"><img src="../assets/featherIcon/phone.png" width="20px" class="me-2 mb-1">List Contact</a>
+          <a class="nav-link" href="listAccountMasyarakat.php"><i class="fa-solid fa-user me-2"></i> List Masyarakat</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="listAccountAdmin.php"><i class="fa-solid fa-user-tie me-2"></i> List Admin</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Lainnya
           </a>
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="dashboardAdmin.php"><img src="../assets/featherIcon/user.png" width="20px" class="me-2 mb-1">Dashboard</a></li>
-            <li><a class="dropdown-item" href="listAccountAdmin.php"><i class="fa-solid fa-user-tie me-2"></i> List Admin</a></li>
-            <li><a class="dropdown-item" href="listAccountMasyarakat.php"><i class="fa-solid fa-user me-2"></i> List Masyarakat</a></li>
+            <li><a class="dropdown-item" href="list_kontak.php"><img src="../assets/featherIcon/phone.png" width="20px" class="me-2 mb-1">List Contact</a></li>
             <li><a class="dropdown-item" href="buatAkun.php"><img src="../assets/featherIcon/plus.png" width="20px" class="me-2 mb-1">Buat Akun</a></li>
           </ul>
         </li>

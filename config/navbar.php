@@ -27,7 +27,6 @@
             Lainnya
           </a>
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="dashboard.php"><img src="assets/featherIcon/user.png" width="20px" class="me-2 mb-1">Dashboard</a></li>
             <li><a class="dropdown-item" href="history_laporan.php"><img src="assets/featherIcon/list.png" width="20px" class="me-2 mb-1">List Laporan</a></li>
             <li><a class="dropdown-item" href="tulisLaporan.php"><img src="assets/featherIcon/plus.png" width="20px" class="me-2 mb-1">Buat Laporan</a></li>
           </ul>
