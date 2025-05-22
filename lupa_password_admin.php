@@ -1,12 +1,8 @@
 <?php
-require 'vendor/autoload.php';
 require 'config/db.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
 $message = '';
 
