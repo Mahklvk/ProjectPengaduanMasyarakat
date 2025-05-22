@@ -116,8 +116,8 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
                         <th width="15%">Tanggal kejadian</th>
                         <th width="15%">Nik</th>
                         <th width="15%">Isi Laporan</th>
-                        <th width="15%">Foto</th>
-                        <th width="10%">Status</th>
+                        <th width="10%">Foto</th>
+                        <th width="15%">Status</th>
                         <th width="10%">Action</th>
                     </tr>
                 </thead>
@@ -138,8 +138,8 @@ if (mysqli_num_rows($result) > 0) {
             <td><?php echo $data['kategori']; ?></td>
             <td><?php echo $data['tgl_pengaduan']; ?></td>
             <td><?php echo $data['nik']; ?></td>
-            <td><?php echo $data['isi_laporan']; ?></td>
-            <td><?php echo $data['foto']; ?></td>
+            <td><?php echo strlen($data['isi_laporan']) > 15 ? substr($data['isi_laporan'], 0, 15) . '...' : $data['isi_laporan']; ?></td>
+            <td><img src="storages/foto_laporan/<?php echo $data['foto']; ?>" alt="laporan" width="50px"></td>
             <?php
             $status = trim($data['status']);
             switch ($status) {
