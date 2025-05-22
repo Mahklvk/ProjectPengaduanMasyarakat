@@ -90,7 +90,7 @@ $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
                 ?>
             </div>
             <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center mt-5">
-        <p>Photo</p>
+        <p>Foto</p>
         <img src="../storages/foto_laporan/<?php echo $fetch_laporan['foto']; ?>" alt="image laporan" class="img-fluid" style="max-height: 200px; cursor: pointer;" 
      data-bs-toggle="modal" 
      data-bs-target="#imageModal" 
