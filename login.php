@@ -130,7 +130,8 @@ body {
 }
 
 .btn-login:hover {
-  background-color: #2a5285;
+    background-color:#4689e0;
+  color: white;
 }
 
 .remember-me {
