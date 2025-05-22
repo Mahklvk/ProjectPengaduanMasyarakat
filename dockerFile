@@ -1,0 +1,12 @@
+FROM php:8.2-apache
+
+# Aktifkan mod_rewrite jika perlu
+RUN a2enmod rewrite
+
+# Salin semua file ke web root
+COPY . /var/www/html/
+
+# Set permission agar file bisa dibaca Apache
+RUN chown -R www-data:www-data /var/www/html
+
+EXPOSE 80
