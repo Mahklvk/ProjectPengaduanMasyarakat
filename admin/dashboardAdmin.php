@@ -122,6 +122,7 @@ if (isset($conn) && $conn) {
             align-items: center;
             justify-content: center;
             color: white;
+            object-fit: cover;
         }
 
         .btn-simpan {
@@ -166,7 +167,7 @@ if (isset($conn) && $conn) {
         <!-- User Card -->
         <div class="card mb-4">
             <div class="card-body d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center object-profile">
                     <div class="profile-image me-3">
                         <i class="bi bi-person-fill fs-3"></i>
                     </div>
