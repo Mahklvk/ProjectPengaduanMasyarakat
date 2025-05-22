@@ -1,5 +1,10 @@
 <?php
+
+require 'vendor/autoload.php';
 require 'config/db.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -42,7 +47,7 @@ $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
 
                 $message = "<script>
                     Swal.fire({ icon: 'success', title: 'Sukses!', text: 'Link reset telah dikirim ke email Anda.' })
-                    .then(() => { window.location.href = 'login.php'; });
+                    .then(() => { window.location.href = 'admin/loginAdmin.php'; });
                 </script>";
             } catch (Exception $e) {
                 $message = "<script>
