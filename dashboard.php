@@ -107,6 +107,7 @@ if (isset($conn) && $conn) {
             align-items: center;
             justify-content: center;
             color: white;
+            object-fit: cover;
         }
 
         .btn-simpan {
