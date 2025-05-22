@@ -150,8 +150,8 @@ if (mysqli_num_rows($result) > 0) {
             <td><?php echo $data['kategori'];?></td>
             <td><?php echo $data['tgl_pengaduan']; ?></td>
             <td><?php echo $data['nik']; ?></td>
-            <td><?php echo $data['isi_laporan']; ?></td>
-            <td><?php echo $data['foto']; ?></td>
+            <td><?php echo strlen($data['isi_laporan']) > 15 ? substr($data['isi_laporan'], 0, 15) . '...' : $data['isi_laporan']; ?></td>
+            <td><img src="../storages/foto_laporan/<?php echo $data['foto']; ?>" alt="" width="50px"></td>
             <?php
             // Menentukan kelas tombol berdasarkan status laporan
             $status = trim($data['status']);
