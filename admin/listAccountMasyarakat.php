@@ -5,7 +5,7 @@ require('../config/db.php');
 // Cek apakah ada pencarian
 if (isset($_GET['search']) && $_GET['search'] != '') {
     $filtervalues = $_GET['search'];
-    $query = "SELECT * FROM masyarakat WHERE CONCAT(nik,nama,username,telp) LIKE '%$filtervalues%' ";
+    $query = "SELECT * FROM masyarakat WHERE CONCAT(nik,username,telp) LIKE '%$filtervalues%' ";
     $result = mysqli_query($conn, $query);
 } else {
     // Tidak ada pencarian, ambil semua data
@@ -94,7 +94,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
         <th>No</th>
         <th>NIK</th>
         <th>Email</th>
-        <th>Nama</th>
         <th>Username</th>
         <th>Telp</th>
         <th>Aksi</th>
@@ -115,7 +114,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             <td><?= $no++; ?></td>
             <td><?= $data['nik']; ?></td>
             <td><?= $data['email']; ?></td>
-            <td><?= $data['nama']; ?></td>
             <td><?= $data['username']; ?></td>
             <td><?= $data['telp']; ?></td>
             <td><a href="detail_akun_masyarakat.php?p=<?php echo $data['id_masyarakat']; ?>" class="btn btn-sm btn-outline-secondary">Detail</a></td>

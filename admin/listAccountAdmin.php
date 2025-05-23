@@ -5,7 +5,7 @@ require('../config/db.php');
 // Cek apakah ada pencarian
 if (isset($_GET['search']) && $_GET['search'] != '') {
     $filtervalues = $_GET['search'];
-    $query = "SELECT * FROM petugas WHERE CONCAT(nama_petugas,username,password,telp,level) LIKE '%$filtervalues%' ";
+    $query = "SELECT * FROM petugas WHERE CONCAT(username,password,telp,level) LIKE '%$filtervalues%' ";
     $result = mysqli_query($conn, $query);
 } else {
     // Tidak ada pencarian, ambil semua data
@@ -105,7 +105,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
       <tr>
         <th>No</th>
         <th>NIK</th>
-        <th>Nama</th>
         <th>Username</th>
         <th>Telp</th>
         <th>Level</th>
@@ -126,7 +125,6 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
           <tr>
             <td><?= $no++; ?></td>
             <td><?= $data['nik']; ?></td>
-            <td><?= $data['nama_petugas']; ?></td>
             <td><?= $data['username']; ?></td>
             <td><?= $data['telp']; ?></td>
             <td><?= $data['level']; ?></td>

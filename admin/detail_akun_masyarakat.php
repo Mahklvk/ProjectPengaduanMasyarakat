@@ -17,19 +17,16 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
 </head>
 <body>
     <?php include('config/navbar.php')?>
-    <h2 class="text-center mt-4"><?php echo $fetch_data['nama']?></h2>
+    <h2 class="text-center mt-4"><?php echo $fetch_data['username']?></h2>
     <div class="container mt-4">
         <div class="row items-start border border-dark rounded p-2">
             <div class="col-md-12 p-3">
                 <form action="" method="post">
             <label class="form-label">NIK</label>
-<input type="text" class="form-control" id="nik" value="<?php echo $fetch_data['nik']?>" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)">
+<input type="text" class="form-control" id="nik" value="<?php echo $fetch_data['nik']?>" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)" readonly>
 
 <label class="form-label">Email</label>
-<input type="text" class="form-control" name="email" value="<?php echo $fetch_data['email']?>">
-
-<label class="form-label">Nama</label>
-<input type="text" class="form-control" name="nama" value="<?php echo $fetch_data['nama']?>">
+<input type="text" class="form-control" name="email" value="<?php echo $fetch_data['email']?>" readonly>
 
 <label class="form-label">Username</label>
 <input type="text" class="form-control" name="username" value="<?php echo $fetch_data['username']?>">
@@ -102,7 +99,6 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
       // Ambil nilai dari input form
       const nik = document.querySelector('input[name="nik"]').value;
       const email = document.querySelector('input[name="email"]').value;
-      const nama = document.querySelector('input[name="nama"]').value;
       const username = document.querySelector('input[name="username"]').value;
       const password = document.querySelector('input[name="password"]').value;
       const telp = document.querySelector('input[name="telp"]').value;
@@ -116,7 +112,6 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
           id_masyarakat: idMasyarakat,
           nik: nik,
           email: email,
-          nama: nama,
           username: username,
           password: password,
           telp: telp

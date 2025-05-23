@@ -23,7 +23,7 @@ if(!$result) {
 if (mysqli_num_rows($result) > 0) {
     $user = mysqli_fetch_assoc($result);
     $nik = isset($user['nik']) ? $user['nik'] : '';
-    $nama = isset($user['nama']) ? $user['nama'] : '';
+    $email = isset($user['email']) ? $user['email'] : '';
     $username = isset($user['username']) ? $user['username'] : '';
     // Password tidak ditampilkan langsung karena alasan keamanan
 } else {
@@ -156,7 +156,7 @@ if (isset($conn) && $conn) {
                     <div class="profile-image me-3">
                         <i class="bi bi-person-fill fs-3"></i>
                     </div>
-                    <h5 class="mb-0"><?php echo htmlspecialchars($nama); ?></h5>
+                    <h5 class="mb-0"><?php echo htmlspecialchars($username); ?></h5>
                 </div>
                 <a href="history_laporan.php" class="btn btn-outline-dark">
                     <i class="bi bi-list-ul me-2"></i>
@@ -166,7 +166,7 @@ if (isset($conn) && $conn) {
         </div>
 
         <!-- User Form -->
-        <div class="card">
+        <div class="card ">
             <div class="card-body">
                 <form id="userForm" method="POST">
                     <div class="row mb-3">
@@ -175,13 +175,13 @@ if (isset($conn) && $conn) {
                             <input type="text" class="form-control" id="nik" name="nik" value="<?php echo htmlspecialchars($nik); ?>" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label for="nama" class="form-label fw-bold">Nama</label>
-                            <input type="text" class="form-control" id="nama" name="nama" value="<?php echo htmlspecialchars($nama); ?>" readonly>
+                            <label for="username" class="form-label fw-bold">Email</label>
+                            <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($email); ?>" readonly>
                         </div>
                     </div>
 
-                    <div class="row mb-4">
-                        <div class="col-md-6">
+                    <div class="row mb-3">
+                     <div class="col-md-6">
                             <label for="username" class="form-label fw-bold">Username</label>
                             <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>">
                         </div>
@@ -193,7 +193,7 @@ if (isset($conn) && $conn) {
                                     <i class="bi bi-eye" id="passwordToggleIcon"></i>
                                 </button>
                             </div>
-                            <small class="text-muted">Kosongkan jika tidak ingin mengubah password</small>
+                            <small class="text-muted">Password Disembunyikan Untuk Masalah Keamanan</small>
                         </div>
                     </div>
 

@@ -288,7 +288,7 @@ body {
                                         <div class="mb-3">
                                             <label for="password" class="form-label">Password</label>
                                             <div class="password-container">
-                                                <input type="password" class="form-control" id="password" placeholder="******" name="password">
+                                                <input type="password" class="form-control" id="password" placeholder="******" name="password" required>
                                                 <button type="button" class="password-toggle">
                                                     <i class="bi bi-eye"></i>
                                                 </button>

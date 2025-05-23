@@ -9,14 +9,12 @@ if (
     isset($data['id_petugas']) &&
     isset($data['nik']) &&
     isset($data['email']) &&
-    isset($data['nama']) &&
     isset($data['username']) &&
     isset($data['password']) &&
     isset($data['telp'])
 ) {
     $id = $data['id_petugas'];
     $nik = preg_replace('/\D/', '', $data['nik']);
-    $nama = $data['nama'];
     $email = $data['email'];
     $username = $data['username'];
     $password = $data['password'];
@@ -24,10 +22,10 @@ if (
 
     if (!empty($password)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $update_query = "UPDATE petugas SET nik='$nik',nama_petugas='$nama', email='$email',username='$username', password='$hashed_password', telp='$telp' WHERE id_petugas='$id'";
+        $update_query = "UPDATE petugas SET nik='$nik',email='$email',username='$username', password='$hashed_password', telp='$telp' WHERE id_petugas='$id'";
     } else {
         // Jika password tidak diubah
-        $update_query = "UPDATE petugas SET nik='$nik',nama_petugas='$nama', email='$emails',username='$username', telp='$telp' WHERE id_petugas='$id'";
+        $update_query = "UPDATE petugas SET nik='$nik',email='$email',username='$username', telp='$telp' WHERE id_petugas='$id'";
     }
 
     if (mysqli_query($conn, $update_query )) {

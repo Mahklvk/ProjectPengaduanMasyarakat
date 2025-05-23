@@ -276,13 +276,13 @@ body {
                             <form method="POST">
                             <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="username" placeholder="name" name="username">
+                                        <input type="text" class="form-control" id="username" placeholder="name" name="username" required>
                                     </div>
 
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
                                     <div class="password-container">
-                                        <input type="password" class="form-control" id="password" placeholder="******" name="password">
+                                        <input type="password" class="form-control" id="password" placeholder="******" name="password" required>
                                         <button type="button" class="password-toggle">
                                             <i class="bi bi-eye"></i>
                                         </button>
@@ -327,7 +327,6 @@ body {
                                             // Jika berhasil, buat session
                                             $_SESSION['username'] = $data['username'];
                                             $_SESSION['id_petugas'] = $data['id_petugas'];
-                                            $_SESSION['nama_petugas'] = $data['nama_petugas'];
                                             $_SESSION['nik'] = $data['nik'];
                                             $_SESSION['level'] = $data['level'];
                                             $_SESSION['loginAdmin'] = true;

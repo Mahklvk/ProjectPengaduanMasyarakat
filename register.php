@@ -142,32 +142,35 @@
                                 <form method="POST">
                                     <div class="mb-3">
                                         <label for="nik" class="form-label">NIK</label>
-                                        <input type="text" class="form-control" id="nik" placeholder="320x-xxxx-xxxx-xxxx" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)">
+                                        <input type="text" class="form-control" id="nik" placeholder="320x-xxxx-xxxx-xxxx" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)" required>
+                                        <div id="nikError" style="color: red; font-size: 0.9em;"></div>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" autocomplete="off">
+                                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" autocomplete="off" required>
+                                        <div id="emailError" style="color: red; font-size: 0.9em;"></div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="name" class="form-control" id="name" placeholder="Name" name="nama" autocomplete="off">
-                                    </div>
-                                    <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
-                                        <input type="username" class="form-control" id="username" placeholder="Name" name="username" autocomplete="off">
+                                        <input type="username" class="form-control" id="username" placeholder="Name" name="username" autocomplete="off" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <div class="password-toggle">
-                                            <input type="password" class="form-control" id="password" placeholder="*" name="password" autocomplete="off">
-                                            <i class="bi bi-eye" id="togglePassword"></i>
-                                        </div>
-                                    </div>
+    <label for="password" class="form-label">Password</label>
+    <div class="password-toggle position-relative">
+        <input type="password" class="form-control" id="password"
+            placeholder="*" name="password" autocomplete="off" required
+            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+            title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
+        <i class="bi bi-eye" id="togglePassword" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;"></i>
+    </div>
+    <small class="text-muted">Password harus Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial </small>
+</div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">No Telp</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="08xx-xxxx-xxxx" name="telp" autocomplete="off" oninput="formatNumber(this)" minlength="13" maxlength="18">
+                                        <input type="text" class="form-control" id="phone" placeholder="08xx-xxxx-xxxx" name="telp" autocomplete="off" oninput="formatNumber(this)" minlength="13" maxlength="18" required>
+                                        <div id="nomorError" style="color: red; font-size: 0.9em;"></div>
                                     </div>
 
                                     <button name="submit" type="submit" class="btn btn-register">Register</button>
@@ -180,7 +183,6 @@
                                 include 'config/db.php';
                                 $email = mysqli_real_escape_string($conn, $_POST['email']);
                                 $nik = mysqli_real_escape_string($conn, $_POST['nik']);
-                                $nama = mysqli_real_escape_string($conn, $_POST['nama']);
                                 $username = mysqli_real_escape_string($conn, $_POST['username']);
                                 //hash password mencegah hacker
                                 $password_raw = $_POST['password'];
@@ -224,8 +226,8 @@
                                 // Jika tidak ada error, lanjutkan dengan penyimpanan data
                                 if(empty($errors)) {
                                     // Gunakan query langsung seperti kode asli
-                                    $data = mysqli_query($conn, "INSERT INTO masyarakat (nik, email, nama, username, password, telp) 
-                                        VALUES ('$nik', '$email', '$nama', '$username', '$password', '$telp')");
+                                    $data = mysqli_query($conn, "INSERT INTO masyarakat (nik, email, username, password, telp) 
+                                        VALUES ('$nik', '$email', '$username', '$password', '$telp')");
         
                                 if($data) {
                                         // Tampilkan pesan sukses
@@ -295,13 +297,55 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            this.classList.toggle('bi-eye');
-            this.classList.toggle('bi-eye-slash');
-        });
+
+        document.getElementById("togglePassword").addEventListener("click", function () {
+    const passwordInput = document.getElementById("password");
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    this.classList.toggle("bi-eye");
+    this.classList.toggle("bi-eye-slash");
+});
+        document.querySelector("form").addEventListener("submit", function(e) {
+    const emailInput = document.getElementById("email");
+    const email = emailInput.value;
+    const errorDiv = document.getElementById("emailError");
+
+    if (!email.endsWith("@gmail.com") && !email.endsWith("@yahoo.com")) {
+        e.preventDefault(); // mencegah submit
+        errorDiv.textContent = "Email harus menggunakan @gmail.com atau @yahoo.com";
+    } else {
+        errorDiv.textContent = "";
+    }
+
+    const nikInput = document.getElementById('nik');
+    const nik = nikInput.value;
+    const nikError = document.getElementById('nikError');
+
+    if(!nik < 16){
+        e.preventDefault();
+        nikError.textContent = "NIK harus berupa 16 digit angka";
+    }else{
+        nikError.textContent = "";
+    }
+
+        const password = document.getElementById("password").value;
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
+    if (!regex.test(password)) {
+        e.preventDefault();
+        alert("Password tidak valid! Harus 8+ karakter, ada huruf besar, angka, dan simbol.");
+    }
+
+    const nomorInput = document.getElementById('phone');
+    const nomor = nomorInput.value;
+    const nomorError = document.getElementById('nomorError');
+
+    if(!nomor < 12){
+        e.preventDefault();
+        nomorError.textContent = "Nomor minimal 12 digit angka"
+    }else{
+        nomorError.textContent = "";
+    }
+});
 
         function formatNumber(input) {
   // Ambil angka saja, tanpa karakter selain digit

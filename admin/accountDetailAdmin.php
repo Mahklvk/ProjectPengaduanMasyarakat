@@ -17,22 +17,20 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
 </head>
 <body>
     <?php include('config/navbar.php')?>
-    <h2 class="text-center mt-4"><?php echo $fetch_data['nama_petugas']?></h2>
+    <h2 class="text-center mt-4"><?php echo $fetch_data['username']?></h2>
     <div class="container mt-4">
         <div class="row items-start border border-dark rounded p-2">
             <div class="col-md-12 p-3">
                 <form action="" method="post">
             <label class="form-label">NIK</label>
-<input type="text" class="form-control" id="nik" value="<?php echo $fetch_data['nik']?>" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)">
+<input type="text" class="form-control" id="nik" value="<?php echo $fetch_data['nik']?>" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)" readonly>
 
-<label class="form-label">Nama</label>
-<input type="text" class="form-control" name="nama" value="<?php echo $fetch_data['nama_petugas']?>">
+<label class="form-label">Email</label>
+<input type="text" class="form-control" name="email" value="<?php echo $fetch_data['email']?>" readonly>
 
 <label class="form-label">Username</label>
 <input type="text" class="form-control" name="username" value="<?php echo $fetch_data['username']?>">
 
-<label class="form-label">Email</label>
-<input type="text" class="form-control" name="email" value="<?php echo $fetch_data['email']?>">
 
 <label for="password" class="form-label fw-bold">Password</label>
 <div class="input-group">
@@ -62,29 +60,6 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
         </div>
     </div>
 
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
-    <div class="modal-content bg-dark border-0">
-      <div class="modal-body p-0 position-relative">
-        <!-- Tombol Close -->
-        <button type="button" class="btn btn-danger position-absolute top-0 end-0 m-3 z-3" data-bs-dismiss="modal" aria-label="Close" onclick="reset()">
-          <i class="fas fa-times"></i>
-        </button>
-
-        <!-- Kontainer Gambar -->
-        <div class="image-container d-flex justify-content-center align-items-center h-100 overflow-hidden" style="touch-action: none;">
-          <img id="modalImage" src="" alt="Preview" class="img-fluid" style="transition: transform 0.3s;">
-        </div>
-
-        <!-- Tombol Zoom -->
-        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 z-3">
-          <button class="btn btn-light me-2" onclick="zoomImage('in')"><i class="fas fa-search-plus"></i></button>
-          <button class="btn btn-light" onclick="zoomImage('out')"><i class="fas fa-search-minus"></i></button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -129,9 +104,8 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
     if (result.isConfirmed) {
       // Ambil nilai dari input form
       const nik = document.querySelector('input[name="nik"]').value;
-      const nama = document.querySelector('input[name="nama"]').value;
-      const username = document.querySelector('input[name="username"]').value;
       const email = document.querySelector('input[name="email"]').value;
+      const username = document.querySelector('input[name="username"]').value;
       const password = document.querySelector('input[name="password"]').value;
       const telp = document.querySelector('input[name="telp"]').value;
 
@@ -143,9 +117,8 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
         body: JSON.stringify({
           id_petugas: idPetugas,
           nik: nik,
-          nama: nama,
-          username: username,
           email: email,
+          username: username,
           password: password,
           telp: telp
         }),
