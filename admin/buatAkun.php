@@ -1,260 +1,171 @@
 <?php
 require "config/sessionLogin.php";
+include '../config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Akun - MyReport</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- SweetAlert2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    <!-- fontawesome -->
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        /* .width-form {
-            max-width: 700px;
-
-        } */
-        /*.form-title {
-            margin-bottom: 25px;
-            color: #333;
-        } */
-        .btn-primary {
-            /* background-color: #0d6efd;
-            border: none; */
-            width: 100%;
-        }
-        /* .btn-primary:hover {
-            background-color: #0b5ed7;
-        } */
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Akun - MyReport</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; }
+    .btn-primary { width: 100%; }
+  </style>
 </head>
-
 <body>
-    <?php include('config/navbar.php')?>
-    <!-- Form Container -->
-    <div class="container ">
-        <h2 class="mt-3 container">Tambah Akun</h2>
-        <div class="p-5 border border-dark rounded mb-5">
-            <form id="tambahAkunForm" method="POST" class="width-form container col-md-6">
-                <!-- NIK -->
-                <div class="mb-3">
-                    <label for="nik" class="form-label">NIK</label>
-                    <input name="nik" type="text" class="form-control" id="nik" placeholder="320xxxx" required maxlength="19" autocomplete="off"   oninput="formatNumber(this)">
-                </div>
+<?php include('config/navbar.php'); ?>
 
-                <!-- Nama -->
-                <div class="mb-3">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input name="nama" type="text" class="form-control" id="nama" placeholder="nama" required>
-                </div>
+<div class="container mt-4">
+  <h2>Tambah Akun</h2>
+  <div class="p-5 border border-dark rounded mb-5">
+    <form id="tambahAkunForm" method="POST" class="col-md-6 mx-auto">
+      <div class="mb-3">
+        <label for="nik" class="form-label">NIK</label>
+        <input type="text" class="form-control" id="nik" name="nik" maxlength="19" required autocomplete="off" oninput="formatNumber(this)">
+        <div id="nikError" class="text-danger small"></div>
+      </div>
 
-                <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" autocomplete="off">
-                </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
+        <div id="emailError" class="text-danger small"></div>
+      </div>
 
-                <!-- Username -->
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input name="username" type="text" class="form-control" id="username" placeholder="username" required>
-                </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+        <div id="userError" class="text-danger small"></div>
+      </div>
 
-                <!-- Password -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                        <input name="password" type="password" class="form-control" id="password" placeholder="••••••••" required>
-                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- No. Telp -->
-                <div class="mb-3">
-                    <label for="notelp" class="form-label">No.Telp</label>
-                    <input name="notelp" type="text" class="form-control" id="notelp" placeholder="083xxxx" required  oninput="formatNumber(this)" minlength="13" maxlength="18">
-                </div>
-
-                <!-- Pilih Role Dropdown -->
-                <div class="mb-3">
-                    <label for="role" class="form-label">Pilih Role</label>
-                    <select name="role" class="form-select" id="role" required>
-                        <option value="" selected disabled>Pilih Role</option>
-                        <option value="admin">Admin</option>
-                        <option value="petugas">Petugas</option>
-                    </select>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="mb-3">
-                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
-
-            <?php
-            // Mengecek koneksi database dahulu
-            include '../config/db.php';
-
-            // Memproses data ketika form dikirim
-            if(isset($_POST['submit'])) {
-                // Mengambil dan membersihkan data input dari form
-                $nik = mysqli_real_escape_string($conn, $_POST['nik']);
-                $nama_petugas = mysqli_real_escape_string($conn, $_POST['nama']);
-                $email = mysqli_real_escape_string($conn, $_POST['email']);
-                $username = mysqli_real_escape_string($conn, $_POST['username']);
-                $password_raw = $_POST['password'];
-                $password = password_hash($password_raw, PASSWORD_DEFAULT);
-                $telp = mysqli_real_escape_string($conn, $_POST['notelp']);
-                $level = mysqli_real_escape_string($conn, $_POST['role']);
-
-                // Inisialisasi array untuk menyimpan pesan kesalahan validasi
-                $errors = array();
-
-                $nik = preg_replace('/\D/', '', $_POST['nik']); // pembersihan karakter & hanya angka
-                $telp = preg_replace('/\D/', '', $_POST['notelp']);
-
-                // Validasi NIK (harus 16 digit angka)
-                if(strlen($nik) != 16) {
-                    $errors[] = "NIK harus berupa 16 digit angka";
-                }
-
-                // Validasi username (memeriksa apakah sudah ada di database)
-                $check_username = mysqli_query($conn, "SELECT * FROM petugas WHERE username='$username'");
-                if($check_username && mysqli_num_rows($check_username) > 0) {
-                    $errors[] = "Username sudah digunakan";
-                }
-
-                //validasi email
-                $check_email = mysqli_query($conn, "SELECT * FROM petugas WHERE email='$email'");
-                if($check_email && mysqli_num_rows($check_email) > 0) {
-                    $errors[] = "Email sudah terdaftar";
-                }
-
-                $check_telp = mysqli_query($conn, "SELECT * FROM petugas WHERE telp='$telp'");
-                if($check_telp && mysqli_num_rows($check_telp) > 0) {
-                    $errors[] = "Nomor Telpon sudah terdaftar";
-                }
-
-                // Validasi level (harus 'admin' atau 'petugas')
-                if($level != 'admin' && $level != 'petugas') {
-                    $errors[] = "Level harus 'admin' atau 'petugas'";
-                }
-
-                // Jika tidak ada kesalahan validasi, simpan data ke database
-                if(empty($errors)) {
-                    // Memasukkan data petugas baru ke database
-                    $query = "INSERT INTO petugas (nik, nama_petugas, email, username, password, telp, level) 
-                              VALUES ('$nik', '$nama_petugas','$email', '$username', '$password', '$telp', '$level')";
-
-                    $data = mysqli_query($conn, $query);
-
-                    if($data) {
-                        // Menampilkan pesan sukses menggunakan SweetAlert
-                        echo "<script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                Swal.fire({
-                                    title: 'Berhasil!',
-                                    text: 'Akun baru telah berhasil ditambahkan ke sistem',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.href = 'index.php';
-                                    }
-                                });
-                            });
-                        </script>";
-                    } else {
-                        // Menampilkan pesan error jika gagal menyimpan ke database
-                        echo "<script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                Swal.fire({
-                                    title: 'Gagal!',
-                                    text: 'Terjadi kesalahan saat menyimpan data: " . mysqli_error($conn) . "',
-                                    icon: 'error',
-                                    confirmButtonText: 'Coba Lagi'
-                                });
-                            });
-                        </script>";
-                    }
-                } else {
-                    // Menampilkan pesan kesalahan validasi
-                    $error_message = implode(', ', $errors);
-                    echo "<script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            Swal.fire({
-                                title: 'Validasi Gagal!',
-                                text: '$error_message',
-                                icon: 'error',
-                                confirmButtonText: 'Coba Lagi'
-                            });
-                        });
-                    </script>";
-                }
-            }
-            ?>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+          <input type="password" class="form-control" id="password" name="password"
+                 placeholder="••••••••" required
+                 pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+                 title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
+          <button class="btn btn-outline-secondary" type="button" id="togglePassword"><i class="bi bi-eye"></i></button>
         </div>
-    </div>
+        <small class="text-muted">Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial</small>
+      </div>
 
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <div class="mb-3">
+        <label for="notelp" class="form-label">No.Telp</label>
+        <input type="text" class="form-control" id="notelp" name="notelp" minlength="13" maxlength="18" required oninput="formatNumber(this)">
+        <div id="telpError" class="text-danger small"></div>
+      </div>
 
-    <!-- Password toggle script -->
-    <script>
+      <div class="mb-3">
+        <label for="role" class="form-label">Pilih Role</label>
+        <select name="role" id="role" class="form-select" required>
+          <option value="" disabled selected>Pilih Role</option>
+          <option value="admin">Admin</option>
+          <option value="petugas">Petugas</option>
+        </select>
+      </div>
 
-              function formatNumber(input) {
-  // Ambil angka saja, tanpa karakter selain digit
-  let value = input.value.replace(/\D/g, '');
+      <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+    </form>
 
-  // Potong jadi per 4 digit
-  let formatted = value.match(/.{1,4}/g);
-  
-  // Gabungkan dengan "-"
-  if (formatted) {
-    input.value = formatted.join('-');
-  } else {
-    input.value = '';
+    <?php
+    if (isset($_POST['submit'])) {
+      $nik     = preg_replace('/\D/', '', $_POST['nik']);
+      $email   = mysqli_real_escape_string($conn, $_POST['email']);
+      $username= mysqli_real_escape_string($conn, $_POST['username']);
+      $telp    = preg_replace('/\D/', '', $_POST['notelp']);
+      $level   = $_POST['role'];
+      $password_raw = $_POST['password'];
+      $password = password_hash($password_raw, PASSWORD_DEFAULT);
+
+      $errors = [];
+
+      if (strlen($nik) != 16) $errors[] = "NIK harus 16 digit angka";
+      if (!in_array($level, ['admin', 'petugas'])) $errors[] = "Level tidak valid";
+      if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM petugas WHERE username='$username'")) > 0)
+        $errors[] = "Username sudah digunakan";
+      if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM petugas WHERE email='$email'")) > 0)
+        $errors[] = "Email sudah terdaftar";
+      if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM petugas WHERE telp='$telp'")) > 0)
+        $errors[] = "No. Telp sudah terdaftar";
+
+      if (empty($errors)) {
+        $query = "INSERT INTO petugas (nik, email, username, password, telp, level) VALUES ('$nik','$email','$username','$password','$telp','$level')";
+        if (mysqli_query($conn, $query)) {
+          echo "<script>
+            document.addEventListener('DOMContentLoaded', () => {
+              Swal.fire('Berhasil!', 'Akun berhasil ditambahkan.', 'success').then(() => window.location.href = 'index.php');
+            });
+          </script>";
+        } else {
+          echo "<script>
+            document.addEventListener('DOMContentLoaded', () => {
+              Swal.fire('Gagal!', 'Kesalahan sistem: " . mysqli_error($conn) . "', 'error');
+            });
+          </script>";
+        }
+      } else {
+        $error_msg = implode(', ', $errors);
+        echo "<script>
+          document.addEventListener('DOMContentLoaded', () => {
+            Swal.fire('Validasi Gagal!', '$error_msg', 'error');
+          });
+        </script>";
+      }
+    }
+    ?>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.getElementById('togglePassword').addEventListener('click', function () {
+    const input = document.getElementById('password');
+    const icon = this.querySelector('i');
+    input.type = input.type === 'password' ? 'text' : 'password';
+    icon.classList.toggle('bi-eye');
+    icon.classList.toggle('bi-eye-slash');
+  });
+
+  function formatNumber(input) {
+    const value = input.value.replace(/\D/g, '');
+    const formatted = value.match(/.{1,4}/g);
+    input.value = formatted ? formatted.join('-') : '';
   }
-}
 
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
-            const icon = this.querySelector('i');
+  document.getElementById("tambahAkunForm").addEventListener("submit", function(e) {
+    let isValid = true;
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('bi-eye');
-                icon.classList.add('bi-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('bi-eye-slash');
-                icon.classList.add('bi-eye');
-            }
-        });
+    const email = document.getElementById("email").value;
+    if (!email.endsWith("@gmail.com") && !email.endsWith("@yahoo.com")) {
+      document.getElementById("emailError").textContent = "Gunakan @gmail.com atau @yahoo.com";
+      isValid = false;
+    } else {
+      document.getElementById("emailError").textContent = "";
+    }
 
-        // Simulasi untuk menampilkan username pengguna yang sedang login
-        document.addEventListener('DOMContentLoaded', function() {
-            // Contoh data pengguna (dalam aplikasi nyata, ini akan diambil dari sistem)
-            const loggedInUser = {
-                username: "Admin",
-                role: "Admin"
-            };
+    const nik = document.getElementById("nik").value.replace(/\D/g, '');
+    if (nik.length !== 16) {
+      document.getElementById("nikError").textContent = "NIK harus 16 digit";
+      isValid = false;
+    } else {
+      document.getElementById("nikError").textContent = "";
+    }
 
-            // Tampilkan username di navbar
-            document.getElementById('currentUsername').textContent = loggedInUser.username;
-        });
-    </script>
+    const telp = document.getElementById("notelp").value.replace(/\D/g, '');
+    if (telp.length < 12) {
+      document.getElementById("telpError").textContent = "No. Telp minimal 12 digit";
+      isValid = false;
+    } else {
+      document.getElementById("telpError").textContent = "";
+    }
+
+    if (!isValid) e.preventDefault();
+  });
+</script>
 </body>
 </html>

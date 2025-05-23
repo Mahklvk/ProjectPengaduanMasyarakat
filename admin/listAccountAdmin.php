@@ -112,7 +112,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
       </tr>
     </thead>
 
-     <a href="buat_akun.php"><button class="btn btn-primary btn-add-akun" id="addAkunBtn">
+     <a href="buatAkun.php"><button class="btn btn-primary btn-add-akun" id="addAkunBtn">
        <i class="fa fa-plus-circle"></i> Buat Akun
   </button></a>
 
