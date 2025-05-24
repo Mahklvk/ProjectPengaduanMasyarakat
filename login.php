@@ -339,6 +339,7 @@ body {
                                                     $_SESSION['nik'] = $data['nik'];
                                                     $_SESSION['level'] = $data['level'];
                                                     $_SESSION['id_masyarakat'] = $data['id_masyarakat'];
+                                                    $_SESSION['telp'] = $data['telp'];
                                                     $_SESSION['login'] = true;
                                                     echo "<script>
                         Swal.fire({
