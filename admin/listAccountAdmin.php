@@ -105,6 +105,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
       <tr>
         <th>No</th>
         <th>NIK</th>
+        <th>Email</th>
         <th>Username</th>
         <th>Telp</th>
         <th>Level</th>
@@ -125,6 +126,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
           <tr>
             <td><?= $no++; ?></td>
             <td><?= $data['nik']; ?></td>
+            <td><?= $data['email']; ?></td>
             <td><?= $data['username']; ?></td>
             <td><?= $data['telp']; ?></td>
             <td><?= $data['level']; ?></td>
