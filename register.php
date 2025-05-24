@@ -160,7 +160,7 @@
     <label for="password" class="form-label">Password</label>
     <div class="password-toggle position-relative">
         <input type="password" class="form-control" id="password"
-            placeholder="*" name="password" autocomplete="off" required
+            placeholder="********" name="password" autocomplete="off" required
             pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
             title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
         <i class="bi bi-eye" id="togglePassword" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;"></i>
@@ -310,9 +310,9 @@
     const email = emailInput.value;
     const errorDiv = document.getElementById("emailError");
 
-    if (!email.endsWith("@gmail.com") && !email.endsWith("@yahoo.com")) {
+    if (!email.endsWith(".com")) {
         e.preventDefault(); // mencegah submit
-        errorDiv.textContent = "Email harus menggunakan @gmail.com atau @yahoo.com";
+        errorDiv.textContent = "Email harus menggunakan setidaknya .com";
     } else {
         errorDiv.textContent = "";
     }
@@ -321,12 +321,6 @@
     const nik = nikInput.value;
     const nikError = document.getElementById('nikError');
 
-    if(!nik < 16){
-        e.preventDefault();
-        nikError.textContent = "NIK harus berupa 16 digit angka";
-    }else{
-        nikError.textContent = "";
-    }
 
         const password = document.getElementById("password").value;
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
@@ -338,13 +332,6 @@
     const nomorInput = document.getElementById('phone');
     const nomor = nomorInput.value;
     const nomorError = document.getElementById('nomorError');
-
-    if(!nomor < 12){
-        e.preventDefault();
-        nomorError.textContent = "Nomor minimal 12 digit angka"
-    }else{
-        nomorError.textContent = "";
-    }
 });
 
         function formatNumber(input) {
