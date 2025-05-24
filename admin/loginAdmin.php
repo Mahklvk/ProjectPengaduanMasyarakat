@@ -238,7 +238,7 @@ body {
                 <!-- Header with back button and logo -->
                 <div class="col-12" style="height: 70px;">
                     <div class="d-flex justify-content-between align-items-center px-4 py-3 bg-white">
-                      <a href="index.php">
+                      <a href="../index.php">
                         <div class="back-button">
                             <i class="bi bi-arrow-left"></i>
                         </div>
@@ -275,8 +275,8 @@ body {
 
                             <form method="POST">
                             <div class="mb-3">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="username" placeholder="name" name="username" required>
+                                        <label for="username" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="username" placeholder="example@gmail.com" name="email" required>
                                     </div>
 
                                 <div class="mb-3">
@@ -308,15 +308,15 @@ body {
 
                             if (isset($_POST['submit'])) {
                                 // Mengambil input dari form login
-                                $username = htmlspecialchars($_POST['username']);
+                                $email = htmlspecialchars($_POST['email']);
                                 $password = htmlspecialchars($_POST['password']);
 
                                 // Memastikan koneksi ke database berhasil
                                 if ($conn) {
                                     // Query untuk mencari username di database
-                                    $query = "SELECT * FROM petugas WHERE username = ?";
+                                    $query = "SELECT * FROM petugas WHERE email = ?";
                                     $stmt = mysqli_prepare($conn, $query);
-                                    mysqli_stmt_bind_param($stmt, "s", $username);
+                                    mysqli_stmt_bind_param($stmt, "s", $email);
                                     mysqli_stmt_execute($stmt);
                                     $result = mysqli_stmt_get_result($stmt);
 
@@ -326,19 +326,16 @@ body {
                                         if (password_verify($password, $data['password'])) {
                                             // Jika berhasil, buat session
                                             $_SESSION['username'] = $data['username'];
+                                            $_SESSION['email'] = $data['email'];
                                             $_SESSION['id_petugas'] = $data['id_petugas'];
                                             $_SESSION['nik'] = $data['nik'];
                                             $_SESSION['level'] = $data['level'];
                                             $_SESSION['loginAdmin'] = true;
 
-                                            // Menambahkan pengecekan level pengguna
-                                            // Asumsi bahwa ada kolom 'level' di tabel petugas
-                                            $_SESSION['level'] = $data['level'];
-
                                             // Redirect berdasarkan level
                                             if ($data['level'] == 'admin') {
                                                 $redirect_url = 'index.php';
-                                                $welcome_message = 'Selamat datang, Admin ' .$data['username'] . '!';
+                                                $welcome_message = 'Selamat datang, Admin ' . $data['username'] . '!';
                                             } else {
                                                 $redirect_url = 'index.php';
                                                 $welcome_message = 'Selamat datang, Petugas ' . $data['username'] . '!';
