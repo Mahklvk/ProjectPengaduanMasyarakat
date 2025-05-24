@@ -39,15 +39,16 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
 
 <label for="password" class="form-label fw-bold">Password</label>
 <div class="input-group">
- <input type="password" class="form-control" id="password" name="password" placeholder="Password anda">
+ <input type="password" class="form-control" id="password" name="password" placeholder="Password anda" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+                 title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
 <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
 <i class="fa fa-eye" id="passwordToggleIcon"></i>
 </button>
 </div>
-<small class="text-muted">Password tidak ditampilkan untuk masalah keamanan</small><br>
+<small class="text-muted">Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial</small><br>
 
 <label class="form-label">No. Telp</label>
-<input type="text" class="form-control" name="telp" value="<?php echo $fetch_data['telp']?>" oninput="formatNumber(this)" minlength="13" maxlength="18">
+<input type="text" class="form-control" name="telp" value="<?php echo $fetch_data['telp']?>" oninput="formatNumber(this)" minlength="13" maxlength="18" readonly>
 
 
           <label for="date" class="form-label">Role</label>
