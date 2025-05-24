@@ -65,9 +65,6 @@ $fetchTanggapan = mysqli_fetch_array($cekTanggapan);
 
                     <label for="isiLaporan">Isi Laporan</label>
           <textarea name="isiLaporan" id="isiLaporan" class="form-control" disabled><?php echo $fetch_laporan['isi_laporan']?></textarea>
-
-          <label for="foto">Upload Foto</label>
-          <input type="file" class="form-control" name="foto" id="foto" disabled>
                     
           <?php
           if($hitungTanggapan < 1){
@@ -97,7 +94,7 @@ $fetchTanggapan = mysqli_fetch_array($cekTanggapan);
             </div>
             <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center mt-5">
         <p>Foto</p>
-        <img src="../storages/foto_laporan/<?php echo $fetch_laporan['foto']; ?>" alt="image laporan" class="img-fluid" style="max-height: 200px; cursor: pointer;" 
+        <img src="../storages/foto_laporan/<?php echo $fetch_laporan['foto']; ?>" alt="image laporan" class="img-fluid" style="max-height: 500px; cursor: pointer;" 
      data-bs-toggle="modal" 
      data-bs-target="#imageModal" 
      onclick="openImageModal(this.src)">
