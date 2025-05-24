@@ -10,11 +10,10 @@ $querySelectLaporan = mysqli_query($conn, "SELECT * FROM pengaduan WHERE id_peng
 $fetch_laporan = mysqli_fetch_array($querySelectLaporan);
 $hitungPengaduan = mysqli_num_rows($querySelectLaporan);
 
-$queryGetTanggapan = mysqli_query($conn, "SELECT tanggapan, id_pengaduan FROM tanggapan");
-
 $cekTanggapan = mysqli_query($conn, "SELECT * FROM tanggapan WHERE id_pengaduan = '$id_pengaduan'");
+$hitungTanggapan = mysqli_num_rows($cekTanggapan);
 
-$fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
+$fetchTanggapan = mysqli_fetch_array($cekTanggapan);
 ?>
 
 <!DOCTYPE html>
@@ -37,22 +36,29 @@ $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
                 <label for="judulLaporan" class="form-label">Judul Laporan</label>
                 <input type="text" class="form-control" name="judulLaporan" id="judulLaporan" value="<?php echo $fetch_laporan['judul_laporan']?>" disabled>
 
+                <label for="judulLaporan" class="form-label">NIK</label>
+                <input type="text" class="form-control" name="nik" id="nik" value="<?php echo $fetch_laporan['nik']?>" disabled>
+                <label for="judulLaporan" class="form-label">No.Telp</label>
+                <input type="text" class="form-control" name="telp" id="telp" value="<?php echo $fetch_laporan['telp']?>" disabled>
+
+                <label for="judulLaporan" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" id="username" value="<?php echo $fetch_laporan['username']?>" disabled>
+
                 <label for="judulLaporan" class="form-label">Kategori</label>
                 <input type="text" class="form-control" name="kategori" id="kategori" value="<?php echo $fetch_laporan['kategori']?>" disabled>
 
                 <label for="date" class="form-label">Tanggal Lapor</label>
                 <input type="text" class="form-control" name="date" id="date" disabled value="<?php echo $fetch_laporan['tgl_pengaduan']?>">
 
-
-                    <label for="tanggapan">Tanggapan</label>
+                <label for="tanggapan">Tanggapan</label>
           <?php
-          if($hitungPengaduan < 1){
+          if($hitungTanggapan < 1){
             ?>
-            <textarea name="tanggapan" id="tanggapan" class="form-control"></textarea>
+            <textarea name="tanggapan" id="tanggapan" class="form-control" placeholder="Masukkan tanggapan untuk laporan ini"></textarea>
             <?php
           }else{
             ?>
-            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled><?php echo $fetchTanggapan['tanggapan'];?></textarea>
+            <textarea name="tanggapan" id="tanggapan" class="form-control" disabled><?php echo $fetchTanggapan['tanggapan'];?></textarea>
             <?php
           }
           ?>
@@ -62,32 +68,32 @@ $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
 
           <label for="foto">Upload Foto</label>
           <input type="file" class="form-control" name="foto" id="foto" disabled>
-                    <button class="btn btn-outline-dark mt-5 justify-content-center align-items-center d-flex container" name="submit">Submit Tanggapan</button>
-                </form>
-
-                <?php
-                if(isset($_POST['submit'])){
-                    $tanggapan = htmlspecialchars($_POST['tanggapan']);
-
                     
-                    if(mysqli_num_rows($cekTanggapan) > 0){
-                        ?>
-                        <script>Swal.fire({icon: 'error', title: 'Error', text: 'Tanggapan Sudah Diberikan, tidak bisa lagi!'});</script>
-                        <?php
-                    }else{
-                    $queryInsert = mysqli_query($conn, "INSERT INTO tanggapan (id_pengaduan, tgl_tanggapan, tanggapan, id_petugas) VALUES ('$id_pengaduan', '$tgl_tanggapan', '$tanggapan', '$id_petugas')");
-                    if($queryInsert){
-                        ?>
-                        <script>Swal.fire({icon: 'success', title: 'Success!', text: 'Tanggapan telah ditambahkan!'}).then(() => {window.location.href = 'list_pengaduan.php';});</script>
-                        <?php
-                    }else{
-                        ?>
-                        <script>Swal.fire({icon: 'error', title: 'Error', text: 'Gagal menambahkan tanggapan'});</script>
-                        <?php
-                    }
-                }
-            }
-                ?>
+          <?php
+          if($hitungTanggapan < 1){
+            ?>
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-success w-100" onclick="processLaporan(<?php echo $id_pengaduan?>, 'selesai')">
+                  <i class="fas fa-check"></i> Selesai
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-danger w-100" onclick="processLaporan(<?php echo $id_pengaduan?>, 'ditolak')">
+                  <i class="fas fa-times"></i> Tolak
+                </button>
+              </div>
+            </div>
+            <?php
+          }else{
+            ?>
+            <div class="alert alert-info mt-3">
+              <i class="fas fa-info-circle"></i> Tanggapan sudah diberikan untuk laporan ini.
+            </div>
+            <?php
+          }
+          ?>
+                </form>
             </div>
             <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center mt-5">
         <p>Foto</p>
@@ -122,6 +128,7 @@ $fetchTanggapan = mysqli_fetch_array($queryGetTanggapan);
     </div>
   </div>
 </div>
+
 <script>
    let scale = 1;
   let modalImg = null;
@@ -205,6 +212,73 @@ function reset() {
       document.body.style.overflow = '';
     });
   }
+}
+
+function processLaporan(idPengaduan, status) {
+  const tanggapan = document.getElementById('tanggapan').value.trim();
+  
+  if (tanggapan === '') {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Peringatan',
+      text: 'Harap masukkan tanggapan terlebih dahulu!'
+    });
+    return;
+  }
+
+  const statusText = status === 'selesai' ? 'diselesaikan' : 'ditolak';
+  const confirmText = status === 'selesai' ? 'Selesaikan' : 'Tolak';
+  
+  Swal.fire({
+    title: 'Apakah Anda yakin?',
+    text: `Laporan ini akan ${statusText} dan tanggapan akan disimpan.`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: status === 'selesai' ? '#28a745' : '#dc3545',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: confirmText,
+    cancelButtonText: 'Batal'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Send data to server
+      fetch('processLaporan.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id_pengaduan: idPengaduan,
+          tanggapan: tanggapan,
+          status: status
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: `Laporan berhasil ${statusText}!`
+          }).then(() => {
+            window.location.href = 'list_pengaduan.php';
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.message || 'Gagal memproses laporan'
+          });
+        }
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Terjadi kesalahan saat memproses laporan'
+        });
+      });
+    }
+  });
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>

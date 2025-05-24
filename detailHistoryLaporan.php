@@ -42,9 +42,9 @@ if (!$query || mysqli_num_rows($query) == 0) {
 // Kalau lolos validasi, ambil datanya
 $fetch_data = mysqli_fetch_array($query);
 
-$querySelectPengaduan = mysqli_query($conn, "SELECT * FROM tanggapan WHERE id_pengaduan = '$id'");
-$hitungPengaduan = mysqli_num_rows($querySelectPengaduan);
-$dataPengaduan = mysqli_fetch_array($querySelectPengaduan);
+$querySelectTanggapan = mysqli_query($conn, "SELECT * FROM tanggapan WHERE id_pengaduan = '$id'");
+$hitungTanggapan = mysqli_num_rows($querySelectTanggapan);
+$dataTanggapan = mysqli_fetch_array($querySelectTanggapan);
 function generatorRandom($length = 10)
 {
   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -116,13 +116,13 @@ if (!$fetch_data) {
 
           <label for="tanggapan">Tanggapan</label>
           <?php
-          if($hitungPengaduan < 1){
+          if($hitungTanggapan < 1){
             ?>
             <textarea name="tanggapan" id="tanggapan" class="form-control"disabled>Petugas Belum Memberikan Tanggapan</textarea>
             <?php
           }else{
             ?>
-            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled><?php echo $dataPengaduan['tanggapan'];?></textarea>
+            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled><?php echo $dataTanggapan['tanggapan'];?></textarea>
             <?php
           }
           ?>
@@ -134,8 +134,10 @@ if (!$fetch_data) {
 
           <label for="foto">Upload Foto</label>
           <input type="file" class="form-control" name="foto" id="foto">
-
-          <div class="row">
+          <?php
+          if($hitungTanggapan < 1){
+            ?>
+            <div class="row">
             <div class="container align-items-center justify-content-center d-flex mt-2 col-md-6">
               <button class="btn btn-primary" name="submit" id="submit">Edit</button>
             </div>
@@ -143,6 +145,16 @@ if (!$fetch_data) {
               <button type="button" class="btn btn-danger" name="delete" id="delete" onclick="hapusLaporan(<?php echo $fetch_data['id_pengaduan'] ?>)">Delete</button>
             </div>
           </div>
+            <?php
+          }else{
+            ?>
+          <div class="alert alert-info mt-3">
+              <i class="fas fa-info-circle"></i> Tanggapan sudah diberikan untuk laporan ini, tidak bisa mengedit/menghapus
+            </div>
+            <?php
+          }
+          ?>
+          
         </form>
         <?php
         if (isset($_POST['submit'])) {
