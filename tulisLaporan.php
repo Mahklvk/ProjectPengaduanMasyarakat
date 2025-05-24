@@ -94,7 +94,6 @@ function generatorRandom($length = 10)
     <div class="row p-2">
       <div class="col-md-12 border border-dark rounded p-5">
         <div class="container form-section">
-  <div class="form-title">Lapor Sekarang</div>
   <form action="" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="judul" class="form-label">Judul Laporan</label>
