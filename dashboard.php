@@ -25,6 +25,7 @@ if (mysqli_num_rows($result) > 0) {
     $nik = isset($user['nik']) ? $user['nik'] : '';
     $email = isset($user['email']) ? $user['email'] : '';
     $username = isset($user['username']) ? $user['username'] : '';
+    $telp = isset($user['telp']) ? $user['telp'] : '';
     // Password tidak ditampilkan langsung karena alasan keamanan
 } else {
     // // Jika data user tidak ditemukan, logout
@@ -175,28 +176,35 @@ if (isset($conn) && $conn) {
                             <input type="text" class="form-control" id="nik" name="nik" value="<?php echo htmlspecialchars($nik); ?>" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label for="username" class="form-label fw-bold">Email</label>
-                            <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                            <label for="email" class="form-label fw-bold">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
                         </div>
                     </div>
 
                     <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="telp" class="form-label fw-bold">Telp</label>
+                            <input type="text" class="form-control" id="telp" name="telp" value="<?php echo htmlspecialchars($telp); ?>" readonly>
+                        </div>
                      <div class="col-md-6">
                             <label for="username" class="form-label fw-bold">Username</label>
                             <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>">
                         </div>
-                        <div class="col-md-6">
+                        
+                    </div>
+                    <div class="row mb-3">
+        <div class="col-md-12">
                             <label for="password" class="form-label fw-bold">Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password baru">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password baru" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+                 title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
                                 <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
                                     <i class="bi bi-eye" id="passwordToggleIcon"></i>
                                 </button>
                             </div>
-                            <small class="text-muted">Password Disembunyikan Untuk Masalah Keamanan</small>
+                            <small class="text-muted">Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial</small>
                         </div>
                     </div>
-
                     <div class="row mb-3">
                         <div class="col-md-6 mt-3">
                             <button type="button" class="btn btn-primary btn-simpan w-100" onclick="confirmSaveChanges()">
