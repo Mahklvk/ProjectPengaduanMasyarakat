@@ -14,6 +14,11 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Detail Akun Admin - MyReport</title>
+    <style>
+              .form-control:read-only {
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 <body>
     <?php include('config/navbar.php')?>
