@@ -297,7 +297,7 @@ body {
 
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <div class="form-check">
-                                                <input class="form-check-input custom-checkbox" type="checkbox" id="rememberMe">
+                                                <input class="form-check-input custom-checkbox" type="checkbox" id="rememberMe" name="remember">
                                                 <label class="form-check-label" for="rememberMe">Ingat Saya</label>
                                             </div>
                                             <a href="lupa_password_masyarakat.php" class="forgot-password">Lupa Password?</a>
