@@ -141,8 +141,8 @@ include '../config/db.php';
     let isValid = true;
 
     const email = document.getElementById("email").value;
-    if (!email.endsWith("@gmail.com") && !email.endsWith("@yahoo.com")) {
-      document.getElementById("emailError").textContent = "Gunakan @gmail.com atau @yahoo.com";
+    if (!email.endsWith(".com")) {
+      document.getElementById("emailError").textContent = "Email Setidaknya berakhiran .com";
       isValid = false;
     } else {
       document.getElementById("emailError").textContent = "";
