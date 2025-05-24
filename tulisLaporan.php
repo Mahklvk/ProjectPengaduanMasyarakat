@@ -7,10 +7,14 @@ require('config/db.php');
 // Cek terlebih dahulu apakah variabel session nik ada
 if(isset($_SESSION['nik'])) {
     $nik = $_SESSION['nik'];
+    $telp = $_SESSION['telp'];
+    $username = $_SESSION['username'];
 } else {
     // Jika tidak ada variabel nik, coba cek variabel lain yang mungkin menyimpan nik user
     if(isset($_SESSION['nik'])) {
     $nik = $_SESSION['nik'];
+       $telp = $_SESSION['telp'];
+    $username = $_SESSION['username'];
 } else {
     $_SESSION['message'] = "Sesi tidak valid. Silakan login kembali.";
     $_SESSION['message_type'] = "error";
@@ -94,17 +98,17 @@ function generatorRandom($length = 10)
   <form action="" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="judul" class="form-label">Judul Laporan</label>
-      <input type="text" class="form-control" id="judul" name="judulLaporan" placeholder="Contoh: Lampu jalan mati">
+      <input type="text" class="form-control" id="judul" name="judulLaporan" placeholder="Contoh: Lampu jalan mati" required>
     </div>
 
     <div class="mb-3">
       <label for="tanggal" class="form-label">Tanggal Kejadian</label>
-      <input type="date" class="form-control" id="tanggal" name="date">
+      <input type="date" class="form-control" id="tanggal" name="date" required>
     </div>
 
     <div class="mb-3">
       <label for="kategori" class="form-label">Kategori</label>
-      <select id="kategori" name="kategori" class="form-control">
+      <select id="kategori" name="kategori" class="form-control" required>
         <option></option>
         <option value="Jalan">Jalan</option>
         <option value="Listrik">Listrik</option>
@@ -114,12 +118,12 @@ function generatorRandom($length = 10)
 
     <div class="mb-3">
       <label for="isi" class="form-label">Isi Laporan</label>
-      <textarea class="form-control" id="isi" name="isiLaporan" rows="4" placeholder="Tuliskan detail kejadian..."></textarea>
+      <textarea class="form-control" id="isi" name="isiLaporan" rows="4" placeholder="Tuliskan detail kejadian..." required></textarea>
     </div>
 
     <div class="mb-3">
       <label for="foto" class="form-label">Foto</label>
-      <input type="file" class="form-control" id="foto" name="foto" accept="image/*" onchange="previewImage(event)">
+      <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required onchange="previewImage(event)" >
     </div>
 
     <div id="preview-container">Image Preview</div>
@@ -167,7 +171,7 @@ function generatorRandom($length = 10)
               <?php
             } else {
               if (move_uploaded_file($_FILES["foto"]["tmp_name"], $targetDir . $namaFotoBaru)) {
-                $queryUploadData = mysqli_query($conn, "INSERT INTO pengaduan(judul_laporan, tgl_pengaduan, nik, isi_laporan, foto, kategori) VALUES ('$judulLaporan', '$date', '$nik', '$isiLaporan', '$namaFotoBaru', '$kategori')");
+                $queryUploadData = mysqli_query($conn, "INSERT INTO pengaduan(judul_laporan, tgl_pengaduan, nik, isi_laporan, foto, kategori, username, telp) VALUES ('$judulLaporan', '$date', '$nik', '$isiLaporan', '$namaFotoBaru', '$kategori', '$username', '$telp')");
 
                 if ($queryUploadData) {
               ?>
