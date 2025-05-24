@@ -282,7 +282,7 @@ body {
                                     <form method="POST">
                                         <div class="mb-3">
                                             <label for="nik" class="form-label">Email</label>
-                                            <input type="text" class="form-control" id="nik" placeholder="example@gmail.com" name="email" required>
+                                            <input type="text" class="form-control" id="nik" placeholder="example@gmail.com" name="email" required autocomplete="off">
                                         </div>
 
                                         <div class="mb-3">
