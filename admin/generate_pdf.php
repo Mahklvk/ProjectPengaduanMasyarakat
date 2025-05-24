@@ -26,11 +26,13 @@ $html = '<h2 style="text-align:center;">Daftar Laporan Pengaduan</h2>';
 $html .= '<table border="1" cellpadding="4">
 <tr style="background-color:#f2f2f2;">
     <th width="5%">No</th>
-    <th width="20%">Judul</th>
-    <th width="15%">Tanggal</th>
+    <th width="10%">Judul</th>
+    <th width="10%">Tanggal</th>
     <th width="15%">NIK</th>
-    <th width="30%">Isi</th>
-    <th width="15%">Status</th>
+    <th width="10%">Username</th>
+    <th width="15%">No. Telp</th>
+    <th width="25%">Isi</th>
+    <th width="10%">Status</th>
 </tr>';
 
 $no = 1;
@@ -40,6 +42,8 @@ while ($data = mysqli_fetch_assoc($query)) {
         <td>' . htmlspecialchars($data['judul_laporan']) . '</td>
         <td>' . $data['tgl_pengaduan'] . '</td>
         <td>' . $data['nik'] . '</td>
+        <td>' . $data['username'] . '</td>
+        <td>' . $data['telp'] . '</td>
         <td>' . htmlspecialchars($data['isi_laporan']) . '</td>
         <td>' . $data['status'] . '</td>
     </tr>';
