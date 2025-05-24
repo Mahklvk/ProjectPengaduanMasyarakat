@@ -128,7 +128,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
             <td><?= $data['username']; ?></td>
             <td><?= $data['telp']; ?></td>
             <td><?= $data['level']; ?></td>
-            <td><a href="accountDetailAdmin.php?p=<?php echo $data['id_petugas']; ?>" class="btn btn-sm btn-outline-dark"> Edit</a></td>
+            <td><a href="accountDetailAdmin.php?p=<?php echo $data['id_petugas']; ?>" class="btn btn-sm btn-outline-dark"> Detail</a></td>
           </tr>
           <?php
         }
