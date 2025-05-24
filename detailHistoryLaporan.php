@@ -100,10 +100,10 @@ if (!$fetch_data) {
 <body>
   <?php include('config/navbar.php')?>
   <h1 class="text-center mt-4">Detail Laporan</h1>
-  <h2 class="text-center mt-5"><?php echo $fetch_data['judul_laporan'] ?></h2>
+  <h2 class="text-center mt-2"><?php echo $fetch_data['judul_laporan'] ?></h2>
   <div class="container">
-    <div class="row align-items-start border border-dark rounded p-2">
-      <div class="col-md-6 col-sm-11">
+    <div class="row align-items-start border border-dark rounded py-5 mb-5">
+      <div class="col-md-6 col-sm-11 ">
         <form action="" class="container w-10" enctype="multipart/form-data" method="post">
           <label for="judulLaporan" class="form-label">Judul Laporan</label>
           <input type="text" class="form-control" name="judulLaporan" id="judulLaporan" value="<?php echo $fetch_data['judul_laporan'] ?>">
@@ -229,10 +229,10 @@ if (!$fetch_data) {
         }
         ?>
       </div>
-      <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center mt-5">
+      <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center ">
         <p>Foto</p>
         <img src="storages/foto_laporan/<?php echo $fetch_data['foto']; ?>" alt="image laporan" class="img-fluid" 
-     style="max-height: 200px; cursor: pointer;" 
+     style="max-height: 400px; cursor: pointer;" 
      data-bs-toggle="modal" 
      data-bs-target="#imageModal" 
      onclick="openImageModal(this.src)">
