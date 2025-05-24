@@ -42,7 +42,7 @@
             <button class="btn btn-outline-light dropdown-toggle costum-btn" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
               <?= htmlspecialchars($_SESSION['username']) ?>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end">
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
               <li><a class="dropdown-item" href="dashboardAdmin.php">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item dropdown-danger" href="config/logout.php">Logout</a></li>
