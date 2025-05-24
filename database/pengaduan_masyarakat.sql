@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2025 at 01:59 AM
+-- Generation Time: May 24, 2025 at 05:31 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -54,7 +54,6 @@ CREATE TABLE `masyarakat` (
   `id_masyarakat` int(11) NOT NULL,
   `nik` varchar(16) NOT NULL,
   `email` varchar(25) NOT NULL,
-  `nama` varchar(35) NOT NULL,
   `username` varchar(25) NOT NULL,
   `password` varchar(225) DEFAULT NULL,
   `telp` varchar(15) NOT NULL,
@@ -67,8 +66,9 @@ CREATE TABLE `masyarakat` (
 -- Dumping data for table `masyarakat`
 --
 
-INSERT INTO `masyarakat` (`id_masyarakat`, `nik`, `email`, `nama`, `username`, `password`, `telp`, `level`, `reset_token`, `token_expiry`) VALUES
-(14, '9919281929192981', 'user1@gmail.com', 'user', 'user', '$2y$10$rdYJSRWR5e7oJB/lqiFL3uqznMoeJyqYaIrUK5iCN9CWEm/.d/qgq', '081234567788', 'masyarakat', NULL, NULL);
+INSERT INTO `masyarakat` (`id_masyarakat`, `nik`, `email`, `username`, `password`, `telp`, `level`, `reset_token`, `token_expiry`) VALUES
+(14, '9919281929192981', 'user1@gmail.com', 'user', '$2y$10$rdYJSRWR5e7oJB/lqiFL3uqznMoeJyqYaIrUK5iCN9CWEm/.d/qgq', '081234567788', 'masyarakat', NULL, NULL),
+(15, '9988988898989897', 'thom@gmail.com', '123', '$2y$10$lKMAz8.r1SReHSC79QAj1erqT7kqRrPYiNjK5tKgXHxaqP6cYPrYu', '102991093881', 'masyarakat', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -84,16 +84,17 @@ CREATE TABLE `pengaduan` (
   `isi_laporan` text DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `kategori` varchar(16) NOT NULL,
-  `status` enum('diproses','ditolak','selesai') DEFAULT 'diproses'
+  `status` enum('diproses','ditolak','selesai') DEFAULT 'diproses',
+  `username` varchar(25) NOT NULL,
+  `telp` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pengaduan`
 --
 
-INSERT INTO `pengaduan` (`id_pengaduan`, `judul_laporan`, `tgl_pengaduan`, `nik`, `isi_laporan`, `foto`, `kategori`, `status`) VALUES
-(21, 'tolong dongg', '2025-05-18', '9919281929192981', 'tolong tolong lagu banda neira terlalu bggagus', 'fBCBLbC5ZACebst4mCS9.png', '', 'selesai'),
-(25, 'wc kotor, ada yg merokok', '2025-05-12', '9919281929192981', 'gdsa', '1800DcLz2HTfORXnP7oI.jpg', '', 'selesai');
+INSERT INTO `pengaduan` (`id_pengaduan`, `judul_laporan`, `tgl_pengaduan`, `nik`, `isi_laporan`, `foto`, `kategori`, `status`, `username`, `telp`) VALUES
+(28, 'okw', '2025-05-24', '9919281929192981', 'okw', 'o8PDgpV66V8UrIyaX1Zw.png', 'okw', 'selesai', 'user', '081234567788');
 
 -- --------------------------------------------------------
 
@@ -104,7 +105,6 @@ INSERT INTO `pengaduan` (`id_pengaduan`, `judul_laporan`, `tgl_pengaduan`, `nik`
 CREATE TABLE `petugas` (
   `id_petugas` int(11) NOT NULL,
   `nik` varchar(16) NOT NULL,
-  `nama_petugas` varchar(50) DEFAULT NULL,
   `email` varchar(191) NOT NULL,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(225) DEFAULT NULL,
@@ -118,8 +118,10 @@ CREATE TABLE `petugas` (
 -- Dumping data for table `petugas`
 --
 
-INSERT INTO `petugas` (`id_petugas`, `nik`, `nama_petugas`, `email`, `username`, `password`, `telp`, `level`, `reset_token`, `token_expiry`) VALUES
-(12, '1312131213121312', 'leflaur leflah eshkoshka', 'helterskelter@gmail.com', 'leflaur leflah eshkoshka', '$2y$10$KWRTy0LgyXunmztrdx1fF.Lk55Z7MxVL8.5.cNlNE2VrzWcUtyUdi', '881882881882', 'admin', NULL, NULL);
+INSERT INTO `petugas` (`id_petugas`, `nik`, `email`, `username`, `password`, `telp`, `level`, `reset_token`, `token_expiry`) VALUES
+(12, '1312131213121311', 'helterskelter@gmail.com', 'leflaur leflah eshkoshp', '$2y$10$jmtOwCOfViDOzbYNLjbaHuV58MX3jSzhpk4HsdiFTW.sT5ZgFCica', '8818828818821', 'admin', NULL, NULL),
+(15, '1212992991992991', 'oiranga@gmail.com', '123', '$2y$10$8jweCEMXbu0WNx34c2mGHupkt.DrFaMqUsHiHw0Nh6gpZI8VLQEui', '12', 'admin', NULL, NULL),
+(16, '1092919299199999', 'rangga@gmail', '12', '$2y$10$XlbWtei8pz70gKoQiW0zx.Mp6zB0cMtVsjuotWiJbtW7diEAE2S6.', '099', 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -140,7 +142,7 @@ CREATE TABLE `tanggapan` (
 --
 
 INSERT INTO `tanggapan` (`id_tanggapan`, `id_pengaduan`, `tgl_tanggapan`, `tanggapan`, `id_petugas`) VALUES
-(32, 21, '2025-05-18', 'siip akan segera meluncur untuk mendengarkan', 12);
+(36, 28, '2025-05-24', 'ikhwan salafi', 12);
 
 --
 -- Indexes for dumped tables
@@ -158,14 +160,18 @@ ALTER TABLE `kontak`
 ALTER TABLE `masyarakat`
   ADD PRIMARY KEY (`id_masyarakat`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `nik` (`nik`);
+  ADD UNIQUE KEY `nik` (`nik`),
+  ADD UNIQUE KEY `unique_username` (`username`),
+  ADD UNIQUE KEY `unique_telp` (`telp`);
 
 --
 -- Indexes for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
   ADD PRIMARY KEY (`id_pengaduan`),
-  ADD KEY `FK_pengaduan_masyarakat` (`nik`);
+  ADD KEY `FK_pengaduan_masyarakat` (`nik`),
+  ADD KEY `FK_pengaduan_username` (`username`),
+  ADD KEY `FK_pengaduan_telp` (`telp`);
 
 --
 -- Indexes for table `petugas`
@@ -201,19 +207,19 @@ ALTER TABLE `masyarakat`
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tanggapan`
 --
 ALTER TABLE `tanggapan`
-  MODIFY `id_tanggapan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_tanggapan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables
@@ -223,7 +229,9 @@ ALTER TABLE `tanggapan`
 -- Constraints for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  ADD CONSTRAINT `FK_pengaduan_masyarakat` FOREIGN KEY (`nik`) REFERENCES `masyarakat` (`nik`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_pengaduan_masyarakat_nik` FOREIGN KEY (`nik`) REFERENCES `masyarakat` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_pengaduan_telp` FOREIGN KEY (`telp`) REFERENCES `masyarakat` (`telp`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_pengaduan_username` FOREIGN KEY (`username`) REFERENCES `masyarakat` (`username`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tanggapan`
