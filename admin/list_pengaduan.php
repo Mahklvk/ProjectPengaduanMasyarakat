@@ -112,10 +112,12 @@ if (isset($_GET['search']) && $_GET['search'] != '') {
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Username</th>
                         <th>judul laporan</th>
                         <th>Kategori</th>
                         <th>Tanggal laporan</th>
                         <th>Nik</th>
+                        <th>Telp</th>
                         <th>Isi Laporan</th>
                         <th>Foto</th>
                         <th>Status</th>
@@ -147,9 +149,11 @@ if (mysqli_num_rows($result) > 0) {
         <tr>
             <td><?php echo $no++; ?></td> <!-- Nomor urut -->
             <td><?php echo $data['judul_laporan']; ?></td>
+            <td><?php echo $data['username']; ?></td>
             <td><?php echo $data['kategori'];?></td>
             <td><?php echo $data['tgl_pengaduan']; ?></td>
             <td><?php echo $data['nik']; ?></td>
+            <td><?php echo $data['telp'];?></td>
             <td><?php echo strlen($data['isi_laporan']) > 15 ? substr($data['isi_laporan'], 0, 15) . '...' : $data['isi_laporan']; ?></td>
             <td><img src="../storages/foto_laporan/<?php echo $data['foto']; ?>" alt="" width="50px"></td>
             <?php
@@ -173,8 +177,7 @@ if (mysqli_num_rows($result) > 0) {
             echo '<td><span class="' . $class . '">' . htmlspecialchars($status) . '</span></td>';
             ?>
             <!-- Tombol aksi detail dan tanggapan -->
-            <td><a href="detailLaporan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">Detail</a></td>
-            <td><a href="tanggapan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">Tanggapan</a></td>
+            <td><a href="tanggapan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">Detail</a></td>
         </tr>
     <?php }
 } else {
