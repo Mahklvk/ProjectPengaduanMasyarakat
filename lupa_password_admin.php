@@ -67,42 +67,84 @@ $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"> <!-- link bootstrap untuk bisa styling bootstrap -->
-    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css"> <!-- link fontawesome untuk bisa mengakses icon -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Lupa Password - MyReport</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lupa password masyarakat - MyReport</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+    }
+
+    .form-control::placeholder {
+      color: #ddd;
+    }
+
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+      box-shadow: none;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-primary {
+      background-color: rgba(0, 123, 255, 0.7);
+      border: none;
+      transition: 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: rgba(0, 123, 255, 1);
+    }
+  </style>
 </head>
 
 <body>
-    <h1 class="container mt-5">Lupa Password?</h1>
-    <div class="container justify-content-center align-items-center mt-5">
-        <div class="row">
-            <div class="col-12 border border-dark rounded p-5">
-                <div class="container">
-                    <form class="container w-10" enctype="multipart/form-data" method="post">
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="username" placeholder="Example@gmail.com" name="email">
-                        </div>
-                        <div class="row">
-                            <div class="container align-items-center justify-content-center d-flex mt-2">
-                                <button class="btn btn-primary col-md-2" name="submit" id="submit">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                    <?= $message ?>
-                </div>
-            </div>
-        </div>
+    <?php include('config/navbar.php')?>
+  <div class="glass-card text-white container py-5 mt-5">
+    <h2 class="text-center mb-4">Lupa Password?</h2>
+    <form method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="username" placeholder="Example@gmail.com" name="email" required>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary px-4" name="submit" id="submit">Submit</button>
+      </div>
+    </form>
+    <div class="mt-3">
+      <?= $message ?>
     </div>
+  </div>
 
-    <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="assets/fontawesome/js/all.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
+  <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="assets/fontawesome/js/all.min.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
 </body>
 
 </html>

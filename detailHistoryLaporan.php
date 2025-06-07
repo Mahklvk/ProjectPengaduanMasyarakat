@@ -82,18 +82,48 @@ if (!$fetch_data) {
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>Detail history laporan - My Report</title>
-  <style>
-      .modal-body {
-    padding: 0 !important;
-  }
+ <style>
+    body {
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+    }
 
-  .image-container img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    transform-origin: center center;
-    will-change: transform;
-  }
+    .laporan-detail-card {
+          border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    padding: 30px;
+    }
+    .judul-laporan, .tanggal, .isi-laporan, .tanggapan, .upload, .kategori{
+      width: 100%;
+      padding: 12px;
+            margin-bottom: 16px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
+    }
+    .upload::file-selector-button{
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      margin-left:5px ;
+    }
+    .upload:hover, .upload::file-selector-button{
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .form-control:read-only{
+      cursor: not-allowed;
+    }
+    
   </style>
 </head>
 
@@ -101,60 +131,62 @@ if (!$fetch_data) {
   <?php include('config/navbar.php')?>
   <h1 class="text-center mt-4">Detail Laporan</h1>
   <h2 class="text-center mt-2"><?php echo $fetch_data['judul_laporan'] ?></h2>
-  <div class="container">
-    <div class="row align-items-start border border-dark rounded py-5 mb-5">
-      <div class="col-md-6 col-sm-11 ">
-        <form action="" class="container w-10" enctype="multipart/form-data" method="post">
-          <label for="judulLaporan" class="form-label">Judul Laporan</label>
-          <input type="text" class="form-control" name="judulLaporan" id="judulLaporan" value="<?php echo $fetch_data['judul_laporan'] ?>">
-
-          <label for="judulLaporan" class="form-label">Kategori</label>
-          <input type="text" class="form-control" name="kategori" id="kategori" value="<?php echo $fetch_data['kategori'] ?>" readonly>
-
-          <label for="date" class="form-label">Tanggal Kejadian</label>
-          <input type="text" class="form-control" name="date" id="date" readonly value="<?php echo $fetch_data['tgl_pengaduan'] ?>">
-
-          <label for="tanggapan">Tanggapan</label>
-          <?php
+  <div class="container mt-2">
+        <div class="row laporan-detail-card">
+            <div class="col-md-6 align-items-start  p-2">
+          <form action="" enctype="multipart/form-data" method="post">
+            <div class="laporan-label">Judul Laporan</div>
+            <div class="laporan-value">
+              <input type="text" class="form-control judul-laporan" name="judulLaporan" value="<?= htmlspecialchars($fetch_data['judul_laporan']) ?>">
+            </div>
+            <div class="laporan-label">Tanggal Kejadian</div>
+            <div class="laporan-value">
+              <input type="text" class="form-control tanggal" name="date" value="<?= htmlspecialchars($fetch_data['tgl_pengaduan']) ?>" readonly>
+            </div>
+            <div class="laporan-label">Alamat Kejadian</div>
+            <div class="laporan-value">
+              <input type="text" class="form-control tanggal" name="alamat" value="<?= htmlspecialchars($fetch_data['alamat']) ?>">
+            </div>
+            <div class="laporan-label">Kategori</div>
+            <div class="laporan-value">
+              <input type="text" class="form-control kategori" name="kategori" value="<?= htmlspecialchars($fetch_data['kategori']) ?>">
+            </div>
+            <div class="laporan-label">Tanggapan</div>
+            <div class="laporan-value">
+              <textarea name="tanggapan" class="form-control tanggapan" readonly><?= $hitungTanggapan < 1 ? 'Petugas Belum Memberikan Tanggapan' : htmlspecialchars($dataTanggapan['tanggapan']) ?></textarea>
+            </div>
+            <div class="laporan-label">Isi Laporan</div>
+            <div class="laporan-value">
+              <textarea name="isiLaporan" class="form-control isi-laporan"><?= htmlspecialchars($fetch_data['isi_laporan']) ?></textarea>
+            </div>
+            <div class="laporan-label">Upload Foto</div>
+            <div class="laporan-value">
+              <input type="file" class="form-control upload" name="foto">
+            </div>
+            <?php
           if($hitungTanggapan < 1){
             ?>
-            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled>Petugas Belum Memberikan Tanggapan</textarea>
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-success w-100" id="submit" name="submit">
+                  <i class="fas fa-pencil"></i> Edit
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-danger w-100"  name="delete" id="delete" onclick="hapusLaporan(<?= $fetch_data['id_pengaduan'] ?>)">
+                  <i class="fas fa-trash"></i> Hapus
+                </button>
+              </div>
+            </div>
             <?php
           }else{
             ?>
-            <textarea name="tanggapan" id="tanggapan" class="form-control"disabled><?php echo $dataTanggapan['tanggapan'];?></textarea>
-            <?php
-          }
-          ?>
-          
-          
-
-          <label for="isiLaporan">Isi Laporan</label>
-          <textarea name="isiLaporan" id="isiLaporan" class="form-control"><?php echo $fetch_data['isi_laporan'] ?></textarea>
-
-          <label for="foto">Upload Foto</label>
-          <input type="file" class="form-control" name="foto" id="foto">
-          <?php
-          if($hitungTanggapan < 1){
-            ?>
-            <div class="row">
-            <div class="container align-items-center justify-content-center d-flex mt-2 col-md-6">
-              <button class="btn btn-primary" name="submit" id="submit">Edit</button>
-            </div>
-            <div class="container align-items-center justify-content-center d-flex mt-2 col-md-6">
-              <button type="button" class="btn btn-danger" name="delete" id="delete" onclick="hapusLaporan(<?php echo $fetch_data['id_pengaduan'] ?>)">Delete</button>
-            </div>
-          </div>
-            <?php
-          }else{
-            ?>
-          <div class="alert alert-info mt-3">
-              <i class="fas fa-info-circle"></i> Tanggapan sudah diberikan untuk laporan ini, tidak bisa mengedit/menghapus
+            <div class="alert alert-info mt-3">
+              <i class="fas fa-info-circle"></i> Tanggapan sudah diberikan untuk laporan ini.
             </div>
             <?php
           }
           ?>
-          
         </form>
         <?php
         if (isset($_POST['submit'])) {
@@ -162,6 +194,7 @@ if (!$fetch_data) {
           // $date = mysqli_real_escape_string($conn, $_POST['date']);
           $isiLaporan = mysqli_real_escape_string($conn, $_POST['isiLaporan']);
           $kategori = mysqli_real_escape_string($conn, $_POST['kategori']);
+          $alamat = mysqli_real_escape_string($conn, $_POST['alamat']);
 
           $targetDir = "storages/foto_laporan/";
           $namaFoto = basename($_FILES["foto"]["name"]);
@@ -197,11 +230,11 @@ if (!$fetch_data) {
                 if (!empty($fetch_data['foto']) && file_exists($targetDir . $fetch_data['foto'])) {
                   unlink($targetDir . $fetch_data['foto']);
                 }
-                $queryUpdate = mysqli_query($conn, "UPDATE pengaduan SET judul_laporan='$judulLaporan',kategori = '$kategori', isi_laporan='$isiLaporan', foto='$namaFotoBaru' WHERE id_pengaduan = '$id'");
+                $queryUpdate = mysqli_query($conn, "UPDATE pengaduan SET judul_laporan='$judulLaporan',kategori = '$kategori',alamat = '$alamat', isi_laporan='$isiLaporan', foto='$namaFotoBaru' WHERE id_pengaduan = '$id'");
               }
             }
           } else {
-            $queryUpdate = mysqli_query($conn, "UPDATE pengaduan SET judul_laporan='$judulLaporan',kategori = '$kategori', isi_laporan='$isiLaporan' WHERE id_pengaduan = '$id'");
+            $queryUpdate = mysqli_query($conn, "UPDATE pengaduan SET judul_laporan='$judulLaporan',kategori = '$kategori', alamat = '$alamat', isi_laporan='$isiLaporan' WHERE id_pengaduan = '$id'");
           }
           if ($queryUpdate) {
             ?>
@@ -229,19 +262,16 @@ if (!$fetch_data) {
         }
         ?>
       </div>
-      <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center ">
+      <div class="col-md-6 col-sm-11 align-items-center justify-content-center text-center mt-5">
         <p>Foto</p>
-        <img src="storages/foto_laporan/<?php echo $fetch_data['foto']; ?>" alt="image laporan" class="img-fluid" 
-     style="max-height: 400px; cursor: pointer;" 
+        <img src="storages/foto_laporan/<?php echo $fetch_data['foto']; ?>" alt="image laporan" class="img-fluid" style="max-height: 500px; cursor: pointer;" 
      data-bs-toggle="modal" 
      data-bs-target="#imageModal" 
      onclick="openImageModal(this.src)">
       </div>
-    </div>
-  </div>
+      </div>
 
-
-  <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+      <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content bg-dark border-0">
       <div class="modal-body p-0 position-relative">
@@ -264,12 +294,12 @@ if (!$fetch_data) {
     </div>
   </div>
 </div>
-  <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/fontawesome/js/all.min.js"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <script>
-    
-  let scale = 1;
+    let scale = 1;
   let modalImg = null;
 
   function openImageModal(src) {

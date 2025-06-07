@@ -21,12 +21,10 @@
 
     <style>
 body {
-  background-color: #f8f9fa;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  /* overflow-x: hidden; */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+    background-size: cover;
+    font-family: Arial;
+    /* height: 100vh; */
 }
 
 .login-container {
@@ -37,6 +35,45 @@ body {
   display: flex;
   flex-direction: column;
 }
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    padding: 30px;
+}
+
+ input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 119, 182, 0.6);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
 .row-content {
   flex: 1;
@@ -52,12 +89,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-
-/* .navbar-brand {
-  padding: 0;
-  display: flex;
-  align-items: center;
-} */
 
 .logo-icon {
   height: auto;
@@ -79,13 +110,12 @@ body {
 }
 
 .illustration-col {
-  background-color: white;
+  
   padding: 0 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
   
 }
 
@@ -161,41 +191,6 @@ body {
   font-weight: 500;
 }
 
-/* Character and phone illustration */
-.character-phone {
-  position: relative;
-  max-width: 100%;
-}
-
-/* Add some decoration elements */
-.decoration {
-  position: absolute;
-  background-color: #f0f2f5;
-  border-radius: 50%;
-  z-index: -1;
-}
-
-.decoration-1 {
-  width: 200px;
-  height: 200px;
-  top: 10%;
-  left: 5%;
-}
-
-.decoration-2 {
-  width: 100px;
-  height: 100px;
-  bottom: 15%;
-  right: 10%;
-}
-
-.decoration-3 {
-  width: 50px;
-  height: 50px;
-  top: 40%;
-  right: 20%;
-}
-
 /* Custom checkbox */
 .custom-checkbox {
   accent-color: #3465a4;
@@ -208,16 +203,18 @@ body {
   position: relative;
 }
 
-.password-toggle {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #6c757d;
-}
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
 
 /* Illustration container */
 .illustration-container {
@@ -238,12 +235,12 @@ body {
     </head>
 
     <body>
-        <div class="container-fluid p-0 ">
-            <div class="login-container my-4">
-                <div class="row g-0">
+        <div class="container-fluid p-3">
+            <div class="login-container card mb-5 mt-2">
+                <div class="row g-0 ">
                     <!-- Header with back button and logo -->
                     <div class="col-12" style="height: 70px;">
-                        <div class="d-flex justify-content-between align-items-center px-4 py-3 bg-white">
+                        <div class="d-flex justify-content-between align-items-center px-4 py-3">
                             <a href="index.php">
                                 <div class="back-button">
                                     <i class="bi bi-arrow-left"></i>
@@ -257,18 +254,13 @@ body {
                     </div>
 
 
-                <div class="col-md-6" style="padding-top: 75px">
+                <div class="col-lg-6 col-md-6" style="padding-top: 75px">
                     <div class="illustration-col">
                         <h1 class="welcome-text mb-4">Selamat Datang</h1>
 
                         <!-- Illustration with character and phone -->
                         <div class="illustration-container">
-                            <img src="storages/loginUser.png" alt="Character with phone illustration" class="illustration-img">
-
-                            <!-- Decoration elements -->
-                            <div class="decoration decoration-1"></div>
-                            <div class="decoration decoration-2"></div>
-                            <div class="decoration decoration-3"></div>
+                            <img src="storages/2.0.png" alt="Character with phone illustration" class="illustration-img">
                         </div>
                     </div>
                 </div>
@@ -281,18 +273,14 @@ body {
 
                                     <form method="POST">
                                         <div class="mb-3">
-                                            <label for="nik" class="form-label">Email</label>
-                                            <input type="text" class="form-control" id="nik" placeholder="example@gmail.com" name="email" required autocomplete="off">
+                                            <input type="text" class="form-control" id="nik" placeholder="Email" name="email" required autocomplete="off">
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="password" class="form-label">Password</label>
-                                            <div class="password-container">
-                                                <input type="password" class="form-control" id="password" placeholder="******" name="password" required>
-                                                <button type="button" class="password-toggle">
-                                                    <i class="bi bi-eye"></i>
-                                                </button>
-                                            </div>
+                                      <div class="password-toggle">
+                                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                                    <i class="bi bi-eye" id="togglePassword"></i>
+                                </div>
                                         </div>
 
                                         <div class="d-flex justify-content-between align-items-center mb-4">

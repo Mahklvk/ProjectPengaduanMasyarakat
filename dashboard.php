@@ -95,8 +95,10 @@ if (isset($conn) && $conn) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         body {
-            background-color: #f5f5f5;
-            /* padding-top: 2rem; */
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+            color: white;
+            min-height: 100vh;
+            z-index: -1;
         }
 
         .profile-image {
@@ -119,10 +121,6 @@ if (isset($conn) && $conn) {
             background-color: #ff0000;
         }
 
-        .form-control:read-only {
-            background-color: #f8f9fa;
-        }
-
         .dashboard-header {
             display: flex;
             align-items: center;
@@ -138,6 +136,37 @@ if (isset($conn) && $conn) {
             margin-right: 0.5rem;
             font-size: 1.5rem;
         }
+
+        .user-card{
+                  backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .user-form{
+                  backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 2rem 2.5rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+        }
+              .nik, .email, .password, .telp, .username{
+      width: 100%;
+      padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
+    }
     </style>
 </head>
 <body>
@@ -151,7 +180,7 @@ if (isset($conn) && $conn) {
         </div>
 
         <!-- User Card -->
-        <div class="card mb-4">
+        <div class="card mb-4 user-card">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <div class="profile-image me-3">
@@ -167,28 +196,28 @@ if (isset($conn) && $conn) {
         </div>
 
         <!-- User Form -->
-        <div class="card ">
+        <div class="card user-form">
             <div class="card-body">
                 <form id="userForm" method="POST">
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="nik" class="form-label fw-bold">NIK</label>
-                            <input type="text" class="form-control" id="nik" name="nik" value="<?php echo htmlspecialchars($nik); ?>" readonly>
+                            <input type="text" class="form-control nik" id="nik" name="nik" value="<?php echo htmlspecialchars($nik); ?>" readonly>
                         </div>
                         <div class="col-md-6">
                             <label for="email" class="form-label fw-bold">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                            <input type="text" class="form-control email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="telp" class="form-label fw-bold">Telp</label>
-                            <input type="text" class="form-control" id="telp" name="telp" value="<?php echo htmlspecialchars($telp); ?>" readonly>
+                            <input type="text" class="form-control telp" id="telp" name="telp" value="<?php echo htmlspecialchars($telp); ?>" readonly>
                         </div>
                      <div class="col-md-6">
                             <label for="username" class="form-label fw-bold">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>">
+                            <input type="text" class="form-control username" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>">
                         </div>
                         
                     </div>
@@ -196,7 +225,7 @@ if (isset($conn) && $conn) {
         <div class="col-md-12">
                             <label for="password" class="form-label fw-bold">Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password baru" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+                                <input type="password" class="form-control password" id="password" name="password" placeholder="Masukkan password baru" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
                  title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
                                 <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
                                     <i class="bi bi-eye" id="passwordToggleIcon"></i>
@@ -239,7 +268,6 @@ if (isset($conn) && $conn) {
             icon: '<?php echo $_SESSION['message_type']; ?>',
             title: '<?php echo $_SESSION['message']; ?>',
             showConfirmButton: false,
-            timer: 2000
         });
         <?php 
             // Hapus pesan setelah ditampilkan

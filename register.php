@@ -1,35 +1,84 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - MyReport</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Menggunakan Bootstrap Icons -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap dan Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
-        body {
-            background-color: #fff;
-            font-family: Arial, sans-serif;
-        }
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-        .form-control {
-            border-radius: 8px;
+body {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+    background-size: cover;
+    font-family: Arial;
+}
+
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    padding: 30px;
+}
+
+ input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
             padding: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
         }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 119, 182, 0.6);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-link {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #aad8ff;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
         .btn-register {
             background-color: #0d6efd;
             color: white;
             border-radius: 8px;
-            padding: 12px;
             width: 100%;
             font-weight: bold;
+            padding: 12px;
         }
+
         .back-button {
             width: 40px;
             height: 40px;
@@ -42,251 +91,101 @@
             text-decoration: none;
             margin-bottom: 15px;
         }
-        .back-button:hover {
-            background-color: #2d5a9e;
-            color: white;
-        }
-        .logo-icon {
-            height: auto;
-            max-height: 40px;
+
+        .logo-icon,
+        .logo-text {
             position: absolute;
             top: 15px;
+        }
+
+        .logo-icon {
             right: 190px;
+            max-height: 40px;
         }
 
         .logo-text {
-            height: auto;
-            max-height: 30px;
-            position: absolute;
-            top: 20px;
             right: 40px;
-            }
+            max-height: 30px;
+            top: 20px;
+        }
 
-        .logo img {
-            width: 30px;
-        }
-        .welcome-section {
-            text-align: center;
-            padding: 20px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
         .welcome-text {
             color: #1a3747;
             font-weight: bold;
             font-size: 2.2rem;
-            margin-bottom: 10px;
         }
+
         .sub-text {
             color: #1a3747;
             font-size: 1.2rem;
-            margin-bottom: 5px;
         }
-        .illustration {
-            text-align: center;
-            margin-top: 30px;
-        }
+
         .illustration img {
             max-width: 100%;
-            height: auto;
             max-height: 500px;
         }
+
         .password-toggle {
             position: relative;
         }
+
         .password-toggle i {
             position: absolute;
             right: 15px;
-            top: 15px;
+            top: 50%;
+            transform: translateY(-50%);
             cursor: pointer;
-            color: #6c757d;
         }
-        .right-side-header {
-            background-color: white;
-            padding: 20px;
-            border-radius: 0 10px 0 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .right-side-content {
-            display: flex;
-            flex-direction: column;
-            height: calc(100% - 70px);
-        }
-        @media (max-width: 767.98px) {
-    .container {
-        padding: 0 15px;
-    }
-    .back-button {
-        margin-left: 5px;
-    }
-}
     </style>
 </head>
+
 <body>
-    <div class="container mt-3">
-    <a href="index.php" class="back-button">
-        <i class="bi bi-arrow-left"></i>
-    </a>
+    <div class="container mt-3 card mb-4">
+        <a href="index.php" class="back-button"><i class="bi bi-arrow-left"></i></a>
         <div class="row">
             <div class="col-md-12">
-                    <div class="card-body p-0">
-                        <div class="row g-0">
-                            <div class="col-lg-6 col-12 p-4">
-                                <h2 class="mb-1">Register</h2>
-                                <p class="mb-4 text-muted">Daftarkan Akun Anda</p>
-
-                                <form method="POST">
-                                    <div class="mb-3">
-                                        <label for="nik" class="form-label">NIK</label>
-                                        <input type="text" class="form-control" id="nik" placeholder="320x-xxxx-xxxx-xxxx" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)" required>
-                                        <div id="nikError" style="color: red; font-size: 0.9em;"></div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" autocomplete="off" required>
-                                        <div id="emailError" style="color: red; font-size: 0.9em;"></div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="username" class="form-control" id="username" placeholder="Name" name="username" autocomplete="off" required>
-                                    </div>
-                                    <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <div class="password-toggle position-relative">
-        <input type="password" class="form-control" id="password"
-            placeholder="********" name="password" autocomplete="off" required
-            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
-            title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
-        <i class="bi bi-eye" id="togglePassword" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;"></i>
-    </div>
-    <small class="text-muted">Password harus Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial </small>
-</div>
-                                    <div class="mb-3">
-                                        <label for="phone" class="form-label">No Telp</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="08xx-xxxx-xxxx" name="telp" autocomplete="off" oninput="formatNumber(this)" minlength="13" maxlength="18" required>
-                                        <div id="nomorError" style="color: red; font-size: 0.9em;"></div>
-                                    </div>
-
-                                    <button name="submit" type="submit" class="btn btn-register">Register</button>
-                                </form>
-                                <?php
-
-                                echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
-
-                                if(isset($_POST['submit'])){
-                                include 'config/db.php';
-                                $email = mysqli_real_escape_string($conn, $_POST['email']);
-                                $nik = mysqli_real_escape_string($conn, $_POST['nik']);
-                                $username = mysqli_real_escape_string($conn, $_POST['username']);
-                                //hash password mencegah hacker
-                                $password_raw = $_POST['password'];
-                                $password = password_hash($password_raw, PASSWORD_DEFAULT);
-                                $telp = mysqli_real_escape_string($conn, $_POST['telp']);
-    
-                                // Validasi input
-                                $errors = array();
-    
-                                // Validasi NIK (harus berupa 16 digit angka)
-                                $nik = preg_replace('/\D/', '', $_POST['nik']); // pembersihan karakter & hanya angka
-                                $telp = preg_replace('/\D/', '', $_POST['telp']);
-                                if(strlen($nik) != 16) {
-                                    $errors[] = "NIK harus berupa 16 digit angka";
-                                }
-                                
-                                $check_nik = mysqli_query($conn, "SELECT * FROM masyarakat WHERE nik='$nik'");
-                                if(mysqli_num_rows($check_nik) > 0) {
-                                    $errors[] = "NIK sudah terdaftar";
-                                }
-
-                                $check_email = mysqli_query($conn, "SELECT * FROM masyarakat WHERE email='$email'");
-                                if(mysqli_num_rows($check_email) > 0) {
-                                    $errors[] = "Email sudah digunakan";
-                                }
-
-                                // Cek apakah username sudah ada di database
-                                $check_username = mysqli_query($conn, "SELECT * FROM masyarakat WHERE username='$username'");
-                                if(mysqli_num_rows($check_username) > 0) {
-                                    $errors[] = "Username sudah digunakan";
-                                }
-
-                                $check_telp = mysqli_query($conn, "SELECT * FROM masyarakat WHERE telp='$telp'");
-                                if(mysqli_num_rows($check_telp) > 0) {
-                                    $errors[] = "Nomor sudah terdaftar";
-                                }
-                                
-                                if(strlen($telp) < 10) {
-                                    $errors[] = "Nomor minimal 10 digit angka";
-                                }
-                                // Jika tidak ada error, lanjutkan dengan penyimpanan data
-                                if(empty($errors)) {
-                                    // Gunakan query langsung seperti kode asli
-                                    $data = mysqli_query($conn, "INSERT INTO masyarakat (nik, email, username, password, telp) 
-                                        VALUES ('$nik', '$email', '$username', '$password', '$telp')");
-        
-                                if($data) {
-                                        // Tampilkan pesan sukses
-                                echo "<script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        Swal.fire({
-                                            title: 'Data terkirim',
-                                            text: 'Data terkirim, sekarang kamu bisa login',
-                                            icon: 'success'
-                                        }).then(() => {
-                                        window.location.href = 'login.php';
-                                        });
-                                    });
-                                        </script>";
-                                    } else {
-                                    // Tampilkan pesan gagal
-                                    echo "<script>
-                                        document.addEventListener('DOMContentLoaded', function() {
-                                            Swal.fire({
-                                                title: 'Data gagal terkirim',
-                                                text: 'Tidak bisa login',
-                                                icon: 'error'
-                                        });
-                                    });
-                                    </script>";
-                                    }
-                                } else {
-                                    // Tampilkan error validasi
-                                    $error_message = implode(', ', $errors);
-                                    echo "<script>
-                                        document.addEventListener('DOMContentLoaded', function() {
-                                            Swal.fire({
-                                                title: 'Register Gagal!',
-                                                text: '$error_message',
-                                                icon: 'error'
-                                        });
-                                    });
-                                    </script>";
-                                }
-                            }
-                            ?>
+                <div class="p-4">
+                    <div class="row g-0">
+                        <div class="col-lg-6 col-12">
+                            <h2>Register</h2>
+                            <p class="text-muted">Daftarkan Akun Anda</p>
+                            <form method="POST" autocomplete="off" id="form">
+                            <div>
+                                <input type="text" name="nik" class="form-control" placeholder="NIK" maxlength="19" id="nik"  oninput="formatNumber(this)" required>
+                                <div id="nikError" class="text-danger small"></div>
                             </div>
 
-                            <div class="col-md-6 p-0">
-                                <div class="right-side-header">
-                                    <div class="navbar-brand d-flex align-items-center">
-                                        <img src="storages/logo2.png" alt="MyReport Icon" class="logo-icon me-2">
-                                        <img src="storages/MyReport2.png" alt="MyReport Text" class="logo-text">
-                                    </div>
+                            <div>
+                                <input type="email" name="email" class="form-control" placeholder="Email" id="email" required>
+                                <div id="emailError" class="text-danger small"></div>
                                 </div>
-                                <div class="right-side-content d-none d-lg-block">
-                                    <div class="welcome-section">
-                                        <h1 class="welcome-text">Selamat datang</h1>
-                                        <p class="sub-text">Di Pengaduan Masyarakat</p>
-                                        
-                                        <div class="illustration">
-                                            <img src="storages/register.png" alt="Ilustrasi Welcome">
-                                        </div>
-                                    </div>
+
+                                <div>
+                                <input type="text" name="username" class="form-control" placeholder="Username" id="username" required>
+                                </div>
+                                <div class="password-toggle">
+                                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required
+                                        pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+                                        title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
+                                    <i class="bi bi-eye" id="togglePassword"></i>
+                                </div>
+                                <small class="text-muted">Password harus 8 karakter, 1 huruf besar, 1 angka & 1 simbol.</small>
+                                
+                                <div>
+                                <input type="text" name="telp" class="form-control" placeholder="No Telp" minlength="13" maxlength="18" id="phone"required  oninput="formatNumber(this)">
+                                <div id="telpError" class="text-danger small"></div>
+                                </div>
+                                <button name="submit" type="submit" class="btn btn-outline-dark mt-3">Register</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 d-none d-lg-block p-4">
+                            <div class="text-center">
+                                <img src="storages/logo2.png" class="logo-icon" alt="Icon">
+                                <img src="storages/MyReport2.png" class="logo-text" alt="Text">
+                                <h1 class="welcome-text mt-5">Selamat Datang</h1>
+                                <p class="sub-text">Di Pengaduan Masyarakat</p>
+                                <div class="illustration">
+                                    <img src="storages/registerv2.0.png" alt="Register Illustration">
                                 </div>
                             </div>
                         </div>
@@ -295,59 +194,131 @@
             </div>
         </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+<?php
+include 'config/db.php';
+echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
 
-        document.getElementById("togglePassword").addEventListener("click", function () {
-    const passwordInput = document.getElementById("password");
-    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-    passwordInput.setAttribute("type", type);
-    this.classList.toggle("bi-eye");
-    this.classList.toggle("bi-eye-slash");
-});
-        document.querySelector("form").addEventListener("submit", function(e) {
-    const emailInput = document.getElementById("email");
-    const email = emailInput.value;
-    const errorDiv = document.getElementById("emailError");
+if (isset($_POST['submit'])) {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $nik = preg_replace('/\D/', '', $_POST['nik']); // bersihkan NIK dari non-angka
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password_raw = $_POST['password'];
+    $password = password_hash($password_raw, PASSWORD_DEFAULT);
+    $telp = preg_replace('/\D/', '', $_POST['telp']);
 
-    if (!email.endsWith(".com")) {
-        e.preventDefault(); // mencegah submit
-        errorDiv.textContent = "Email harus menggunakan setidaknya .com";
+    $errors = [];
+
+    if (strlen($nik) !== 16) {
+        $errors[] = "NIK harus 16 digit angka.";
+    }
+    if (strlen($telp) < 12) {
+        $errors[] = "Nomor telepon minimal 12 digit.";
+    }
+
+    // Cek duplikat
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM masyarakat WHERE nik='$nik'")) > 0) {
+        $errors[] = "NIK sudah terdaftar.";
+    }
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM masyarakat WHERE email='$email'")) > 0) {
+        $errors[] = "Email sudah digunakan.";
+    }
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM masyarakat WHERE username='$username'")) > 0) {
+        $errors[] = "Username sudah digunakan.";
+    }
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM masyarakat WHERE telp='$telp'")) > 0) {
+        $errors[] = "Nomor telepon sudah terdaftar.";
+    }
+
+    if (empty($errors)) {
+        $insert = mysqli_query($conn, "INSERT INTO masyarakat (nik, email, username, password, telp)
+        VALUES ('$nik', '$email', '$username', '$password', '$telp')");
+
+        if ($insert) {
+            echo "<script>
+                Swal.fire({
+                    title: 'Registrasi Berhasil!',
+                    text: 'Sekarang kamu bisa login.',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.href = 'login.php';
+                });
+            </script>";
+        } else {
+            echo "<script>
+                Swal.fire({
+                    title: 'Gagal!',
+                    text: 'Terjadi kesalahan saat menyimpan data.',
+                    icon: 'error'
+                });
+            </script>";
+        }
     } else {
-        errorDiv.textContent = "";
+        $allErrors = implode('\\n', $errors);
+        echo "<script>
+            Swal.fire({
+                title: 'Registrasi Gagal!',
+                text: '$allErrors',
+                icon: 'error'
+            });
+        </script>";
     }
-
-    const nikInput = document.getElementById('nik');
-    const nik = nikInput.value;
-    const nikError = document.getElementById('nikError');
-
-
-        const password = document.getElementById("password").value;
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
-    if (!regex.test(password)) {
-        e.preventDefault();
-        alert("Password tidak valid! Harus 8+ karakter, ada huruf besar, angka, dan simbol.");
-    }
-
-    const nomorInput = document.getElementById('phone');
-    const nomor = nomorInput.value;
-    const nomorError = document.getElementById('nomorError');
-});
-
-        function formatNumber(input) {
-  // Ambil angka saja, tanpa karakter selain digit
-  let value = input.value.replace(/\D/g, '');
-
-  // Potong jadi per 4 digit
-  let formatted = value.match(/.{1,4}/g);
-  
-  // Gabungkan dengan "-"
-  if (formatted) {
-    input.value = formatted.join('-');
-  } else {
-    input.value = '';
-  }
 }
-    </script>
+?>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function() {
+        const passwordInput = document.getElementById("password");
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+        this.classList.toggle("bi-eye");
+        this.classList.toggle("bi-eye-slash");
+    });
+
+
+    function formatNumber(input) {
+    const value = input.value.replace(/\D/g, '');
+    const formatted = value.match(/.{1,4}/g);
+    input.value = formatted ? formatted.join('-') : '';
+  }
+
+  document.getElementById("form").addEventListener("submit", function(e) {
+    let isValid = true;
+
+    const email = document.getElementById("email").value;
+    if (!email.endsWith(".com")) {
+      document.getElementById("emailError").textContent = "Email Setidaknya berakhiran .com";
+      isValid = false;
+    } else {
+      document.getElementById("emailError").textContent = "";
+    }
+
+    const nik = document.getElementById("nik").value.replace(/\D/g, '');
+    if (nik.length !== 16) {
+      document.getElementById("nikError").textContent = "NIK harus 16 digit";
+      isValid = false;
+    } else {
+      document.getElementById("nikError").textContent = "";
+    }
+
+    const telp = document.getElementById("phone").value.replace(/\D/g, '');
+    if (telp.length < 12) {
+      document.getElementById("telpError").textContent = "No. Telp minimal 12 digit";
+      isValid = false;
+    } else {
+      document.getElementById("telpError").textContent = "";
+    }
+
+    if (!isValid) e.preventDefault();
+  });
+
+    
+</script>
 </body>
 </html>

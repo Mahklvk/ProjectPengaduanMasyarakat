@@ -1,22 +1,17 @@
 <?php
-require ('config/session.php');
-require ('config/db.php');
-$nik = $_SESSION['nik'];
+require('config/session.php');
+require('config/db.php');
 
-// Ambil data user dari database berdasarkan session
-// Cek terlebih dahulu apakah variabel session nik ada
-if(isset($_SESSION['nik'])) {
+if (isset($_SESSION['nik'])) {
     $nik = $_SESSION['nik'];
 } else {
-    // Jika tidak ada variabel nik, coba cek variabel lain yang mungkin menyimpan nik user
-    if(isset($_SESSION['id_user'])) {
+    if (isset($_SESSION['id_user'])) {
         $nik = $_SESSION['id_user'];
-    } else if(isset($_SESSION['user_id'])) {
+    } elseif (isset($_SESSION['user_id'])) {
         $nik = $_SESSION['user_id'];
-    } else if(isset($_SESSION['id'])) {
+    } elseif (isset($_SESSION['id'])) {
         $nik = $_SESSION['id'];
     } else {
-        // Jika tidak ada variabel nik yang ditemukan, redirect ke login
         $_SESSION['message'] = "Sesi tidak valid. Silakan login kembali.";
         $_SESSION['message_type'] = "error";
         header("Location: login.php");
@@ -24,191 +19,216 @@ if(isset($_SESSION['nik'])) {
     }
 }
 
-if (isset($_GET['search']) && $_GET['search'] != '') {
-    $filtervalues = $_GET['search'];
-    // Query untuk mencari data berdasarkan kolom judul_laporan, tgl_pengaduan, nik, dan isi_laporan
-    $queryGetData = "SELECT * FROM pengaduan WHERE CONCAT(judul_laporan,tgl_pengaduan,nik,isi_laporan) LIKE '%$filtervalues%' ";
-    $result = mysqli_query($conn, $queryGetData);
-} else {
-    // Jika tidak ada pencarian, ambil semua data dari tabel pengaduan
-    $queryGetData = "SELECT * FROM pengaduan WHERE nik= '$nik'";
-    $result = mysqli_query($conn, $queryGetData);
+$filtervalues = $_GET['search'] ?? '';
+$filterkategori = $_GET['kategori'] ?? '';
+$filtertanggal = $_GET['tanggal'] ?? '';
+
+$query = "SELECT * FROM pengaduan WHERE nik = '$nik'";
+
+// Tambahkan filter hanya jika tidak kosong
+if ($filtervalues !== '') {
+    $query .= " AND CONCAT(judul_laporan, isi_laporan, nik) LIKE '%$filtervalues%'";
+}
+if ($filterkategori !== '') {
+    $query .= " AND kategori = '$filterkategori'";
+}
+if ($filtertanggal !== '') {
+    $query .= " AND tgl_pengaduan = '$filtertanggal'";
 }
 
-
+$result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Laporan - MyReport</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
-    <style> 
-        .search-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap & FontAwesome -->
+  <!-- Bootstrap, Font Awesome, Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+            color: white;
+            min-height: 100vh;
+            z-index: -1;
         }
-        
-        .search-box {
-            width: 800px;
-            position: relative;
+
+        .card-glass {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #fff;
         }
-        
-        .search-box input {
-            padding-left: 40px;
-            border-radius: 5px;
+
+        .search-form {
+            background-color: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
         }
-        
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 10px;
-            color: #6c757d;
+
+        .card-img-top {
+            max-height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
-        
+
+        .badge {
+            font-size: 0.9rem;
+        }
+
         .btn-primary {
             position: fixed;
             bottom: 5rem;
             right: 4rem;
             background-color: #3E6EA2;
             border-color: #3E6EA2;
+            z-index: 1;
         }
+
+        .input-with-clear {
+    position: relative;
+  }
+
+  .input-with-clear input {
+    padding-right: 2rem;
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-weight: bold;
+    color: #888;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    display: none;
+  }
+
+  .input-with-clear input:not(:placeholder-shown) + .clear-btn {
+    display: block;
+  }
+
+  .clear-btn:hover {
+    color: #333;
+  }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <?php include('config/navbar.php');?>
 
-    <!-- Main Content -->
-    <div class="container">
-        <h1 class="page-title">Daftar Laporan</h1>
-        
-        <!-- Search -->
-        <div class="col-md-8 col-sm-6 input-icons">
-      <form action="" method="GET" role="search">
-        <div class="search-container">
-            <div class="search-box">
-                <i class="fa fa-search search-icon"></i>
-                <input type="text" class="form-control d-inline" placeholder="Cari Laporan" id="searchInput" name="search">
-                <button class="btn btn-outline-dark rounded-pill mt-2" type="submit">Search</button>
-                <a href="?" class="btn btn-outline-danger rounded-pill mt-2">Reset</a>
+<?php include('config/navbar.php'); ?>
+
+<div class="container mt-4">
+    <h2 class="text-white mb-4">Daftar Laporan</h2>
+
+    <!-- Filter Form -->
+    <form class="search-form" method="GET">
+  <div class="row g-3">
+    <div class="col-md-12 input-with-clear">
+      <input type="text" name="search" class="form-control" placeholder="Cari judul / isi laporan..." id="searchInput" value="<?= htmlspecialchars($filtervalues) ?>">
+      <button type="button" class="clear-btn" onclick="document.getElementById('searchInput').value='';">×</button>
+    </div>
+
+    <div class="col-md-4 input-with-clear">
+      <input type="text" name="kategori" class="form-control" placeholder="Kategori" id="kategoriInput" value="<?= htmlspecialchars($filterkategori) ?>">
+      <button type="button" class="clear-btn" onclick="document.getElementById('kategoriInput').value='';">×</button>
+    </div>
+
+    <div class="col-md-4">
+      <input type="date" name="tanggal" class="form-control" id="tanggalInput" value="<?= htmlspecialchars($filtertanggal) ?>">
+    </div>
+
+    <div class="col-md-4">
+      <button class="btn btn-outline-light w-100">Search</button>
+    </div>
+  </div>
+</form>
+
+    <!-- Card Grid -->
+    <div class="row g-4 mb-2">
+        <?php
+        if (mysqli_num_rows($result) > 0) {
+            while ($data = mysqli_fetch_array($result)) {
+                $status = trim($data['status']);
+                $class = match ($status) {
+                    'diproses' => 'secondary',
+                    'ditolak'  => 'danger',
+                    'selesai'  => 'success',
+                    default    => 'light'
+                };
+        ?>
+        <div class="col-md-4">
+            <div class="card card-glass h-100">
+                <img src="storages/foto_laporan/<?= $data['foto'] ?>" class="card-img-top" alt="Foto Laporan">
+                <div class="card-body">
+                    <h5 class="card-title"><?= htmlspecialchars($data['judul_laporan']) ?></h5>
+                    <p class="card-text"><strong>Kategori:</strong> <?= $data['kategori'] ?></p>
+                    <p class="card-text"><strong>Tanggal:</strong> <?= $data['tgl_pengaduan'] ?></p>
+                    <p class="card-text"><strong>Alamat:</strong> <?= $data['alamat'] ?></p>
+                    <p class="card-text"><strong>Isi:</strong> <?= strlen($data['isi_laporan']) > 100 ? substr($data['isi_laporan'], 0, 100) . '...' : $data['isi_laporan']; ?></p>
+                    <span class="badge bg-<?= $class ?>"><?= htmlspecialchars($status) ?></span>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end">
+                    <a href="detailHistoryLaporan.php?p=<?= $data['id_pengaduan'] ?>" class="btn btn-sm btn-outline-light">Detail</a>
+                </div>
             </div>
         </div>
-        </form>
-    </div>
-        
-        <!-- Table -->
-        <div class="report-table table-responsive">
-            <table class="table table-hover " id="reportTable">
-                <thead>
-                    <tr>
-                        <th width="5%">No</th>
-                        <th width="15%">judul laporan</th>
-                        <th width="15%">Kategori</th>
-                        <th width="15%">Tanggal kejadian</th>
-                        <th width="15%">Nik</th>
-                        <th width="15%">Isi Laporan</th>
-                        <th width="10%">Foto</th>
-                        <th width="15%">Status</th>
-                        <th width="10%">Action</th>
-                    </tr>
-                </thead>
-
-
-                <!-- add report-->
-                <button class="btn btn-primary" id="addReportBtn">
-                <i class="bi bi-plus-circle"></i> Buat laporan
-            </button>
-                <tbody>
-                    <?php
-if (mysqli_num_rows($result) > 0) {
-    $no = 1;
-    while ($data = mysqli_fetch_array($result)) { ?>
-        <tr>
-            <td><?php echo $no++; ?></td>
-            <td><?php echo $data['judul_laporan']; ?></td>
-            <td><?php echo $data['kategori']; ?></td>
-            <td><?php echo $data['tgl_pengaduan']; ?></td>
-            <td><?php echo $data['nik']; ?></td>
-            <td><?php echo strlen($data['isi_laporan']) > 15 ? substr($data['isi_laporan'], 0, 15) . '...' : $data['isi_laporan']; ?></td>
-            <td><img src="storages/foto_laporan/<?php echo $data['foto']; ?>" alt="laporan" width="50px"></td>
-            <?php
-            $status = trim($data['status']);
-            switch ($status) {
-                case 'diproses':
-                    $class = 'badge rounded-pill text-bg-secondary';
-                    break;
-                case 'ditolak':
-                    $class = 'badge rounded-pill text-bg-danger';
-                    break;
-                case 'selesai':
-                    $class = 'badge rounded-pill text-bg-success';
-                    break;
-                default:
-                    $class = 'btn btn-outline-secondary rounded-pill btn-sm';
-                    break;
+        <?php
             }
-            echo '<td><span class="' . $class . '">' . htmlspecialchars($status) . '</span></td>';
-            ?>
-            <td><a href="detailHistoryLaporan.php?p=<?php echo $data['id_pengaduan']; ?>" class="btn btn-sm btn-outline-dark">Detail</a></td>
-        </tr>
-    <?php }
-} else {
-    echo "<tr><td colspan='8' class='text-center'>Tidak ada data ditemukan.</td></tr>";
-}
-?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Function to filter table based on search
-        function filterTable() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            
-            if (searchTerm === '') {
-                populateTable(reportData);
-                return;
-            }
-            
-            const filteredData = reportData.filter(report => {
-                return (
-                    report.nama.toLowerCase().includes(searchTerm) ||
-                    report.nik.toLowerCase().includes(searchTerm) ||
-                    report.kategori.toLowerCase().includes(searchTerm) ||
-                    report.status.toLowerCase().includes(searchTerm)
-                );
-            });
-            
-            populateTable(filteredData);
+        } else {
+            echo "<div class='col-12 text-center'><div class='alert alert-light text-dark'>Tidak ada laporan ditemukan.</div></div>";
         }
+        ?>
+    </div>
+</div>
+<!-- Add Report Button -->
+<button class="btn btn-primary" id="addReportBtn">
+    <i class="bi bi-plus-circle"></i> Buat Laporan
+</button>
+<!-- jQuery dulu -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        // Add report button click handler
-        document.getElementById('addReportBtn').addEventListener('click', function() {
-            window.location.href = 'tulisLaporan.php';  
-        });
+<!-- lalu Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Tampilkan tombol "X" jika input ada isinya (untuk pertama kali halaman dimuat)
+  document.querySelectorAll('.input-with-clear input').forEach(input => {
+    if (input.value) {
+      input.nextElementSibling.style.display = 'block';
+    }
 
-        // Search input event listener
-        document.getElementById('searchInput').addEventListener('input', filterTable);
+    // Tambahkan event input agar tombol X muncul/hilang saat mengetik
+    input.addEventListener('input', () => {
+      input.nextElementSibling.style.display = input.value ? 'block' : 'none';
+    });
+  });
+     $(document).ready(function() {
+    $('#kategori').select2({
+      tags: true,
+      placeholder: "Pilih atau ketik kategori",
+      allowClear: true
+    });
+  });
+  
+    document.getElementById('addReportBtn').addEventListener('click', () => {
+        window.location.href = 'tulisLaporan.php';
+    });
+</script>
 
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            displayUsername();
-            populateTable(reportData);
-        });
-    </script>
 </body>
 </html>

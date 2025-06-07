@@ -52,9 +52,26 @@ function generatorRandom($length = 10)
 </head>
 
 <style>
-  body {
-    background-color: #f8f9fa;
-  }
+    body {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+            margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+        .card {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 2rem 2.5rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      color: #333;
+    }
   /* .form-section {
     max-width: 900px;
     margin: auto;
@@ -86,28 +103,53 @@ function generatorRandom($length = 10)
     margin-top: 20px;
     color: #888;
   }
+      .judul-laporan, .tanggal, .isi-laporan, .tanggapan, .upload, .kategori, .alamat{
+      width: 100%;
+      padding: 12px;
+            margin-bottom: 16px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
+    }
+    .upload::file-selector-button{
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      margin-left:5px ;
+    }
+    .upload:hover, .upload::file-selector-button{
+      background: rgba(255, 255, 255, 0.1);
+    }
 </style>
 <body>
   <?php include('config/navbar.php')?>
-  <h1 class="container mt-5">Lapor Sekarang</h1>
+  <h1 class="container mt-5 text-center">Lapor Sekarang</h1>
   <div class="container">
     <div class="row p-2">
-      <div class="col-md-12 border border-dark rounded p-5">
+      <div class="col-md-12  p-5 card">
         <div class="container form-section">
   <form action="" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="judul" class="form-label">Judul Laporan</label>
-      <input type="text" class="form-control" id="judul" name="judulLaporan" placeholder="Contoh: Lampu jalan mati" required>
+      <input type="text" class="form-control judul-laporan" id="judul" name="judulLaporan" placeholder="Contoh: Lampu jalan mati" required>
     </div>
 
     <div class="mb-3">
       <label for="tanggal" class="form-label">Tanggal Kejadian</label>
-      <input type="date" class="form-control" id="tanggal" name="date" required>
+      <input type="date" class="form-control tanggal" id="tanggal" name="date" required>
+    </div>
+
+        <div class="mb-3">
+      <label for="tanggal" class="form-label">Alamat</label>
+      <input type="text" class="form-control alamat" id="alamat" name="alamat" placeholder="Alamat kejadian" required>
     </div>
 
     <div class="mb-3">
       <label for="kategori" class="form-label">Kategori</label>
-      <select id="kategori" name="kategori" class="form-control" required>
+      <select id="kategori" name="kategori" class="form-control kategori" required>
         <option></option>
         <option value="Jalan">Jalan</option>
         <option value="Listrik">Listrik</option>
@@ -117,15 +159,15 @@ function generatorRandom($length = 10)
 
     <div class="mb-3">
       <label for="isi" class="form-label">Isi Laporan</label>
-      <textarea class="form-control" id="isi" name="isiLaporan" rows="4" placeholder="Tuliskan detail kejadian..." required></textarea>
+      <textarea class="form-control isi-laporan" id="isi" name="isiLaporan" rows="4" placeholder="Tuliskan detail kejadian..." required></textarea>
     </div>
 
     <div class="mb-3">
       <label for="foto" class="form-label">Foto</label>
-      <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required onchange="previewImage(event)" >
+      <input type="file" class="form-control upload" id="foto" name="foto" accept="image/*" required onchange="previewImage(event)" >
     </div>
 
-    <div id="preview-container">Image Preview</div>
+    <div id="preview-container" class="text-white">Image Preview</div>
 
     <div class="text-center mt-4">
       <button type="submit" class="btn btn-primary px-5 py-2" name="submit">Submit</button>
@@ -139,6 +181,7 @@ function generatorRandom($length = 10)
             $kategori = htmlspecialchars($_POST['kategori']);
             $date = htmlspecialchars($_POST['date']);
             $isiLaporan = htmlspecialchars($_POST['isiLaporan']);
+            $alamat = htmlspecialchars($_POST['alamat']);
 
             $targetDir = "storages/foto_laporan/";
             $namaFoto = basename($_FILES["foto"]["name"]);
@@ -170,7 +213,7 @@ function generatorRandom($length = 10)
               <?php
             } else {
               if (move_uploaded_file($_FILES["foto"]["tmp_name"], $targetDir . $namaFotoBaru)) {
-                $queryUploadData = mysqli_query($conn, "INSERT INTO pengaduan(judul_laporan, tgl_pengaduan, nik, isi_laporan, foto, kategori, username, telp) VALUES ('$judulLaporan', '$date', '$nik', '$isiLaporan', '$namaFotoBaru', '$kategori', '$username', '$telp')");
+                $queryUploadData = mysqli_query($conn, "INSERT INTO pengaduan(judul_laporan, tgl_pengaduan, alamat, nik, isi_laporan, foto, kategori, username, telp) VALUES ('$judulLaporan', '$date','$alamat', '$nik', '$isiLaporan', '$namaFotoBaru', '$kategori', '$username', '$telp')");
 
                 if ($queryUploadData) {
               ?>
@@ -230,6 +273,7 @@ function generatorRandom($length = 10)
       allowClear: true
     });
   });
+  
   function previewImage(event) {
     const preview = document.getElementById('preview-container');
     const file = event.target.files[0];
@@ -244,7 +288,6 @@ function generatorRandom($length = 10)
     }
   }
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="assets/fontawesome/js/all.min.js"></script>
