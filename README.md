@@ -2,9 +2,7 @@
 
 *Empowering Voices, Transforming Communities Together*
 
-![Last Commit](https://img.shields.io/github/last-commit/username/projectpengaduanmasyarakat?label=last%20commit&color=blue)
 ![PHP](https://img.shields.io/badge/PHP-54.6%25-777BB4?logo=php&logoColor=white)
-![Languages](https://img.shields.io/github/languages/count/username/projectpengaduanmasyarakat?label=languages&color=brightgreen)
 
 *Built with the tools and technologies:*
 
