@@ -76,10 +76,6 @@ if (isset($_POST['delete_account'])) {
     }
 }
 
-// Tutup koneksi database jika diperlukan
-if (isset($conn) && $conn) {
-    mysqli_close($conn);
-}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -93,6 +89,8 @@ if (isset($conn) && $conn) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- fontawesome -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
@@ -170,6 +168,11 @@ if (isset($conn) && $conn) {
             color: #fff;
             outline: none;
             transition: background 0.3s;
+    }
+    
+              .nik:focus, .email:focus, .password:focus, .telp:focus, .username:focus{
+                color: white;
+            background: rgba(255, 255, 255,0.2);
     }
     .form-control:read-only{
         cursor: not-allowed;

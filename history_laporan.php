@@ -19,24 +19,73 @@ if (isset($_SESSION['nik'])) {
     }
 }
 
-$filtervalues = mysqli_real_escape_string($conn, $_GET['search'] ?? '');
-$filterkategori = mysqli_real_escape_string($conn, $_GET['kategori'] ?? '');
-$filtertanggal = mysqli_real_escape_string($conn, $_GET['tanggal'] ?? '');
+$filtervalues = $_GET['search'] ?? '';
+$filterkategori = $_GET['kategori'] ?? '';
+$filtertanggal = $_GET['tanggal'] ?? '';
 
-$query = "SELECT * FROM pengaduan WHERE nik = '$nik'";
+// Pagination variables
+$limit = 6; // Batas data per halaman
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
 
-// Tambahkan filter hanya jika tidak kosong
+// Escape NIK untuk keamanan
+$escapedNik = mysqli_real_escape_string($conn, $nik);
+
+// Query untuk menghitung total data - PERBAIKAN DI SINI
+$countQuery = "SELECT COUNT(*) as total FROM pengaduan WHERE nik = '$escapedNik'";
+$whereConditions = [];
+
+// Tambahkan filter untuk counting dengan proper escaping
 if ($filtervalues !== '') {
-    $query .= " AND CONCAT(judul_laporan, isi_laporan, nik) LIKE '%$filtervalues%'";
+    $escapedFilter = mysqli_real_escape_string($conn, $filtervalues);
+    $whereConditions[] = "CONCAT(judul_laporan, isi_laporan, nik) LIKE '%$escapedFilter%'";
 }
 if ($filterkategori !== '') {
-    $query .= " AND kategori = '$filterkategori'";
+    $escapedKategori = mysqli_real_escape_string($conn, $filterkategori);
+    $whereConditions[] = "kategori = '$escapedKategori'";
 }
 if ($filtertanggal !== '') {
-    $query .= " AND tgl_pengaduan = '$filtertanggal'";
+    $escapedTanggal = mysqli_real_escape_string($conn, $filtertanggal);
+    $whereConditions[] = "tgl_pengaduan = '$escapedTanggal'";
 }
 
+// PERBAIKAN: Gunakan AND bukan WHERE karena sudah ada WHERE nik
+if (!empty($whereConditions)) {
+    $countQuery .= " AND " . implode(" AND ", $whereConditions);
+}
+
+// Debug query (uncomment untuk debugging)
+// echo "Count Query: " . $countQuery . "<br>";
+
+$countResult = mysqli_query($conn, $countQuery);
+
+// Error handling untuk count query
+if (!$countResult) {
+    die("Error in count query: " . mysqli_error($conn));
+}
+
+$totalData = mysqli_fetch_assoc($countResult)['total'];
+$totalPages = ceil($totalData / $limit);
+
+// Query untuk mengambil data dengan pagination - PERBAIKAN DI SINI JUGA
+$query = "SELECT * FROM pengaduan WHERE nik = '$escapedNik'";
+
+// PERBAIKAN: Gunakan AND bukan WHERE karena sudah ada WHERE nik
+if (!empty($whereConditions)) {
+    $query .= " AND " . implode(" AND ", $whereConditions);
+}
+
+$query .= " ORDER BY tgl_pengaduan DESC LIMIT $limit OFFSET $offset";
+
+// Debug query (uncomment untuk debugging)
+// echo "Data Query: " . $query . "<br>";
+
 $result = mysqli_query($conn, $query);
+
+// Error handling untuk data query
+if (!$result) {
+    die("Error in data query: " . mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE html>
@@ -125,6 +174,50 @@ $result = mysqli_query($conn, $query);
   .clear-btn:hover {
     color: #333;
   }
+
+   /* Pagination Styles */
+  .pagination-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagination .page-link {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    backdrop-filter: blur(5px);
+  }
+
+  .pagination .page-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+  }
+
+  .pagination .page-item.active .page-link {
+    background-color: #3E6EA2;
+    border-color: #3E6EA2;
+    color: #fff;
+  }
+
+  .pagination .page-item.disabled .page-link {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .data-info {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+        .page-title {
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: whitesmoke;
+        }
     </style>
 </head>
 <body>
@@ -155,7 +248,14 @@ $result = mysqli_query($conn, $query);
       <button class="btn btn-outline-light w-100">Search</button>
     </div>
   </div>
+  <input type="hidden" name="page" value="1">
 </form>
+  <!-- Info jumlah data -->
+  <?php if ($totalData > 0): ?>
+    <div class="data-info">
+      Menampilkan <?= ($offset + 1) ?> - <?= min($offset + $limit, $totalData) ?> dari <?= $totalData ?> data
+    </div>
+  <?php endif; ?>
 
     <!-- Card Grid -->
     <div class="row g-4 mb-2">
@@ -193,6 +293,69 @@ $result = mysqli_query($conn, $query);
         }
         ?>
     </div>
+
+    <!-- Pagination -->
+    <?php if ($totalPages > 1): ?>
+    <div class="pagination-container">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <!-- Previous button -->
+                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <?php
+                // Menentukan range halaman yang ditampilkan
+                $start_page = max(1, $page - 2);
+                $end_page = min($totalPages, $page + 2);
+
+                // Jika di awal, tampilkan lebih banyak halaman ke kanan
+                if ($page <= 3) {
+                    $end_page = min($totalPages, 5);
+                }
+                
+                // Jika di akhir, tampilkan lebih banyak halaman ke kiri
+                if ($page > $totalPages - 3) {
+                    $start_page = max(1, $totalPages - 4);
+                }
+
+                // Tampilkan halaman pertama jika tidak termasuk dalam range
+                if ($start_page > 1) {
+                    echo '<li class="page-item"><a class="page-link" href="?' . http_build_query(array_merge($_GET, ['page' => 1])) . '">1</a></li>';
+                    if ($start_page > 2) {
+                        echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                    }
+                }
+
+                // Tampilkan halaman dalam range
+                for ($i = $start_page; $i <= $end_page; $i++):
+                ?>
+                    <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                        <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>"><?= $i ?></a>
+                    </li>
+                <?php endfor;
+
+                // Tampilkan halaman terakhir jika tidak termasuk dalam range
+                if ($end_page < $totalPages) {
+                    if ($end_page < $totalPages - 1) {
+                        echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                    }
+                    echo '<li class="page-item"><a class="page-link" href="?' . http_build_query(array_merge($_GET, ['page' => $totalPages])) . '">' . $totalPages . '</a></li>';
+                }
+                ?>
+
+                <!-- Next button -->
+                <li class="page-item <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <?php endif; ?>
 </div>
 <!-- Add Report Button -->
 <button class="btn btn-primary" id="addReportBtn">

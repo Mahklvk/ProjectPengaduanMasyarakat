@@ -114,6 +114,11 @@ function generatorRandom($length = 10)
             outline: none;
             transition: background 0.3s;
     }
+
+          .judul-laporan:focus, .tanggal:focus, .isi-laporan:focus, .tanggapan:focus, .upload:focus, .kategori:focus, .alamat:focus{
+background: rgba(255, 255, 255, 0.2);
+color: white;
+    }
     .upload::file-selector-button{
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.1);
