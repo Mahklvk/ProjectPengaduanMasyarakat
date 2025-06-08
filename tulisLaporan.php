@@ -227,6 +227,27 @@ function generatorRandom($length = 10)
                     });
                   </script>
                 <?php
+                if (mysqli_affected_rows($conn) > 0) {
+    // Ambil ID pengaduan yang baru dibuat
+    $id_pengaduan_baru = mysqli_insert_id($conn);
+    
+    // Include fungsi notifikasi
+    require_once('config/functions_notifikasi.php');
+    
+    // Buat notifikasi "diproses" untuk user
+    buatNotifikasi($id_pengaduan_baru, $_SESSION['username'], 'diproses', $conn);
+    
+    // Redirect atau response success
+    echo json_encode([
+        'success' => true, 
+        'message' => 'Laporan berhasil dibuat dan notifikasi telah dikirim'
+    ]);
+} else {
+    echo json_encode([
+        'success' => false, 
+        'message' => 'Gagal membuat laporan'
+    ]);
+}
                 } else {
                 ?>
                   <script>
