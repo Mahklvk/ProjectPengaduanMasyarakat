@@ -10,9 +10,10 @@ $jumlahMasyarakat = mysqli_num_rows($queryGetMasyarakat); // untuk  mengambil ju
 
 $queryGetPetugas = mysqli_query($conn, "SELECT * FROM petugas"); // untuk mengambil data dari tabel petugas
 $jumlahPetugas = mysqli_num_rows($queryGetPetugas); // untuk mengambil jumlah data dari tabel petugas
+$fetchPetugas = mysqli_fetch_array($queryGetPetugas);
 
 $queryGetKontak = mysqli_query($conn, "SELECT * FROM kontak"); //untuk mengambil data dari tabel kontak
-$jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah data dari tabel kontak
+$jumlahKontak = mysqli_num_rows($queryGetKontak); // untuk  mengambil jumlah data dari tabel kontak
 ?>
 
 <!DOCTYPE html>
@@ -25,22 +26,41 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
     <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
     <title>MyReport</title>
     <style>
-
+        
+body {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow-x: hidden;
+}
+/* .cards {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+} */
         .card {
             border-radius: 10px;
+            color: whitesmoke;
         }/* Memberikan efek sudut membulat sebesar 10px pada elemen dengan class 'card' */
 
         
         /* Memberikan style pada elemen dengan class 'summary-user' *//* Memberikan style pada elemen dengan class 'summary-user' */
 .summary-user {
     /* Memberikan efek bayangan kotak agar terlihat timbul */
-    box-shadow: 6px 6px 15px rgba(97, 92, 92, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    color: whitesmoke;
 
     /* Menambahkan efek transisi halus saat elemen berubah (misalnya saat hover) */
     transition: transform 0.1s ease, box-shadow 0.1s ease;
 
     /* Memberikan sudut membulat 10px agar tampilan lebih lembut */
-    border-radius: 10px;
 }
 
 
@@ -50,14 +70,17 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
 }
 
         .summary-post {
+            color: whitesmoke;
     /* Memberikan efek bayangan dengan offset horizontal 6px, offset vertikal 6px, blur 15px, dan warna abu-abu transparan */
-    box-shadow: 6px 6px 15px rgba(97, 92, 92, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
 
     /* Menambahkan animasi transisi yang halus pada properti transform dan box-shadow dengan durasi 0.1 detik */
     transition: transform 0.1s ease, box-shadow 0.1s ease;
 
     /* Membuat sudut elemen menjadi membulat dengan radius 10px */
-    border-radius: 10px;
 }
 
 
@@ -71,13 +94,16 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
 
        .summary-comment {
     /* Memberikan bayangan dengan offset 6px ke kanan dan bawah, blur 15px, dan warna abu-abu transparan */
-    box-shadow: 6px 6px 15px rgba(97, 92, 92, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    color: whitesmoke;
 
     /* Menambahkan transisi halus pada perubahan transform dan box-shadow selama 0.1 detik */
     transition: transform 0.1s ease, box-shadow 0.1s ease;
 
     /* Membuat sudut elemen membulat dengan radius 10px */
-    border-radius: 10px;
 }
 
 
@@ -145,7 +171,7 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
         <div class="row">
 
             <!-- Card Pengaduan -->
-            <div class="col-lg-3 col-md-12 col-12 col-sm-12 mb-2">
+            <div class="col-lg-3 col-md-12 col-12 col-sm-12 mb-2 cards">
                 <a href="list_pengaduan.php" class="no-decoration">
                     <div class="summary-user p-3">
                         <div class="row">
@@ -165,7 +191,7 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
             </div>
 
             <!-- Card Masyarakat -->
-            <div class="col-lg-3 col-md-12 col-12 col-sm-12 mb-2">
+            <div class="col-lg-3 col-md-12 col-12 col-sm-12 mb-2 cards">
                 <a href="listAccountMasyarakat.php" class="no-decoration">
                     <div class="summary-post p-3">
                         <div class="row">
@@ -184,7 +210,7 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
             </div>
 
             <!-- Card Petugas/Admin -->
-            <div class="col-lg-3 col-md-12 col-12 col-sm-12 mb-2">
+            <div class="col-lg-3 col-md-12 col-12 col-sm-12 mb-2 cards">
                 <a href="listAccountAdmin.php" class="no-decoration">
                     <div class="summary-comment p-3">
                         <div class="row">
@@ -203,7 +229,7 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
             </div>
 
             <!-- Card Kontak -->
-            <div class="col-lg-3 col-md-12 col-12 col-sm-12 mb-2">
+            <div class="col-lg-3 col-md-12 col-12 col-sm-12 mb-2 cards">
                 <a href="list_kontak.php" class="no-decoration">
                     <div class="summary-comment p-3">
                         <div class="row">
@@ -220,9 +246,11 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
                     </div>
                 </a>
             </div>
-
-            <!-- Card Tambah Akun -->
-            <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+<?php
+if($_SESSION['level'] ==  'petugas' ){
+    ?>
+                <!-- Card Tambah Akun -->
+            <div class="col-lg-12 col-md-12 col-12 col-sm-12 d-none">
                 <a href="buatAkun.php" class="no-decoration">
                     <div class="summary-comment p-3">
                         <div class="row">
@@ -238,6 +266,30 @@ $jumlahKontak = mysqli_num_rows($queryGetPetugas); // untuk  mengambil jumlah da
                     </div>
                 </a>
             </div>
+            <?php
+} else{
+    ?>
+     <div class="col-lg-12 col-md-12 col-12 col-sm-12 cards">
+                <a href="buatAkun.php" class="no-decoration">
+                    <div class="summary-comment p-3">
+                        <div class="row">
+                            <div class="col-12 justify-content-center align-items-center p-2">
+                                <!-- Ikon tambah akun -->
+                                <i class="fas fa-circle-plus fa-4x text-black-50 container"></i>
+                            </div>
+
+                            <div class="text-black text-center">
+                                <p class="ms-4">Tambah Akun</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    <?php
+}
+?>
+            <!-- Card Tambah Akun -->
+           
 
         </div>
     </div>

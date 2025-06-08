@@ -273,7 +273,7 @@ body {
 
                                     <form method="POST">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" id="nik" placeholder="Email" name="email" required autocomplete="off">
+                                            <input type="text" class="form-control" id="email" placeholder="Email" name="email" required autocomplete="off">
                                         </div>
 
                                         <div class="mb-3">

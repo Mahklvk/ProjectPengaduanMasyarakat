@@ -52,8 +52,6 @@ if (mysqli_num_rows($checkTanggapan) > 0) {
     exit;
 }
 
-// Mulai transaction
-mysqli_autocommit($conn, false);
 
 try {
     // Insert tanggapan

@@ -121,6 +121,10 @@ if (isset($conn) && $conn) {
             background-color: #ff0000;
         }
 
+                .form-control:read-only {
+            cursor: not-allowed;
+        }
+
         .dashboard-header {
             display: flex;
             align-items: center;
@@ -166,6 +170,9 @@ if (isset($conn) && $conn) {
             color: #fff;
             outline: none;
             transition: background 0.3s;
+    }
+    .form-control:read-only{
+        cursor: not-allowed;
     }
     </style>
 </head>

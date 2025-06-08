@@ -2,9 +2,9 @@
 // contoh jika login berhasil, simpan: $_SESSION['username'] = 'NamaUser';
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-custom">
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand ms-3" href="#">
+    <a class="navbar-brand ms-3" href="index.php">
       <img src="../storages/logo.png" alt="logo" width="35px">
       <img src="../storages/MyReport.png" alt="logo" width="100px" class="ms-2">
     </a>
@@ -25,6 +25,9 @@
         <li class="nav-item">
           <a class="nav-link" href="listAccountAdmin.php"><i class="fa-solid fa-user-tie me-2"></i> List Admin</a>
         </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="listAccountAdmin.php"><img src="../assets/featherIcon/phone.png" width="20px" class="me-2 mb-1"> List Contact</a>
+        </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Lainnya
@@ -35,6 +38,7 @@
           </ul>
         </li>
       </ul>
+
 
       <form class="d-flex" role="search">
         <?php if (isset($_SESSION['username'])): ?>

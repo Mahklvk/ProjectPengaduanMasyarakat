@@ -17,18 +17,23 @@ include '../config/db.php';
 
 <style>
 body {
-  background-color: #f8f9fa;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+    background-size: cover;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  height: 100vh;
   /* overflow-x: hidden; */
 }
-
+.login-card {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+}
 .login-container {
   width: 100%;
   height: auto;
-  background-color: white;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -75,7 +80,6 @@ body {
 }
 
 .illustration-col {
-  background-color: white;
   padding: 0 30px;
   display: flex;
   flex-direction: column;
@@ -166,30 +170,9 @@ body {
 /* Add some decoration elements */
 .decoration {
   position: absolute;
-  background-color: #f0f2f5;
+  /* background-color: #f0f2f5; */
   border-radius: 50%;
   z-index: -1;
-}
-
-.decoration-1 {
-  width: 200px;
-  height: 200px;
-  top: 10%;
-  left: 5%;
-}
-
-.decoration-2 {
-  width: 100px;
-  height: 100px;
-  bottom: 15%;
-  right: 10%;
-}
-
-.decoration-3 {
-  width: 50px;
-  height: 50px;
-  top: 40%;
-  right: 20%;
 }
 
 /* Custom checkbox */
@@ -229,15 +212,26 @@ body {
   height: auto;
   z-index: 1;
 }
+
+.email, .password{
+      width: 100%;
+      padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
+    }
 </style>
 </head>
 <body>
-    <div class="container-fluid p-0">
-        <div class="login-container my-4">
+    <div class="container-fluid p-3">
+        <div class="login-container my-4 login-card ">
             <div class="row g-0">
                 <!-- Header with back button and logo -->
                 <div class="col-12" style="height: 70px;">
-                    <div class="d-flex justify-content-between align-items-center px-4 py-3 bg-white">
+                    <div class="d-flex justify-content-between align-items-center px-4 py-3">
                       <a href="../index.php">
                         <div class="back-button">
                             <i class="bi bi-arrow-left"></i>
@@ -257,7 +251,7 @@ body {
 
                         <!-- Illustration with character and phone -->
                         <div class="illustration-container">
-                            <img src="../storages/loginAdmin.png" alt="Character with phone illustration" class="illustration-img">
+                            <img src="../storages/loginAdminV2.png" alt="Character with phone illustration" class="illustration-img">
 
                             <!-- Decoration elements -->
                             <div class="decoration decoration-1"></div>
@@ -275,14 +269,12 @@ body {
 
                             <form method="POST">
                             <div class="mb-3">
-                                        <label for="username" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="username" placeholder="example@gmail.com" name="email" required autocomplete="off">
+                                        <input type="email" class="form-control email" id="username" placeholder="Email" name="email" required autocomplete="off">
                                     </div>
 
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
                                     <div class="password-container">
-                                        <input type="password" class="form-control" id="password" placeholder="******" name="password" required>
+                                        <input type="password" class="form-control password" id="password" placeholder="Password" name="password" required>
                                         <button type="button" class="password-toggle">
                                             <i class="bi bi-eye"></i>
                                         </button>
@@ -331,6 +323,7 @@ body {
                                             $_SESSION['nik'] = $data['nik'];
                                             $_SESSION['level'] = $data['level'];
                                             $_SESSION['loginAdmin'] = true;
+                                            $_SESSION['loginPetugas']= true;
 
                                             // Redirect berdasarkan level
                                             if ($data['level'] == 'admin') {
@@ -363,7 +356,7 @@ body {
                                                 echo '<script>
                                                     Swal.fire({
                                                         title: "Gagal Login",
-                                                        text: "Username tidak ditemukan.",
+                                                        text: "Email tidak ditemukan.",
                                                         icon: "error"
                                                     });
                                             </script>';

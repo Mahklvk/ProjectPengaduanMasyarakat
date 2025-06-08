@@ -15,31 +15,65 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Detail Akun Admin - MyReport</title>
     <style>
-              .form-control:read-only {
-            background-color: #f8f9fa;
-        }
+ body {
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+        min-height:100vh ;
+    }
+
+    .admin-detail-card {
+          backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 2rem 2.5rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    .nik, .email, .username, .password, .telp, .role{
+      width: 100%;
+      padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
+    } 
+
+    .title{
+      font-size: 50px;
+    }
+    .form-control:read-only{
+      cursor: not-allowed;
+    }
     </style>
 </head>
 <body>
     <?php include('config/navbar.php')?>
     <h2 class="text-center mt-4"><?php echo $fetch_data['username']?></h2>
     <div class="container mt-4">
-        <div class="row items-start border border-dark rounded p-2">
+        <div class="row items-start admin-detail-card rounded p-2">
             <div class="col-md-12 p-3">
                 <form action="" method="post">
             <label class="form-label">NIK</label>
-<input type="text" class="form-control" id="nik" value="<?php echo $fetch_data['nik']?>" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)" readonly>
+<input type="text" class="form-control nik" id="nik" value="<?php echo $fetch_data['nik']?>" name="nik" maxlength="19" autocomplete="off"   oninput="formatNumber(this)" readonly>
 
 <label class="form-label">Email</label>
-<input type="text" class="form-control" name="email" value="<?php echo $fetch_data['email']?>" readonly>
+<input type="text" class="form-control email" name="email" value="<?php echo $fetch_data['email']?>" readonly>
 
 <label class="form-label">Username</label>
-<input type="text" class="form-control" name="username" value="<?php echo $fetch_data['username']?>">
+<input type="text" class="form-control username" name="username" value="<?php echo $fetch_data['username']?>">
 
 
 <label for="password" class="form-label fw-bold">Password</label>
 <div class="input-group">
- <input type="password" class="form-control" id="password" name="password" placeholder="Password anda" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+ <input type="password" class="form-control password" id="password" name="password" placeholder="Password anda" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
                  title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
 <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
 <i class="fa fa-eye" id="passwordToggleIcon"></i>
@@ -48,11 +82,11 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
 <small class="text-muted">Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial</small><br>
 
 <label class="form-label">No. Telp</label>
-<input type="text" class="form-control" name="telp" value="<?php echo $fetch_data['telp']?>" oninput="formatNumber(this)" minlength="13" maxlength="18" readonly>
+<input type="text" class="form-control telp" name="telp" value="<?php echo $fetch_data['telp']?>" oninput="formatNumber(this)" minlength="13" maxlength="18" readonly>
 
 
           <label for="date" class="form-label">Role</label>
-          <input type="text" class="form-control" name="date" id="date" disabled value="<?php echo $fetch_data['level']?>">
+          <input type="text" class="form-control role" name="level" id="level" readonly value="<?php echo $fetch_data['level']?>">
           </form>
             </div>
              <div class="row">

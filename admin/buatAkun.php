@@ -1,5 +1,6 @@
 <?php
 require "config/sessionLogin.php";
+require "config/sessionFiturAdmin.php";
 include '../config/db.php';
 ?>
 <!DOCTYPE html>
@@ -10,41 +11,65 @@ include '../config/db.php';
   <title>Tambah Akun - MyReport</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
   <style>
-    body { background-color: #f8f9fa; }
-    .btn-primary { width: 100%; }
+    body {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+      font-family: 'Segoe UI', sans-serif;
+       min-height: 100vh;
+    }
+        .card-glass {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #fff;
+        }
+
+            .nik, .email, .username, .password, .telp, .role{
+      width: 100%;
+      padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
+    } 
   </style>
 </head>
 <body>
 <?php include('config/navbar.php'); ?>
 
 <div class="container mt-4">
-  <h2>Tambah Akun</h2>
-  <div class="p-5 border border-dark rounded mb-5">
+  <h2 class="text-white">Tambah Akun</h2>
+  <div class="p-5 card-glass mb-5">
     <form id="tambahAkunForm" method="POST" class="col-md-6 mx-auto">
       <div class="mb-3">
         <label for="nik" class="form-label">NIK</label>
-        <input type="text" class="form-control" id="nik" name="nik" maxlength="19" required autocomplete="off" oninput="formatNumber(this)">
+        <input type="text" class="form-control nik" id="nik" name="nik" maxlength="19" required autocomplete="off" oninput="formatNumber(this)" placeholder="320xxxxx">
         <div id="nikError" class="text-danger small"></div>
       </div>
 
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
+        <input type="email" class="form-control email" id="email" name="email" required autocomplete="off"  placeholder="Example@gmail.com">
         <div id="emailError" class="text-danger small"></div>
       </div>
 
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" name="username" required>
+        <input type="text" class="form-control username" id="username" name="username" required placeholder="Username">
         <div id="userError" class="text-danger small"></div>
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <div class="input-group">
-          <input type="password" class="form-control" id="password" name="password"
+          <input type="password" class="form-control password" id="password" name="password"
                  placeholder="••••••••" required
                  pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
                  title="Minimal 8 karakter, 1 huruf besar, 1 angka, dan 1 karakter spesial">
@@ -55,7 +80,7 @@ include '../config/db.php';
 
       <div class="mb-3">
         <label for="notelp" class="form-label">No.Telp</label>
-        <input type="text" class="form-control" id="notelp" name="notelp" minlength="13" maxlength="18" required oninput="formatNumber(this)">
+        <input type="text" class="form-control telp" id="notelp" name="notelp" minlength="13" maxlength="18" required oninput="formatNumber(this)" placeholder="08123xxxx">
         <div id="telpError" class="text-danger small"></div>
       </div>
 

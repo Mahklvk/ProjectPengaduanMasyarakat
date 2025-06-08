@@ -19,9 +19,9 @@ if (isset($_SESSION['nik'])) {
     }
 }
 
-$filtervalues = $_GET['search'] ?? '';
-$filterkategori = $_GET['kategori'] ?? '';
-$filtertanggal = $_GET['tanggal'] ?? '';
+$filtervalues = mysqli_real_escape_string($conn, $_GET['search'] ?? '');
+$filterkategori = mysqli_real_escape_string($conn, $_GET['kategori'] ?? '');
+$filtertanggal = mysqli_real_escape_string($conn, $_GET['tanggal'] ?? '');
 
 $query = "SELECT * FROM pengaduan WHERE nik = '$nik'";
 

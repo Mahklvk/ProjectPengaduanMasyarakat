@@ -26,45 +26,92 @@ $fetchTanggapan = mysqli_fetch_array($cekTanggapan);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>tanggapan - MyReport</title>
 </head>
+<style>
+  body {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 123, 255, 0.4));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+  .form-control:disabled{
+    cursor: not-allowed;
+         width: 100%;
+      padding: 12px;
+            margin-bottom: 16px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
+  }
+
+  .card-blur {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    padding: 30px;
+}
+
+.judul-laporan, .nik, .alamat, .telp, .username, .kategori, .tanggal, .tanggapan, .isi-laporan{
+      width: 100%;
+      padding: 12px;
+            margin-bottom: 16px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: background 0.3s;
+    }
+</style>
 <body>
     <?php include('config/navbar.php')?>
+
     <h1 class="text-center mt-5">Tanggapan</h1>
-    <div class="container mt-2">
-        <div class="row border border-dark rounded">
+    <div class="container mt-2 card-blur">
+        <div class="row">
             <div class="col-md-6 align-items-start  p-2">
                 <form action="" method="post" class="py-5 p-5 justify-content-center align-items-center ">
                 <label for="judulLaporan" class="form-label">Judul Laporan</label>
-                <input type="text" class="form-control" name="judulLaporan" id="judulLaporan" value="<?php echo $fetch_laporan['judul_laporan']?>" disabled>
+                <input type="text" class="form-control judul-laporan" name="judulLaporan" id="judulLaporan" value="<?php echo $fetch_laporan['judul_laporan']?>" disabled>
 
                 <label for="judulLaporan" class="form-label">NIK</label>
-                <input type="text" class="form-control" name="nik" id="nik" value="<?php echo $fetch_laporan['nik']?>" disabled>
+                <input type="text" class="form-control nik" name="nik" id="nik" value="<?php echo $fetch_laporan['nik']?>" disabled>
+
+                <label for="judulLaporan" class="form-label">Alamat</label>
+                <input type="text" class="form-control alamat" name="alamat" id="alamat" value="<?php echo $fetch_laporan['alamat']?>" disabled>
+
                 <label for="judulLaporan" class="form-label">No.Telp</label>
-                <input type="text" class="form-control" name="telp" id="telp" value="<?php echo $fetch_laporan['telp']?>" disabled>
+                <input type="text" class="form-control telp" name="telp" id="telp" value="<?php echo $fetch_laporan['telp']?>" disabled>
 
                 <label for="judulLaporan" class="form-label">Username</label>
-                <input type="text" class="form-control" name="username" id="username" value="<?php echo $fetch_laporan['username']?>" disabled>
+                <input type="text" class="form-control username" name="username" id="username" value="<?php echo $fetch_laporan['username']?>" disabled>
 
                 <label for="judulLaporan" class="form-label">Kategori</label>
-                <input type="text" class="form-control" name="kategori" id="kategori" value="<?php echo $fetch_laporan['kategori']?>" disabled>
+                <input type="text" class="form-control kategori" name="kategori" id="kategori" value="<?php echo $fetch_laporan['kategori']?>" disabled>
 
                 <label for="date" class="form-label">Tanggal Lapor</label>
-                <input type="text" class="form-control" name="date" id="date" disabled value="<?php echo $fetch_laporan['tgl_pengaduan']?>">
+                <input type="text" class="form-control tanggal" name="date" id="date" disabled value="<?php echo $fetch_laporan['tgl_pengaduan']?>" disabled>
 
                 <label for="tanggapan">Tanggapan</label>
           <?php
           if($hitungTanggapan < 1){
             ?>
-            <textarea name="tanggapan" id="tanggapan" class="form-control" placeholder="Masukkan tanggapan untuk laporan ini"></textarea>
+            <textarea name="tanggapan" id="tanggapan" class="form-control tanggapan" placeholder="Masukkan tanggapan untuk laporan ini"></textarea>
             <?php
           }else{
             ?>
-            <textarea name="tanggapan" id="tanggapan" class="form-control" disabled><?php echo $fetchTanggapan['tanggapan'];?></textarea>
+            <textarea name="tanggapan" id="tanggapan" class="form-control tanggapan" disabled><?php echo $fetchTanggapan['tanggapan'];?></textarea>
             <?php
           }
           ?>
 
                     <label for="isiLaporan">Isi Laporan</label>
-          <textarea name="isiLaporan" id="isiLaporan" class="form-control" disabled><?php echo $fetch_laporan['isi_laporan']?></textarea>
+          <textarea name="isiLaporan" id="isiLaporan" class="form-control isi-laporan" disabled><?php echo $fetch_laporan['isi_laporan']?></textarea>
                     
           <?php
           if($hitungTanggapan < 1){
