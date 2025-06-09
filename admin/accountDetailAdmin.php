@@ -89,7 +89,9 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
           <input type="text" class="form-control role" name="level" id="level" readonly value="<?php echo $fetch_data['level']?>">
           </form>
             </div>
-             <div class="row">
+            <?php if($_SESSION['level'] != 'petugas'){
+              ?>
+            <div class="row">
             <div class="container align-items-center justify-content-center d-flex mt-2 col-md-6">
             <button type="button" class="btn btn-primary me-2" name="approve" onclick="editAkun(<?php echo $fetch_data['id_petugas']?>)">Simpan Perubahan</button>
             </div>
@@ -97,6 +99,16 @@ $fetch_data = mysqli_fetch_array($querySelectLaporan);
             <button type="button" class="btn btn-danger" onclick="hapusAkun(<?php echo $fetch_data['id_petugas']?>)">Hapus Akun</button>
             </div>
           </div>
+              <?php
+              }else{
+                ?>
+                <div class="alert alert-warning" role="alert">
+ Petugas tidak bisa mengubah detail akun petugas maupun admin
+</div>
+                <?php
+              }
+              ?>
+             
         </div>
     </div>
 

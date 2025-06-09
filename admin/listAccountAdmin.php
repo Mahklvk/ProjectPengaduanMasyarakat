@@ -87,8 +87,8 @@ if (!$result) {
         }
         .btn-add-akun {
             position: fixed;
-            bottom: 5rem;
-            right: 4rem;
+            bottom: 2rem;
+            right: 1rem;
             background-color: #3E6EA2;
             border-color: #3E6EA2;
         }
@@ -143,7 +143,7 @@ if (!$result) {
 
   .btn-add-akun {
             position: fixed;
-            bottom: 3rem;
+            bottom: 2rem;
             right: 4rem;
             background-color: #3E6EA2;
             border-color: #3E6EA2;
