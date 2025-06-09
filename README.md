@@ -46,7 +46,7 @@ This project requires the following dependencies:
 
 - **Programming Language:** PHP
 - **Package Manager:** Composer
-
+- **APACHE & MYSQL SERVER:** Laragon
 ### Installation
 
 Build ProjectPengaduanMasyarakat from the source and install dependencies:
